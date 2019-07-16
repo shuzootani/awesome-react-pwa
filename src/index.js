@@ -1,4 +1,6 @@
 import http from 'http';
+import fetch from 'node-fetch'
+global.fetch = require('node-fetch');
 
 let app = require('./server').default;
 
