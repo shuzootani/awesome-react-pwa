@@ -4,8 +4,8 @@ import window from './window'
 // Guideline sizes are based on standard ~5" screen mobile device
 const guidelineBaseWidth = 360
 const guidelineBaseHeight = 740
-const scale = size => window ? (window.innerWidth / guidelineBaseWidth) * size : 1
-const verticalScale = size => window ? (window.innerHeight / guidelineBaseHeight) * size : 1
+const scale = size => window ? (window.innerWidth / guidelineBaseWidth) * size : guidelineBaseWidth * size
+const verticalScale = size => window ? (window.innerHeight / guidelineBaseHeight) * size : guidelineBaseHeight * size
 export const pickpackScale = size => (verticalScale(size) + scale(size)) / 2
 
 export const Space = {

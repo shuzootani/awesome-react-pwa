@@ -21,11 +21,10 @@ function StoreDetail (props) {
       {({ data, loading, error }) => {
         console.log({ store: data })
         console.warn({ error })
-        const { store } = data && data
-        return store ? (
+        return data && data.store ? (
           <React.Fragment>
             <StoreImageContainer>
-              <StoreImage src={store.banner} />
+              <StoreImage src={data.store.banner} />
             </StoreImageContainer>
             <BasketContextProvider>
               <Menu storeId={storeId} />
