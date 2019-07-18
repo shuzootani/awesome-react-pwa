@@ -107,3 +107,78 @@ export const ProductPrice = styled.div`
   font-size: 0.8rem;
   color: ${props => props.discounted ? Color.Yellow : Color.Cyan};
 `
+
+export const ProductOrderSheet = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 300px;
+`
+
+const PRODUCT_IMAGE_SIZE = 150
+
+export const SheetImageContainer = styled.div`
+  position: absolute;
+  top: -${PRODUCT_IMAGE_SIZE / 2}px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+export const ImageContainer = styled.div`
+  width: ${PRODUCT_IMAGE_SIZE}px;
+  height: ${PRODUCT_IMAGE_SIZE}px;
+  background: #fff;
+  box-shadow: 0 0 8px 4px rgba(0,0,0,0.05)
+`
+
+export const ProductSheetImage = styled.img`
+  width: 100%;
+  height: 100%;
+`
+
+export const ProductSheetInfoContainer = styled.div`
+  padding-top: ${PRODUCT_IMAGE_SIZE / 2}px;
+  text-align: center;
+`
+
+export const SheetProductName = styled.div`
+  font-weight: bold;
+  color: ${Color.DarkGreen};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: ${Space.M}px;
+  font-size: 1.2rem;
+`
+
+export const SheetProductDescription = styled.div`
+  font-size: 0.7rem;
+  color: ${Color.DarkGreen};
+  padding: ${Space.S}px;
+`
+
+export const BottomSheetButton = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: ${Space.XS}px 0;
+`
+
+export const AddProductButton = styled.div`
+  padding: ${Space.S}px 0;
+  text-align: center;
+  background: ${Color.DarkGreen};
+  color: #fff;
+  flex: 1;
+`
+
+export const CounterButton = styled.div`
+  border: 1px solid ${Color.DarkGreen};
+  color: ${Color.DarkGreen};
+  padding: ${Space.S}px;
+  margin: 0 ${Space.XS}px;
+`

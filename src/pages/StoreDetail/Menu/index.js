@@ -16,13 +16,25 @@ import {
   CategoryLabelContainer,
   CategoryIcon,
   CategoryLabel,
-  ProductPrice
+  ProductPrice,
+  ProductOrderSheet,
+  ProductSheetImage,
+  SheetImageContainer,
+  ImageContainer,
+  ProductSheetInfoContainer,
+  SheetProductName,
+  AddProductButton,
+  BottomSheetButton,
+  CounterButton,
+  SheetProductDescription
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
-import { formatPrice } from '../../../utils/formatter';
+import { formatPrice } from '../../../utils/formatter'
+import BottomSheet from '../../../components/BottomSheet'
 
 function Menu ({ storeId }) {
   const [tabIndex, setTabIndex] = useState(0)
+  const [selectedProduct, setSelectedProduct] = useState()
   const sectionRefs = useRef([])
   const categoryRefs = useRef([])
 
@@ -68,7 +80,10 @@ function Menu ({ storeId }) {
                       <CategoryLabel>{category.name}</CategoryLabel>
                     </CategoryLabelContainer>
                     {category.products.map(product => (
-                      <ProductItemContainer key={product.id}>
+                      <ProductItemContainer
+                        key={product.id}
+                        onClick={() => setSelectedProduct(product)}
+                      >
                         <ProductItem>
                           <ProductImageContainer>
                             <ProductImage src={product.image} />
@@ -78,7 +93,11 @@ function Menu ({ storeId }) {
                             <ProductDescription>
                               {product.teaser_text}
                             </ProductDescription>
-                            <ProductPrice discounted={!!product.old_price || product.is_promo}>
+                            <ProductPrice
+                              discounted={
+                                !!product.old_price || product.is_promo
+                              }
+                            >
                               {formatPrice(product.price)}
                             </ProductPrice>
                           </ProductInfo>
@@ -88,6 +107,28 @@ function Menu ({ storeId }) {
                   </React.Fragment>
                 ))}
             </ProductList>
+            {selectedProduct && (
+              <BottomSheet onClose={() => setSelectedProduct(null)}>
+                <ProductOrderSheet>
+                  <SheetImageContainer>
+                    <ImageContainer>
+                      <ProductSheetImage src={selectedProduct.image} />
+                    </ImageContainer>
+                  </SheetImageContainer>
+                  <ProductSheetInfoContainer>
+                    <SheetProductName>{selectedProduct.name}</SheetProductName>
+                    <SheetProductDescription>
+                      {selectedProduct.teaser_text_long}
+                    </SheetProductDescription>
+                  </ProductSheetInfoContainer>
+                  <BottomSheetButton>
+                    <CounterButton>-</CounterButton>
+                    <AddProductButton>Add Product</AddProductButton>
+                    <CounterButton>+</CounterButton>
+                  </BottomSheetButton>
+                </ProductOrderSheet>
+              </BottomSheet>
+            )}
           </React.Fragment>
         )
       }}
