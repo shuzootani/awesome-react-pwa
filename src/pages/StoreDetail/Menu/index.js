@@ -15,9 +15,11 @@ import {
   ProductItemContainer,
   CategoryLabelContainer,
   CategoryIcon,
-  CategoryLabel
+  CategoryLabel,
+  ProductPrice
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
+import { formatPrice } from '../../../utils/formatter';
 
 function Menu ({ storeId }) {
   const [tabIndex, setTabIndex] = useState(0)
@@ -25,7 +27,7 @@ function Menu ({ storeId }) {
   const categoryRefs = useRef([])
 
   function onClickCategoryTab (index) {
-    categoryRefs.current[index].scrollIntoView({ block: 'nearest', inline: 'start' })
+    categoryRefs.current[index].scrollIntoView({ inline: 'start' })
     sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' })
     setTabIndex(index)
   }
@@ -76,6 +78,9 @@ function Menu ({ storeId }) {
                             <ProductDescription>
                               {product.teaser_text}
                             </ProductDescription>
+                            <ProductPrice discounted={!!product.old_price || product.is_promo}>
+                              {formatPrice(product.price)}
+                            </ProductPrice>
                           </ProductInfo>
                         </ProductItem>
                       </ProductItemContainer>

@@ -10,7 +10,7 @@ import Menu from './Menu'
 // str_u1jrtcx1zx81
 
 function StoreDetail (props) {
-  const { storeId } = props.match.params
+  const { storeId = 'str_u1jrtcx1zx81' } = props.match.params
   return (
     <Query
       query={storeQuery}
@@ -22,12 +22,12 @@ function StoreDetail (props) {
         console.warn({ error })
         const { store } = data && data
         return store ? (
-          <div>
+          <React.Fragment>
             <StoreImageContainer>
               <StoreImage src={store.banner} />
             </StoreImageContainer>
             <Menu storeId={storeId} />
-          </div>
+          </React.Fragment>
         ) : null
       }}
     </Query>

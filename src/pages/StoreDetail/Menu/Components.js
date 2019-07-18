@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Color from 'utils/color'
+import Space from 'utils/space'
 
 export const ProductCategoryTabs = styled.div`
   display: flex;
@@ -7,6 +8,7 @@ export const ProductCategoryTabs = styled.div`
   overflow-x: scroll;
   box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.03);
   background: #fff;
+  z-index: 1;
 
   position: -webkit-sticky;
   position: sticky;
@@ -54,15 +56,17 @@ export const CategoryLabel = styled.div`
   font-size: 1.1rem;
 `
 
-export const ProductItem = styled.div`
-  display: flex;
-  height: 90px;
-`
-
 export const ProductItemContainer = styled.div`
   padding: 1rem;
   border-bottom: 1px solid ${Color.BGGrey};
 `
+
+export const ProductItem = styled.div`
+  display: flex;
+  height: 90px;
+  position: relative;
+`
+
 
 export const ProductImageContainer = styled.div`
   width: 90px;
@@ -87,7 +91,8 @@ export const ProductName = styled.div`
   color: ${Color.DarkGreen};
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-bottom: 12px;
+  padding-bottom: ${Space.XS}px;
+  padding-right: ${Space.XL}px;
 `
 
 export const ProductDescription = styled.div`
@@ -96,5 +101,9 @@ export const ProductDescription = styled.div`
 `
 
 export const ProductPrice = styled.div`
-
+  position: absolute;
+  top: ${Space.XS}px;
+  right: 0;
+  font-size: 0.8rem;
+  color: ${props => props.discounted ? Color.Yellow : Color.Cyan};
 `
