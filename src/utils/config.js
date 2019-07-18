@@ -27,4 +27,5 @@ const config = {
   }
 }
 
-export const AppConfig = config[NODE_ENV] || config.development
+// export const AppConfig = config[NODE_ENV] || config.development
+export const AppConfig = config.development

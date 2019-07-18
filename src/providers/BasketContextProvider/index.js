@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { useState, createContext } from 'react'
 
 export const BasketContext = createContext()
 
@@ -11,7 +11,7 @@ function BasketContextProvider({ children }) {
     campaigns: [],
     lastPickupTimeChangeTimeStamp: '',
   }
-  const [basket, setBasket] = useState({})
+  const [basket, setBasket] = useState(initialBasketValue)
 
   function addProduct(product, count) {
     const total = product.price * count
@@ -25,7 +25,7 @@ function BasketContextProvider({ children }) {
   }
 
   return (
-    <BasketContext.Provider value={basket}>
+    <BasketContext.Provider value={{ basket, setBasket, addProduct, total: basket.total, amount: basket.products.length }}>
       {children}
     </BasketContext.Provider>
   )

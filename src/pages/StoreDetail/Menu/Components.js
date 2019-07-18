@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Color from 'utils/color'
-import Space from 'utils/space'
+import Color from '../../../utils/color'
+import Space from '../../../utils/space'
 
 export const ProductCategoryTabs = styled.div`
   display: flex;
@@ -181,4 +181,21 @@ export const CounterButton = styled.div`
   color: ${Color.DarkGreen};
   padding: ${Space.S}px;
   margin: 0 ${Space.XS}px;
+`
+
+export const FloatingBottom = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: ${Space.S}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const CheckoutButton = styled(AddProductButton)`
+  display: flex;
+  justify-content: space-around;
 `

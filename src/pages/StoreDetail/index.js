@@ -3,6 +3,7 @@ import { Query } from 'react-apollo'
 import { storeQuery } from '../../graphql/queries'
 import { StoreImageContainer, StoreImage } from './Components'
 import Menu from './Menu'
+import BasketContextProvider from '../../providers/BasketContextProvider'
 
 // storeId to test
 // str_u1jrt15jbudc
@@ -26,7 +27,9 @@ function StoreDetail (props) {
             <StoreImageContainer>
               <StoreImage src={store.banner} />
             </StoreImageContainer>
-            <Menu storeId={storeId} />
+            <BasketContextProvider>
+              <Menu storeId={storeId} />
+            </BasketContextProvider>
           </React.Fragment>
         ) : null
       }}

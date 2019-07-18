@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
+import { withRouter } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import {
   StoreImageContainer,
@@ -26,22 +27,37 @@ import {
   AddProductButton,
   BottomSheetButton,
   CounterButton,
-  SheetProductDescription
+  SheetProductDescription,
+  FloatingBottom,
+  CheckoutButton
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
 import BottomSheet from '../../../components/BottomSheet'
+import { BasketContext } from '../../../providers/BasketContextProvider'
 
-function Menu ({ storeId }) {
+function Menu ({ storeId, history }) {
   const [tabIndex, setTabIndex] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState()
+  const [productCount, setProductCount] = useState(1)
   const sectionRefs = useRef([])
   const categoryRefs = useRef([])
+
+  const { addProduct, basket, amount, total } = useContext(BasketContext)
 
   function onClickCategoryTab (index) {
     categoryRefs.current[index].scrollIntoView({ inline: 'start' })
     sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' })
     setTabIndex(index)
+  }
+
+  function decrement () {
+    if (productCount === 1) return false
+    setProductCount(count => count - 1)
+  }
+
+  function increment () {
+    setProductCount(count => count + 1)
   }
 
   return (
@@ -107,6 +123,16 @@ function Menu ({ storeId }) {
                   </React.Fragment>
                 ))}
             </ProductList>
+            {amount > 0 && (
+              <FloatingBottom>
+                <CheckoutButton onClick={() => history.push('/checkout')}>
+                  <span>{amount}</span>
+                  <span>ZUM WARENKORB</span>
+                  <span>{formatPrice(total)}</span>
+                </CheckoutButton>
+              </FloatingBottom>
+            )}
+
             {selectedProduct && (
               <BottomSheet onClose={() => setSelectedProduct(null)}>
                 <ProductOrderSheet>
@@ -122,9 +148,17 @@ function Menu ({ storeId }) {
                     </SheetProductDescription>
                   </ProductSheetInfoContainer>
                   <BottomSheetButton>
-                    <CounterButton>-</CounterButton>
-                    <AddProductButton>Add Product</AddProductButton>
-                    <CounterButton>+</CounterButton>
+                    <CounterButton onClick={decrement}>-</CounterButton>
+                    <AddProductButton
+                      onClick={() => {
+                        addProduct(selectedProduct, productCount)
+                        setSelectedProduct(null)
+                        setProductCount(1)
+                      }}
+                    >
+                      IN DEN WARENKORB（{productCount}）
+                    </AddProductButton>
+                    <CounterButton onClick={increment}>+</CounterButton>
                   </BottomSheetButton>
                 </ProductOrderSheet>
               </BottomSheet>
@@ -136,4 +170,4 @@ function Menu ({ storeId }) {
   )
 }
 
-export default Menu
+export default withRouter(Menu)
