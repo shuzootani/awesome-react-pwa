@@ -1,9 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import { Query } from 'react-apollo'
 import { storeQuery } from '../../graphql/queries'
 import { StoreImageContainer, StoreImage } from './Components'
 import Menu from './Menu'
-import BasketContextProvider from '../../providers/BasketContextProvider'
 
 // storeId to test
 // str_u1jrt15jbudc
@@ -26,9 +25,7 @@ function StoreDetail (props) {
             <StoreImageContainer>
               <StoreImage src={data.store.banner} />
             </StoreImageContainer>
-            <BasketContextProvider>
-              <Menu storeId={storeId} />
-            </BasketContextProvider>
+            <Menu storeId={storeId} />
           </React.Fragment>
         ) : null
       }}
@@ -36,4 +33,4 @@ function StoreDetail (props) {
   )
 }
 
-export default StoreDetail
+export default React.memo(StoreDetail)
