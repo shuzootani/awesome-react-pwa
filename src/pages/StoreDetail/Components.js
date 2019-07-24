@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import LazyImage from '../../components/LazyImage';
 
 export const StoreImageContainer = styled.div`
   width: 100%;
@@ -6,7 +7,7 @@ export const StoreImageContainer = styled.div`
   background: #fff;
 `
 
-export const StoreImage = styled.img`
+export const StoreImage = styled(LazyImage)`
   width: 100%;
   height: 100%;
 `

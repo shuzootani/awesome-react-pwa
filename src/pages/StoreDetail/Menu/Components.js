@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Color from '../../../utils/color'
 import Space from '../../../utils/space'
+import LazyImage from '../../../components/LazyImage';
 
 export const ProductCategoryTabs = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ export const ProductImageContainer = styled.div`
   height: 90px;
 `
 
-export const ProductImage = styled.img`
+export const ProductImage = styled(LazyImage)`
   width: 100%;
   height: 100%;
 `
@@ -132,7 +133,7 @@ export const ImageContainer = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,0.05)
 `
 
-export const ProductSheetImage = styled.img`
+export const ProductSheetImage = styled(LazyImage)`
   width: 100%;
   height: 100%;
 `
