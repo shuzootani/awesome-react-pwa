@@ -9,6 +9,7 @@ import Header from './components/Header'
 import StoreDetail from '../src/pages/StoreDetail'
 import Checkout from '../src/pages/Checkout'
 import BasketContextProvider from './providers/BasketContextProvider'
+import Payment from './pages/Payment';
 
 require('./App.css')
 
@@ -27,6 +28,7 @@ function App () {
           <Route exact path='/' component={StoreDetail} />
           <Route path='/store/:storeId' component={StoreDetail} />
           <Route path='/checkout' component={Checkout} />
+          <Route path='/payment' component={Payment} />
         </BasketContextProvider>
       </StripeProvider>
     </ApolloProvider>

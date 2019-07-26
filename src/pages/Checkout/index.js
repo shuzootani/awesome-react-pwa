@@ -1,24 +1,18 @@
 import React from 'react'
-import { Elements, CardElement } from 'react-stripe-elements'
-import { PaymentContainer } from './styled'
-import Color from '../../utils/color';
+import { CheckoutContainer } from './styled'
+import FooterButton from '../../components/FooterButton';
 
-const styles = {
-  input: {
-    base: {
-      color: Color.DarkGreen,
-      fontWeight: 'bold'
-    }
+function Checkout({ history }) {
+  function goToPayment() {
+    history.push('/payment')
   }
-}
 
-function Checkout () {
   return (
-    <PaymentContainer>
-      <Elements>
-        <CardElement onReady={el => el.focus()} style={styles.input} />
-      </Elements>
-    </PaymentContainer>
+    <CheckoutContainer>
+      <FooterButton onClick={goToPayment}>
+        Go to Payment
+      </FooterButton>
+    </CheckoutContainer>
   )
 }
 

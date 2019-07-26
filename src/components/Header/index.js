@@ -1,34 +1,43 @@
-import * as React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from '../Icon'
 import zIndex from '../../utils/zIndex'
 
 const ContainerStyle = styled.div`
-  position: absolute;
+  position: ${props => (props.drawBehind ? 'absolute' : 'sticky')};
   top: 0;
   left: 0;
   width: 100%;
   z-index: ${zIndex.header};
+  ${props => !props.drawBehind && 'position: -webkit-sticky'};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const BackButton = styled.div`
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
-function Header ({ history, ...options }) {
-  console.log(history, options)
+// if the path is within the list,
+// it doesn't have the height for header
+const drawBehindList = ['/', '/store/*']
+
+function Header ({ history, location, ...options }) {
+  const shouldDrawBehind = drawBehindList.includes(location.pathname)
+
   return (
-    <ContainerStyle>
-      {/* <BackButton onClick={history.goBack}> */}
-      <Link to='/'>
+    <ContainerStyle drawBehind={shouldDrawBehind}>
+      <BackButton onClick={history.goBack}>
         <Icon name='arrow_left' />
-      </Link>
-      {/* </BackButton> */}
+      </BackButton>
     </ContainerStyle>
   )
 }
 
-export default withRouter(React.memo(Header))
+export default withRouter(Header)

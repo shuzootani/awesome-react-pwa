@@ -28,12 +28,11 @@ import {
   BottomSheetButton,
   CounterButton,
   SheetProductDescription,
-  FloatingBottom,
-  CheckoutButton
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
 import BottomSheet from '../../../components/BottomSheet'
+import FooterButton from '../../../components/FooterButton'
 import { BasketContext } from '../../../providers/BasketContextProvider'
 
 function Menu ({ storeId, history }) {
@@ -124,13 +123,11 @@ function Menu ({ storeId, history }) {
                 ))}
             </ProductList>
             {amount > 0 && (
-              <FloatingBottom>
-                <CheckoutButton onClick={() => history.push('/checkout')}>
+              <FooterButton onClick={() => history.push('/checkout')}>
                   <span>{amount}</span>
                   <span>ZUM WARENKORB</span>
                   <span>{formatPrice(total)}</span>
-                </CheckoutButton>
-              </FloatingBottom>
+              </FooterButton>
             )}
 
             {selectedProduct && (
