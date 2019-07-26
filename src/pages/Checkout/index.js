@@ -1,10 +1,24 @@
 import React from 'react'
+import { Elements, CardElement } from 'react-stripe-elements'
+import { PaymentContainer } from './styled'
+import Color from '../../utils/color';
 
-function Checkout() {
+const styles = {
+  input: {
+    base: {
+      color: Color.DarkGreen,
+      fontWeight: 'bold'
+    }
+  }
+}
+
+function Checkout () {
   return (
-    <div>
-      Checkout
-    </div>
+    <PaymentContainer>
+      <Elements>
+        <CardElement onReady={el => el.focus()} style={styles.input} />
+      </Elements>
+    </PaymentContainer>
   )
 }
 

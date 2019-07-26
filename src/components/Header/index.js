@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from '../Icon'
 import zIndex from '../../utils/zIndex'
@@ -19,12 +19,14 @@ const BackButton = styled.div`
 `
 
 function Header ({ history, ...options }) {
-  console.log(history, options);
+  console.log(history, options)
   return (
     <ContainerStyle>
-      <BackButton onClick={history.goBack}>
+      {/* <BackButton onClick={history.goBack}> */}
+      <Link to='/'>
         <Icon name='arrow_left' />
-      </BackButton>
+      </Link>
+      {/* </BackButton> */}
     </ContainerStyle>
   )
 }
