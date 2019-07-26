@@ -11,10 +11,10 @@ const styles = {
   }
 }
 
-function CreditCardInput () {
+function CreditCardInput (props) {
   return (
     <Elements>
-      <CardElement onReady={el => el.focus()} style={styles.input} />
+      <CardElement {...props} onReady={el => el.focus()} style={styles.input} />
     </Elements>
   )
 }
