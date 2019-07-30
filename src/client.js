@@ -1,8 +1,7 @@
-import App from './App'
-import { BrowserRouter } from 'react-router-dom'
 import React from 'react'
-// use render to refresh header style instead of hydrate
-import { render as hydrate } from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { hydrate } from 'react-dom'
+import App from './App'
 
 hydrate(
   <BrowserRouter>

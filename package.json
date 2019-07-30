@@ -18,6 +18,8 @@
 		"apollo-link-error": "^1.1.11",
 		"apollo-link-http": "^1.5.15",
 		"apollo-link-retry": "^2.2.14",
+		"babel-plugin-styled-components": "^1.10.6",
+		"compression": "^1.7.4",
 		"decamelize-keys-deep": "^0.1.1",
 		"express": "^4.17.1",
 		"graphql": "^14.4.2",

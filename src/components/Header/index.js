@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from '../Icon'
 import zIndex from '../../utils/zIndex'
@@ -28,16 +27,17 @@ const BackButton = styled.div`
 // it doesn't have the height for header
 const drawBehindList = ['/', '/store/*']
 
-function Header ({ history, location, ...options }) {
-  const shouldDrawBehind = drawBehindList.includes(location.pathname)
+function Header ({ location, ...options }) {
+  // const shouldDrawBehind = drawBehindList.includes(location.pathname)
+  const shouldDrawBehind = true
 
   return (
     <ContainerStyle drawBehind={shouldDrawBehind}>
-      <BackButton onClick={history.goBack}>
+      <BackButton onClick={() => {}}>
         <Icon name='arrow_left' />
       </BackButton>
     </ContainerStyle>
   )
 }
 
-export default withRouter(Header)
+export default Header

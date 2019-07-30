@@ -73,19 +73,22 @@ const retryLink = new RetryLink({
 
 const httpLink = new HttpLink({ uri: apolloUri })
 
-const client = new ApolloClient({
-  link: authLink.concat(retryLink).concat(errorLink).concat(httpLink),
-  cache: new InMemoryCache({
-    dataIdFromObject: o => o.id,
-    fragmentMatcher,
-    cacheRedirects: {
-      Query: {
-        product: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Product', id: args.id }),
-        store: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Store', id: args.id }),
-        order: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Order', id: args.id }),
-      },
+const cache = new InMemoryCache({
+  dataIdFromObject: o => o.id,
+  fragmentMatcher,
+  cacheRedirects: {
+    Query: {
+      product: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Product', id: args.id }),
+      store: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Store', id: args.id }),
+      order: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Order', id: args.id }),
     },
-  }),
+  },
+})
+
+const client = new ApolloClient({
+  ssrMode: !process.browser,
+  link: authLink.concat(retryLink).concat(errorLink).concat(httpLink),
+  cache: process.browser && typeof window !== 'undefined' ? cache.restore(window.__APOLLO_STATE__) : cache
 })
 
 export default client

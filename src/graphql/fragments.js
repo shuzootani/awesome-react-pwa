@@ -156,6 +156,7 @@ export const productFragment = gql`
   }
 `
 
+// @TODO: add category.products
 export const storeFragment = gql`
   fragment StoreFragment on Store {
     id
@@ -204,6 +205,10 @@ export const storeFragment = gql`
       short_name
       address
       logo
+    }
+    categories {
+      id
+      name
     }
     campaigns {
       id

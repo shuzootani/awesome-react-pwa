@@ -18,8 +18,8 @@ function StoreDetail (props) {
       fetchPolicy={'cache-and-network'}
     >
       {({ data, loading, error }) => {
-        console.log({ store: data })
-        console.warn({ error })
+        // console.log({ store: data })
+        // console.warn({ error })
         return data && data.store ? (
           <React.Fragment>
             <StoreImageContainer>

@@ -66,8 +66,8 @@ function Menu ({ storeId, history }) {
       fetchPolicy={'cache-and-network'}
     >
       {({ data, loading, error }) => {
-        console.log({ products: data })
-        console.warn({ error })
+        // console.log({ products: data })
+        // console.warn({ error })
         const { productCategories } = data && data
         return (
           <React.Fragment>
