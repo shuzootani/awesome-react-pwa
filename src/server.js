@@ -1,4 +1,5 @@
 import express from 'express'
+import compression from 'compression'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
@@ -10,6 +11,7 @@ import apolloClient from './apolloClient'
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
+server.use(compression())
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
@@ -70,17 +72,14 @@ server
 
                 ${styleTags}
 
-                ${
-          assets.client.css
-            ? `<link rel="stylesheet" href="${assets.client.css}">`
-            : ''
-        }
-                ${
-          process.env.NODE_ENV === 'production'
-            ? `<script src="${assets.client.js}" defer></script>`
-            : `<script src="${assets.client.js}" defer crossorigin></script>`
-        }
-                <script src="https://js.stripe.com/v3/" async></script>
+                ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
+
+                <script src="https://js.stripe.com/v3/" defer></script>
+
+                ${process.env.NODE_ENV === 'production'
+                  ? `<script src="${assets.client.js}" defer></script>`
+                  : `<script src="${assets.client.js}" defer crossorigin></script>`
+                }
             </head>
             <body>
                 <div id="root">${markup}</div>

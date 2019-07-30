@@ -5,8 +5,8 @@ import { onError } from 'apollo-link-error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { RetryLink } from 'apollo-link-retry'
 import { fragmentMatcher } from './graphql/fragments'
-// import store from './store'
 import { AppConfig } from './utils/config'
+import { isBrowser } from './utils/window'
 // import { tokenExpired } from './utils/auth'
 
 Object.setPrototypeOf = Object.setPrototypeOf || ((obj, proto) => {
@@ -88,7 +88,7 @@ const cache = new InMemoryCache({
 const client = new ApolloClient({
   ssrMode: !process.browser,
   link: authLink.concat(retryLink).concat(errorLink).concat(httpLink),
-  cache: process.browser && typeof window !== 'undefined' ? cache.restore(window.__APOLLO_STATE__) : cache
+  cache: isBrowser ? cache.restore(window.__APOLLO_STATE__) : cache
 })
 
 export default client

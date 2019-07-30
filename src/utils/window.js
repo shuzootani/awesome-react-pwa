@@ -10,4 +10,6 @@ if (typeof window !== 'undefined') {
   isomorphicWindow = {}
 }
 
+export const isBrowser = process.browser && typeof window !== 'undefined'
+
 export default isomorphicWindow
