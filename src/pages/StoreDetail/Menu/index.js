@@ -45,7 +45,7 @@ function Menu ({ storeId, history }) {
   const { addProduct, basket, amount, total } = useContext(BasketContext)
 
   function onClickCategoryTab (index) {
-    categoryRefs.current[index].scrollIntoView({ inline: 'start' })
+    categoryRefs.current[index].scrollIntoView({ inline: 'center' })
     sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' })
     setTabIndex(index)
   }
