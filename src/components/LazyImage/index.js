@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const ImageComponent = styled.img`
   width: 100%;
   height: 100%;
-  transition: all 1s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   @keyframes placeHolder {
     0% {

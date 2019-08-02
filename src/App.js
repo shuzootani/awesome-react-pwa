@@ -9,8 +9,8 @@ import Header from './components/Header'
 import StoreDetail from '../src/pages/StoreDetail'
 import Checkout from '../src/pages/Checkout'
 import BasketContextProvider from './providers/BasketContextProvider'
-import Payment from './pages/Payment';
-import Pickup from './pages/Pickup';
+import Payment from './pages/Payment'
+import Pickup from './pages/Pickup'
 
 require('./App.css')
 

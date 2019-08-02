@@ -70,9 +70,8 @@ server
 
                 <title>pickpack</title>
 
-                ${styleTags}
-
                 ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
+                ${styleTags}
 
                 <script src="https://js.stripe.com/v3/" defer></script>
 

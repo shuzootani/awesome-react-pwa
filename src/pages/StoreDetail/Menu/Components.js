@@ -79,12 +79,17 @@ export const ProductImage = styled(LazyImage)`
   height: 100%;
 `
 
+export const ProductInfoContainer = styled.div`
+  display: flex;
+  flex: 1;
+`
+
 export const ProductInfo = styled.div`
-  flex: 4;
+  flex: 1;
   height: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
 `
 
 export const ProductName = styled.div`
@@ -102,9 +107,6 @@ export const ProductDescription = styled.div`
 `
 
 export const ProductPrice = styled.div`
-  position: absolute;
-  top: ${Space.XS}px;
-  right: 0;
   font-size: 0.8rem;
   color: ${props => props.discounted ? Color.Yellow : Color.Cyan};
 `

@@ -28,6 +28,7 @@ import {
   BottomSheetButton,
   CounterButton,
   SheetProductDescription,
+  ProductInfoContainer
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
@@ -45,7 +46,10 @@ function Menu ({ storeId, history }) {
   const { addProduct, basket, amount, total } = useContext(BasketContext)
 
   function onClickCategoryTab (index) {
-    categoryRefs.current[index].scrollIntoView({ inline: 'center' })
+    categoryRefs.current[index].scrollIntoView({
+      inline: 'center',
+      block: 'nearest'
+    })
     sectionRefs.current[index].scrollIntoView({ behavior: 'smooth' })
     setTabIndex(index)
   }
@@ -103,11 +107,13 @@ function Menu ({ storeId, history }) {
                           <ProductImageContainer>
                             <ProductImage src={product.image} />
                           </ProductImageContainer>
-                          <ProductInfo>
-                            <ProductName>{product.name}</ProductName>
-                            <ProductDescription>
-                              {product.teaser_text}
-                            </ProductDescription>
+                          <ProductInfoContainer>
+                            <ProductInfo>
+                              <ProductName>{product.name}</ProductName>
+                              <ProductDescription>
+                                {product.teaser_text}
+                              </ProductDescription>
+                            </ProductInfo>
                             <ProductPrice
                               discounted={
                                 !!product.old_price || product.is_promo
@@ -115,7 +121,7 @@ function Menu ({ storeId, history }) {
                             >
                               {formatPrice(product.price)}
                             </ProductPrice>
-                          </ProductInfo>
+                          </ProductInfoContainer>
                         </ProductItem>
                       </ProductItemContainer>
                     ))}
@@ -124,9 +130,9 @@ function Menu ({ storeId, history }) {
             </ProductList>
             {amount > 0 && (
               <FooterButton onClick={() => history.push('/checkout')}>
-                  <span>{amount}</span>
-                  <span>ZUM WARENKORB</span>
-                  <span>{formatPrice(total)}</span>
+                <span>{amount}</span>
+                <span>ZUM WARENKORB</span>
+                <span>{formatPrice(total)}</span>
               </FooterButton>
             )}
 
