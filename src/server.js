@@ -82,6 +82,7 @@ server
             </head>
             <body>
                 <div id="root">${markup}</div>
+                <div id="modal-root"></div>
                 <script>window.__APOLLO_STATE__ = ${JSON.stringify(apolloState).replace(/</g, '\\u003c')}</script>
             </body>
         </html>`
