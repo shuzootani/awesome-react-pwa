@@ -42,7 +42,6 @@ export const CategoryLabelContainer = styled.div`
   justify-content: center;
   border-top: 1px solid ${Color.Cyan};
   border-bottom: 1px solid ${Color.Cyan};
-  margin-top: 1rem;
   padding: 0.2rem;
 `
 
@@ -60,6 +59,7 @@ export const CategoryLabel = styled.div`
 export const ProductItemContainer = styled.div`
   padding: 1rem;
   border-bottom: 1px solid ${Color.BGGrey};
+  width: 100%;
 `
 
 export const ProductItem = styled.div`
@@ -180,21 +180,16 @@ export const AddProductButton = styled.div`
 `
 
 export const CounterButton = styled.div`
-  border: 1px solid ${Color.DarkGreen};
-  color: ${Color.DarkGreen};
   padding: ${Space.S}px;
   margin: 0 ${Space.XS}px;
+  color: ${Color.DarkGreen};
+  border: 1px solid ${Color.DarkGreen};
+  background: #fff;
 `
 
-export const FloatingBottom = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  padding: ${Space.S}px;
+export const FooterButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `
 

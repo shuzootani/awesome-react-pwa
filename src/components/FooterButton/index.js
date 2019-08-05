@@ -4,9 +4,9 @@ import Color from '../../utils/color';
 
 const ButtonContainer = styled.div`
   position: fixed;
-  bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
+  bottom: 0;
   padding: 1rem;
   background: #fff;
   display: flex;
