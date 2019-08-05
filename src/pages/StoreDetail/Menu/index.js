@@ -28,13 +28,15 @@ import {
   BottomSheetButton,
   CounterButton,
   SheetProductDescription,
-  ProductInfoContainer
+  ProductInfoContainer,
+  FooterButtonContainer
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
 import BottomSheet from '../../../components/BottomSheet'
 import FooterButton from '../../../components/FooterButton'
 import { BasketContext } from '../../../providers/BasketContextProvider'
+import { FormattedMessage } from 'react-intl';
 
 function Menu ({ storeId, history }) {
   const [tabIndex, setTabIndex] = useState(0)
@@ -130,9 +132,11 @@ function Menu ({ storeId, history }) {
             </ProductList>
             {amount > 0 && (
               <FooterButton onClick={() => history.push('/checkout')}>
-                <span>{amount}</span>
-                <span>ZUM WARENKORB</span>
-                <span>{formatPrice(total)}</span>
+                <FooterButtonContainer>
+                  <div>{amount}</div>
+                  <div>ZUM WARENKORB</div>
+                  <div>{formatPrice(total)}</div>
+                </FooterButtonContainer>
               </FooterButton>
             )}
 
@@ -152,15 +156,15 @@ function Menu ({ storeId, history }) {
                   </ProductSheetInfoContainer>
                   <BottomSheetButton>
                     <CounterButton onClick={decrement}>-</CounterButton>
-                    <AddProductButton
+                    <FooterButton
                       onClick={() => {
                         addProduct(selectedProduct, productCount)
                         setSelectedProduct(null)
                         setProductCount(1)
                       }}
                     >
-                      IN DEN WARENKORB（{productCount}）
-                    </AddProductButton>
+                      <FormattedMessage id="pages.StoreDetail.AddToBasket" />（{productCount}）
+                    </FooterButton>
                     <CounterButton onClick={increment}>+</CounterButton>
                   </BottomSheetButton>
                 </ProductOrderSheet>

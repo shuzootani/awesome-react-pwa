@@ -11,6 +11,7 @@ import Checkout from '../src/pages/Checkout'
 import BasketContextProvider from './providers/BasketContextProvider'
 import Payment from './pages/Payment'
 import Pickup from './pages/Pickup'
+import LanguageContextProvider from './providers/LanguageContextProvider'
 
 require('./App.css')
 
@@ -23,16 +24,18 @@ function App () {
 
   return (
     <ApolloProvider client={client}>
-      <Header />
-      <StripeProvider stripe={stripe}>
-        <BasketContextProvider>
-          <Route exact path='/' component={StoreDetail} />
-          <Route path='/store/:storeId' component={StoreDetail} />
-          <Route path='/checkout' component={Checkout} />
-          <Route path='/payment' component={Payment} />
-          <Route path='/pickup' component={Pickup} />
-        </BasketContextProvider>
-      </StripeProvider>
+      <LanguageContextProvider>
+        <Header />
+        <StripeProvider stripe={stripe}>
+          <BasketContextProvider>
+            <Route exact path='/' component={StoreDetail} />
+            <Route path='/store/:storeId' component={StoreDetail} />
+            <Route path='/checkout' component={Checkout} />
+            <Route path='/payment' component={Payment} />
+            <Route path='/pickup' component={Pickup} />
+          </BasketContextProvider>
+        </StripeProvider>
+      </LanguageContextProvider>
     </ApolloProvider>
   )
 }
