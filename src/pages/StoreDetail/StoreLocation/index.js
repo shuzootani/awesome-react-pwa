@@ -58,7 +58,7 @@ function StoreLocation ({ geo_hash, location_name, name }) {
   return (
     <StoreLocationContainer>
       <LocationButton onClick={toggleModal}>
-        <Icon name='clock' />
+        <Icon name='mapPin' />
         <LocationName>{location_name}</LocationName>
       </LocationButton>
       {open && (

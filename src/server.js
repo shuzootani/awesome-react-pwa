@@ -71,7 +71,7 @@ server
                 <title>pickpack</title>
 
                 <script async id="stripe-js" src="https://js.stripe.com/v3/"></script>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.GOOGLE_MAP_KEY}"></script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
 
                 ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
                 ${styleTags}
