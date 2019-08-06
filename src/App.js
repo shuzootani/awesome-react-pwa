@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo'
-import { StripeProvider } from 'react-stripe-elements'
 import { AppConfig } from './utils/config'
 import client from './apolloClient'
 
@@ -12,6 +11,7 @@ import BasketContextProvider from './providers/BasketContextProvider'
 import Payment from './pages/Payment'
 import Pickup from './pages/Pickup'
 import LanguageContextProvider from './providers/LanguageContextProvider'
+import StripeContextProvider from './providers/StripeContextProvider';
 
 require('./App.css')
 
@@ -19,14 +19,20 @@ function App () {
   const [stripe, setStripe] = useState(null)
 
   useEffect(() => {
-    setStripe(window.Stripe(AppConfig.STRIPE_PUBLIC_KEY))
+    if (window.Stripe) {
+      setStripe(window.Stripe(AppConfig.STRIPE_PUBLIC_KEY))
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        setStripe(window.Stripe(AppConfig.STRIPE_PUBLIC_KEY))
+      })
+    }
   }, [])
 
   return (
     <ApolloProvider client={client}>
       <LanguageContextProvider>
         <Header />
-        <StripeProvider stripe={stripe}>
+        <StripeContextProvider stripe={stripe}>
           <BasketContextProvider>
             <Route exact path='/' component={StoreDetail} />
             <Route path='/store/:storeId' component={StoreDetail} />
@@ -34,7 +40,7 @@ function App () {
             <Route path='/payment' component={Payment} />
             <Route path='/pickup' component={Pickup} />
           </BasketContextProvider>
-        </StripeProvider>
+        </StripeContextProvider>
       </LanguageContextProvider>
     </ApolloProvider>
   )

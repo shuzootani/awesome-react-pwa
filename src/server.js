@@ -70,10 +70,10 @@ server
 
                 <title>pickpack</title>
 
+                <script id="stripe-js" src="https://js.stripe.com/v3/" async></script>
+
                 ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
                 ${styleTags}
-
-                <script src="https://js.stripe.com/v3/" defer></script>
 
                 ${process.env.NODE_ENV === 'production'
                   ? `<script src="${assets.client.js}" defer></script>`
