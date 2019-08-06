@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createPortal } from 'react'
+import React, { useState, useEffect, useRef, createPortal } from 'react'
 import * as ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { isBrowser } from '../../utils/window'
@@ -27,7 +27,8 @@ const Sheet = styled.div`
 `
 
 function BottomSheet ({ isOpen, onClose, children }) {
-  const modalElement = document.createElement('div')
+  const modalElement = useRef(document.createElement('div')).current
+
   useEffect(() => {
     const modalRoot = document.getElementById('modal-root')
     modalRoot.appendChild(modalElement)

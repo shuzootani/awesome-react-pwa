@@ -31,7 +31,7 @@ function App () {
   return (
     <ApolloProvider client={client}>
       <LanguageContextProvider>
-        <Header />
+        <Route path='*' component={Header} />
         <StripeContextProvider stripe={stripe}>
           <BasketContextProvider>
             <Route exact path='/' component={StoreDetail} />
