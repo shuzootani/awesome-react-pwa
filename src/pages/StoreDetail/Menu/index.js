@@ -33,7 +33,7 @@ import {
 } from './Components'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
-import BottomSheet from '../../../components/BottomSheet'
+import Modal from '../../../components/Modal'
 import FooterButton from '../../../components/FooterButton'
 import { BasketContext } from '../../../providers/BasketContextProvider'
 import { FormattedMessage } from 'react-intl';
@@ -141,7 +141,7 @@ function Menu ({ storeId, history }) {
             )}
 
             {selectedProduct && (
-              <BottomSheet onClose={() => setSelectedProduct(null)}>
+              <Modal onClose={() => setSelectedProduct(null)} bottom>
                 <ProductOrderSheet>
                   <SheetImageContainer>
                     <ImageContainer>
@@ -168,7 +168,7 @@ function Menu ({ storeId, history }) {
                     <CounterButton onClick={increment}>+</CounterButton>
                   </BottomSheetButton>
                 </ProductOrderSheet>
-              </BottomSheet>
+              </Modal>
             )}
           </React.Fragment>
         )

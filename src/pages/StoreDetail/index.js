@@ -1,8 +1,18 @@
 import * as React from 'react'
 import { Query } from 'react-apollo'
 import { storeQuery } from '../../graphql/queries'
-import { StoreImageContainer, StoreImage } from './Components'
+import {
+  StoreImageContainer,
+  StoreImage,
+  BottomButtonsContainer,
+  StoreName,
+  ImageOverlay,
+  BottomContainer
+} from './Components'
 import Menu from './Menu'
+import SingleStoreMap from '../../components/SingleStoreMap'
+import StoreLocation from './StoreLocation'
+import PickupTimeSelector from './PickupTimeSelector'
 
 // storeId to test
 // str_u1jrt15jbudc
@@ -18,12 +28,20 @@ function StoreDetail (props) {
       fetchPolicy={'cache-and-network'}
     >
       {({ data, loading, error }) => {
-        // console.log({ store: data })
+        // console.log({ data })
         // console.warn({ error })
         return data && data.store ? (
           <React.Fragment>
             <StoreImageContainer>
+              <ImageOverlay />
               <StoreImage src={data.store.banner} />
+              <BottomContainer>
+                <StoreName>{data.store.name}</StoreName>
+                <BottomButtonsContainer>
+                  <PickupTimeSelector {...data.store} />
+                  <StoreLocation {...data.store} />
+                </BottomButtonsContainer>
+              </BottomContainer>
             </StoreImageContainer>
             <Menu storeId={storeId} />
           </React.Fragment>

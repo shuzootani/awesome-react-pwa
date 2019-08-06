@@ -116,6 +116,7 @@ export const ProductOrderSheet = styled.div`
   flex-direction: column;
   align-items: center;
   height: 300px;
+  background: #fff;
 `
 
 const PRODUCT_IMAGE_SIZE = 150

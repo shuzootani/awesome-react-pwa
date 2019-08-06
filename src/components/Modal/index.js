@@ -17,17 +17,18 @@ const DarkOverlay = styled.div`
   z-index: ${DarkOverlayZIndex};
   background: rgba(0, 0, 0, 0.3);
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: ${props => (props.bottom ? 'flex-end' : 'center')};
 `
 
 const Sheet = styled.div`
-  background: #fff;
   position: relative;
   width: 100%;
 `
 
-function BottomSheet ({ isOpen, onClose, children }) {
-  const modalElement = useRef(document.createElement('div')).current
+function Modal ({ isOpen, onClose, children, bottom = false }) {
+  const modalElement =
+    isBrowser && useRef(document.createElement('div')).current
 
   useEffect(() => {
     const modalRoot = document.getElementById('modal-root')
@@ -39,15 +40,16 @@ function BottomSheet ({ isOpen, onClose, children }) {
     }
   }, [])
 
-  return (
-    isBrowser &&
-    ReactDOM.createPortal(
-      <DarkOverlay onClick={onClose}>
-        <Sheet onClick={e => e.stopPropagation()}>{children}</Sheet>
+  return modalElement
+    ? ReactDOM.createPortal(
+      <DarkOverlay onClick={onClose} bottom={bottom}>
+        <Sheet bottom={bottom} onClick={e => e.stopPropagation()}>
+          {children}
+        </Sheet>
       </DarkOverlay>,
       modalElement
     )
-  )
+    : null
 }
 
-export default BottomSheet
+export default Modal

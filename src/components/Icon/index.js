@@ -1,8 +1,10 @@
 import React from 'react'
-import { FiArrowLeft } from 'react-icons/fi'
+import { FiArrowLeft, FiMapPin, FiClock } from 'react-icons/fi'
 
 const iconMap = {
-  arrow_left: <FiArrowLeft />
+  arrow_left: <FiArrowLeft />,
+  clock: <FiClock />,
+  mapPin: <FiMapPin />
 }
 
 function Icon({ name }) {
