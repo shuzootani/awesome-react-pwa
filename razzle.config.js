@@ -1,7 +1,22 @@
+const OfflinePlugin = require('offline-plugin')
+
 module.exports = {
   modify: (config, { target, dev }, webpack) => {
-    // do something to config
-
-    return config;
-  },
-};
+    const appConfig = config
+    if (target === 'web') {
+      const offlineOptions = {
+        externals: ['/'],
+        publicPath: '/',
+        ServiceWorker: {
+          events: true,
+          navigateFallbackURL: '/',
+          publicPath: '/sw.js'
+        },
+        autoUpdate: true,
+        safeToUseOptionalCaches: true,
+      }
+      appConfig.plugins = [...config.plugins, new OfflinePlugin(offlineOptions)]
+    }
+    return appConfig
+  }
+}

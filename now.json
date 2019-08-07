@@ -6,8 +6,9 @@
 	],
 	"routes": [
 		{ "src": "/static/(.*)", "dest": "build/public/static/$1" },
-		{ "src": "/favicon.ico", "dest": "favicon.ico" },
-		{ "src": "/robots.txt", "dest": "robots.txt" },
+		{ "src": "/favicon.ico", "dest": "build/public/favicon.ico" },
+		{ "src": "/robots.txt", "dest": "build/public/robots.txt" },
+		{ "src": "/sw.js", "dest": "build/public/sw.js" },
 		{ "src": "/(.*)", "dest": "build/server.js" }
 	],
 	"env": {

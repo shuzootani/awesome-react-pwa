@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo'
 import { AppConfig } from './utils/config'
 import client from './apolloClient'
@@ -11,7 +11,7 @@ import BasketContextProvider from './providers/BasketContextProvider'
 import Payment from './pages/Payment'
 import Pickup from './pages/Pickup'
 import LanguageContextProvider from './providers/LanguageContextProvider'
-import StripeContextProvider from './providers/StripeContextProvider';
+import StripeContextProvider from './providers/StripeContextProvider'
 
 require('./App.css')
 
@@ -34,11 +34,14 @@ function App () {
         <Route path='*' component={Header} />
         <StripeContextProvider stripe={stripe}>
           <BasketContextProvider>
-            <Route exact path='/' component={StoreDetail} />
-            <Route path='/store/:storeId' component={StoreDetail} />
-            <Route path='/checkout' component={Checkout} />
-            <Route path='/payment' component={Payment} />
-            <Route path='/pickup' component={Pickup} />
+            <Switch>
+              <Route path='/store/:storeId' component={StoreDetail} />
+              <Route path='/checkout' component={Checkout} />
+              <Route path='/payment' component={Payment} />
+              <Route path='/pickup' component={Pickup} />
+              {/* @TODO: Not Found 404 page */}
+              <Route component={StoreDetail} />
+            </Switch>
           </BasketContextProvider>
         </StripeContextProvider>
       </LanguageContextProvider>

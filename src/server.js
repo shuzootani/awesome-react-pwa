@@ -46,7 +46,7 @@ server
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <meta charset="utf-8" />
+                <meta name="theme-color" content="#1c4448"/>
                 <meta
                   name="description"
                   content="${req.url}"
@@ -70,15 +70,15 @@ server
 
                 <title>pickpack</title>
 
-                <script async id="stripe-js" src="https://js.stripe.com/v3/"></script>
+                <script async defer id="stripe-js" src="https://js.stripe.com/v3/"></script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
 
-                ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
+                ${assets.client.css ? `<link rel="preload" as="style" href="${assets.client.css}" onload="this.rel='stylesheet'">` : ''}
                 ${styleTags}
 
                 ${process.env.NODE_ENV === 'production'
-                  ? `<script src="${assets.client.js}" defer></script>`
-                  : `<script src="${assets.client.js}" defer crossorigin></script>`
+                  ? `<script src="${assets.client.js}" async defer></script>`
+                  : `<script src="${assets.client.js}" async defer crossorigin></script>`
                 }
             </head>
             <body>
