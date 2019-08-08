@@ -2,7 +2,7 @@
 export const Color = {
   DarkGrey: '#555555',
   Grey: '#8da1a3',
-  LightGrey: '#F7F7F7',
+  LightGrey: '#F6F8F8',
   MidGrey: '#9D9D9D',
   PlaceholderGrey: '#8ca1a3', // f7e7cf
   White: '#FFFFFF',

@@ -7,41 +7,25 @@ import {
   ProductCategoryTabs,
   Tab,
   ProductList,
-  ProductItem,
-  ProductImageContainer,
-  ProductImage,
-  ProductInfo,
-  ProductName,
-  ProductDescription,
-  ProductItemContainer,
   CategoryLabelContainer,
   CategoryIcon,
   CategoryLabel,
-  ProductPrice,
   ProductOrderSheet,
   ProductSheetImage,
-  SheetImageContainer,
-  ImageContainer,
-  ProductSheetInfoContainer,
-  SheetProductName,
-  AddProductButton,
-  BottomSheetButton,
-  CounterButton,
-  SheetProductDescription,
-  ProductInfoContainer,
-  FooterButtonContainer
-} from './Components'
+  FooterButtonContainer,
+  AddProductButton
+} from './styled'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
 import { formatPrice } from '../../../utils/formatter'
 import Modal from '../../../components/Modal'
 import FooterButton from '../../../components/FooterButton'
 import { BasketContext } from '../../../providers/BasketContextProvider'
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl'
+import ProductItem from './ProductItem'
 
 function Menu ({ storeId, history }) {
   const [tabIndex, setTabIndex] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState()
-  const [productCount, setProductCount] = useState(1)
   const sectionRefs = useRef([])
   const categoryRefs = useRef([])
 
@@ -90,6 +74,7 @@ function Menu ({ storeId, history }) {
                   </Tab>
                 ))}
             </ProductCategoryTabs>
+
             <ProductList>
               {productCategories &&
                 productCategories.map((category, index) => (
@@ -101,35 +86,17 @@ function Menu ({ storeId, history }) {
                       <CategoryLabel>{category.name}</CategoryLabel>
                     </CategoryLabelContainer>
                     {category.products.map(product => (
-                      <ProductItemContainer
+                      <ProductItem
                         key={product.id}
-                        onClick={() => setSelectedProduct(product)}
-                      >
-                        <ProductItem>
-                          <ProductImageContainer>
-                            <ProductImage src={product.image} />
-                          </ProductImageContainer>
-                          <ProductInfoContainer>
-                            <ProductInfo>
-                              <ProductName>{product.name}</ProductName>
-                              <ProductDescription>
-                                {product.teaser_text}
-                              </ProductDescription>
-                            </ProductInfo>
-                            <ProductPrice
-                              discounted={
-                                !!product.old_price || product.is_promo
-                              }
-                            >
-                              {formatPrice(product.price)}
-                            </ProductPrice>
-                          </ProductInfoContainer>
-                        </ProductItem>
-                      </ProductItemContainer>
+                        product={product}
+                        selectedProduct={selectedProduct}
+                        onClick={setSelectedProduct}
+                      />
                     ))}
                   </React.Fragment>
                 ))}
             </ProductList>
+
             {amount > 0 && (
               <FooterButton onClick={() => history.push('/checkout')}>
                 <FooterButtonContainer>
@@ -138,37 +105,6 @@ function Menu ({ storeId, history }) {
                   <div>{formatPrice(total)}</div>
                 </FooterButtonContainer>
               </FooterButton>
-            )}
-
-            {selectedProduct && (
-              <Modal onClose={() => setSelectedProduct(null)} bottom>
-                <ProductOrderSheet>
-                  <SheetImageContainer>
-                    <ImageContainer>
-                      <ProductSheetImage src={selectedProduct.image} />
-                    </ImageContainer>
-                  </SheetImageContainer>
-                  <ProductSheetInfoContainer>
-                    <SheetProductName>{selectedProduct.name}</SheetProductName>
-                    <SheetProductDescription>
-                      {selectedProduct.teaser_text_long}
-                    </SheetProductDescription>
-                  </ProductSheetInfoContainer>
-                  <BottomSheetButton>
-                    <CounterButton onClick={decrement}>-</CounterButton>
-                    <FooterButton
-                      onClick={() => {
-                        addProduct(selectedProduct, productCount)
-                        setSelectedProduct(null)
-                        setProductCount(1)
-                      }}
-                    >
-                      <FormattedMessage id="pages.StoreDetail.AddToBasket" />（{productCount}）
-                    </FooterButton>
-                    <CounterButton onClick={increment}>+</CounterButton>
-                  </BottomSheetButton>
-                </ProductOrderSheet>
-              </Modal>
             )}
           </React.Fragment>
         )

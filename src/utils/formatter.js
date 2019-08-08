@@ -1,4 +1,4 @@
-export function formatPrice(price = 0, extras, number = false) {
+export function formatPrice(price = 0, extras, number = false, handleSign = false) {
   let total = price
   if (extras) {
     extras.forEach((extra) => {
@@ -10,5 +10,15 @@ export function formatPrice(price = 0, extras, number = false) {
   if (number) {
     return total
   }
-  return `${(Number(total) / 100).toFixed(2).replace('.', ',')} € `
+
+  const formattedTotal = `${(Number(Math.abs(total)) / 100)
+    .toFixed(2)
+    .replace('.', ',')} €`
+
+  const isNegative = Math.sign(total) === -1
+  if (handleSign) {
+    return `${isNegative ? '- ' : '+'} ${formattedTotal}`
+  }
+
+  return formattedTotal
 }
