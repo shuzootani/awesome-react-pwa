@@ -28,8 +28,9 @@ import { formatPrice } from '../../../../../utils/formatter'
 import Icon from '../../../../../components/Icon'
 import Checkbox from '../../../../../components/Checkbox'
 
-function OrderSheet ({ product }) {
+function OrderSheet ({ product, addToBasket }) {
   const [selectedExtras, setExtras] = useState([])
+  const [comment, setComment] = useState('')
   const [openGroup, setOpenGroup] = useState({})
   const { extra_groups: extraGroups } = product
 
@@ -89,6 +90,19 @@ function OrderSheet ({ product }) {
     }))
 
     setExtras(newSelectedExtras)
+  }
+
+  function addProduct() {
+    const basketItem = {
+      ...product,
+      extras: selectedExtras,
+      comment
+    }
+    addToBasket(basketItem)
+  }
+
+  function onCommentChange({ target: { value } }) {
+    setComment(value)
   }
 
   return (
@@ -166,8 +180,8 @@ function OrderSheet ({ product }) {
             </ExtraSelectorContainer>
           )
         })}
-      <CommentInput onChange={() => {}} label='Anmerkungen' />
-      <AddProductButton>
+      <CommentInput onChange={onCommentChange} label='Anmerkungen' />
+      <AddProductButton onClick={addProduct}>
         <FormattedMessage id='pages.StoreDetail.AddToBasket' />
         <PlusIcon name='plus' />
       </AddProductButton>

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Query } from 'react-apollo'
 import { storeQuery } from '../../graphql/queries'
 import {
+  StoreDetailContainer,
   StoreImageContainer,
   StoreImage,
   BottomButtonsContainer,
@@ -31,7 +32,7 @@ function StoreDetail (props) {
         // console.log({ data })
         // console.warn({ error })
         return data && data.store ? (
-          <React.Fragment>
+          <StoreDetailContainer>
             <StoreImageContainer>
               <ImageOverlay />
               <StoreImage src={data.store.banner} />
@@ -44,7 +45,7 @@ function StoreDetail (props) {
               </BottomContainer>
             </StoreImageContainer>
             <Menu storeId={storeId} />
-          </React.Fragment>
+          </StoreDetailContainer>
         ) : null
       }}
     </Query>

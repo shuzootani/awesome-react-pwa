@@ -2,8 +2,7 @@ import React, { useState, useRef, useContext } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import {
-  StoreImageContainer,
-  StoreImage,
+  MenuContainer,
   ProductCategoryTabs,
   Tab,
   ProductList,
@@ -60,7 +59,7 @@ function Menu ({ storeId, history }) {
         // console.warn({ error })
         const { productCategories } = data && data
         return (
-          <React.Fragment>
+          <MenuContainer>
             <ProductCategoryTabs>
               {productCategories &&
                 productCategories.map((category, index) => (
@@ -91,6 +90,7 @@ function Menu ({ storeId, history }) {
                         product={product}
                         selectedProduct={selectedProduct}
                         onClick={setSelectedProduct}
+                        addToBasket={addProduct}
                       />
                     ))}
                   </React.Fragment>
@@ -106,7 +106,7 @@ function Menu ({ storeId, history }) {
                 </FooterButtonContainer>
               </FooterButton>
             )}
-          </React.Fragment>
+          </MenuContainer>
         )
       }}
     </Query>

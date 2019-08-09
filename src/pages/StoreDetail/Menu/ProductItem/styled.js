@@ -6,7 +6,6 @@ import Space from '../../../../utils/space'
 export const ProductItemContainer = styled.div`
   padding: 1rem;
   border-bottom: 1px solid ${Color.BGGrey};
-  min-width: 0;
 `
 
 export const ProductItem = styled.div`

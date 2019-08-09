@@ -3,6 +3,11 @@ import Color from '../../../utils/color'
 import Space from '../../../utils/space'
 import LazyImage from '../../../components/LazyImage'
 
+export const MenuContainer = styled.div`
+  min-width: 0;
+  width: 100%;
+`
+
 export const ProductCategoryTabs = styled.div`
   display: flex;
   flex-wrap: nowrap;
