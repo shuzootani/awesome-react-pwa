@@ -13,6 +13,9 @@ const BasicButton = styled.button`
   justify-content: center;
   white-space: pre;
   padding: 0.5rem 1rem;
+  &:disabled {
+    background: ${Color.MudGrey};
+  }
 `
 
 function Button(props) {

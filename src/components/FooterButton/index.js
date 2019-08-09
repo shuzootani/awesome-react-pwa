@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Color from '../../utils/color';
+import PropTypes from 'prop-types'
+import Button from '../Button'
 
 const ButtonContainer = styled.div`
   position: fixed;
@@ -13,21 +14,20 @@ const ButtonContainer = styled.div`
   box-shadow: 0 0 4px 2px rgba(0,0,0,0.05);
 `
 
-const Button = styled.button`
-  background: ${Color.Petrol};
-  color: #fff;
-  text-align: center;
-  padding: 0.7rem;
+const BaseFooterButton = styled(Button)`
   flex: 1;
-  border-radius: 2px;
 `
 
 function FooterButton({ children, ...rest }) {
   return (
     <ButtonContainer>
-      <Button {...rest}>{children}</Button>
+      <BaseFooterButton {...rest}>{children}</BaseFooterButton>
     </ButtonContainer>
   )
+}
+
+FooterButton.propTypes = {
+  children: PropTypes.array.isRequired,
 }
 
 export default FooterButton
