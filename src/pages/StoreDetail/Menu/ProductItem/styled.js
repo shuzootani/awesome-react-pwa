@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import Color from '../../../../utils/color'
 import LazyImage from '../../../../components/LazyImage'
-import Space from '../../../../utils/space'
+import { HeaderSmall, ButtonSmall } from '../../../../components/Text'
+
+const IMAGE_SIZE = '90px'
 
 export const ProductItemContainer = styled.div`
   padding: 1rem;
@@ -10,13 +12,17 @@ export const ProductItemContainer = styled.div`
 
 export const ProductItem = styled.div`
   display: flex;
-  height: 90px;
+  height: ${IMAGE_SIZE};
   position: relative;
 `
 
 export const ProductImageContainer = styled.div`
-  width: 90px;
-  height: 90px;
+  width: ${IMAGE_SIZE};
+  height: ${IMAGE_SIZE};
+  min-width: ${IMAGE_SIZE};
+  max-width: ${IMAGE_SIZE};
+  min-height: ${IMAGE_SIZE};
+  max-height: ${IMAGE_SIZE};
 `
 
 export const ProductImage = styled(LazyImage)`
@@ -26,32 +32,23 @@ export const ProductImage = styled(LazyImage)`
 
 export const ProductInfoContainer = styled.div`
   display: flex;
+  padding-left: 1rem;
   flex: 1;
 `
 
 export const ProductInfo = styled.div`
   flex: 1;
-  height: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 1rem;
 `
 
-export const ProductName = styled.div`
-  font-weight: bold;
-  color: ${Color.DarkGreen};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-bottom: ${Space.XS}px;
-  padding-right: ${Space.XL}px;
+export const ProductName = styled(HeaderSmall)`
+  padding-bottom: 0.5rem;
 `
 
-export const ProductDescription = styled.div`
-  font-size: 0.7rem;
-  color: ${Color.DarkGreen};
+export const ProductDescription = styled(ButtonSmall)`
 `
 
 export const ProductPrice = styled.div`
   font-size: 0.8rem;
+  white-space: pre;
   color: ${props => (props.discounted ? Color.Yellow : Color.Cyan)};
 `

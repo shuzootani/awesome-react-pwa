@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import Space from '../../utils/space';
-import Color from '../../utils/color';
+import Color from '../../utils/color'
+import { ELLIPSIS } from '../../utils/styles'
 
 export const CheckoutContainer = styled.div`
-  padding: ${Space.L}px;
+  padding: 1.5rem;
 `
 
 export const ProductListContainer = styled.div``
@@ -11,16 +11,15 @@ export const ProductListContainer = styled.div``
 export const ProductItemContainer = styled.div`
   position: relative;
   border-bottom: 1px solid #ddd;
-  padding: ${Space.XS}px 0;
+  padding: 0.5rem 0;
 `
 
 export const ProductName = styled.div`
   font-weight: bold;
   color: ${Color.DarkGreen};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-bottom: ${Space.XS}px;
-  padding-right: ${Space.XL}px;
+  padding-bottom: 0.5rem;
+  padding-right: 2rem;
+  ${ELLIPSIS};
 `
 
 export const ProductDescription = styled.div`
@@ -32,7 +31,7 @@ export const ProductDescription = styled.div`
 
 export const ProductPrice = styled.div`
   position: absolute;
-  top: ${Space.XS}px;
+  top: 0.5rem;
   right: 0;
   font-size: 0.8rem;
   color: ${props => props.discounted ? Color.Yellow : Color.Cyan};

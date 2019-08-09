@@ -1,9 +1,7 @@
 import styled from 'styled-components'
-import LazyImage from '../../components/LazyImage';
+import LazyImage from '../../components/LazyImage'
 
 export const StoreDetailContainer = styled.div`
-  min-width: 0;
-  max-width: 100%;
 `
 
 export const StoreImageContainer = styled.div`

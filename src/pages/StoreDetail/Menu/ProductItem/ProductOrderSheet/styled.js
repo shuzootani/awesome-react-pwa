@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Color from '../../../../../utils/color'
-import Space from '../../../../../utils/space'
 import Icon from '../../../../../components/Icon'
-import { HeaderSmall, ButtonSmall, ButtonMed } from '../../../../../components/Text'
-import TextArea from '../../../../../components/TextArea';
+import { HeaderSmall, ButtonSmall } from '../../../../../components/Text'
+import TextArea from '../../../../../components/TextArea'
+import Button from '../../../../../components/Button'
 
 export const ProductOrderSheet = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ export const Label = styled.div`
 export const SheetProductDescription = styled.div`
   font-size: 0.7rem;
   color: ${Color.DarkGreen};
-  padding: ${Space.S}px;
+  padding: 0.5rem;
 `
 
 export const BottomSheetButton = styled.div`
@@ -33,19 +33,19 @@ export const BottomSheetButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: ${Space.XS}px 0;
+  margin: 2rem 0;
 `
 
 export const CounterButton = styled.div`
-  padding: ${Space.S}px;
-  margin: 0 ${Space.XS}px;
+  padding: 0.5rem;
+  margin: 0 2rem;
   color: ${Color.DarkGreen};
   border: 1px solid ${Color.DarkGreen};
   background: #fff;
 `
 
 export const ExtrasTitle = styled(HeaderSmall)`
-  padding-right: ${Space.S}px;
+  padding-right: 0.5rem;
   align-items: center;
 `
 
@@ -66,7 +66,7 @@ export const StyledIcon = styled.div`
 `
 
 export const ListContainer = styled.div`
-  padding: ${Space.S}px 0;
+  padding: 0.5rem 0;
 `
 
 export const RowContainer = styled.div`
@@ -80,7 +80,7 @@ export const ExtraDetailsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${Space.S}px 0;
+  padding: 0.5rem 0;
 `
 
 export const ExtraSelectorContainer = styled.div``
@@ -93,7 +93,7 @@ export const ExtraTitleContainer = styled.div`
 
 export const ExtraTitle = styled(ButtonSmall)`
   color: ${Color.DarkGrey};
-  margin-left: ${Space.XS}px;
+  margin-left: 2rem;
 `
 
 export const TitleOption = styled.div`
@@ -106,15 +106,8 @@ export const CommentInput = styled(TextArea)`
   margin-bottom: 1rem;
 `
 
-export const AddProductButton = styled(ButtonMed)`
-  padding: ${Space.XS}px ${Space.M}px;
-  text-align: center;
-  background: ${Color.Petrol};
-  color: ${Color.LightGrey};
-  border-radius: 2px;
+export const AddProductButton = styled(Button)`
   align-self: flex-end;
-  width: min-content;
-  white-space: pre;
   display: flex;
   align-items: center;
 `

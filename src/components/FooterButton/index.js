@@ -27,7 +27,7 @@ function FooterButton({ children, ...rest }) {
 }
 
 FooterButton.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
 }
 
 export default FooterButton

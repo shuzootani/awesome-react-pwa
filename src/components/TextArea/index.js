@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Color from '../../utils/color'
-import Space from '../../utils/space'
 
 const TextAreaContainer = styled.div`
   min-width: 0;
@@ -30,13 +30,21 @@ const BaseTextArea = styled.textarea`
   }
 `
 
-function TextArea ({ label, ...rest }) {
+function TextArea({ label, ...rest }) {
   return (
     <TextAreaContainer>
       {label && <Label>{label}</Label>}
       <BaseTextArea {...rest} />
     </TextAreaContainer>
   )
+}
+
+TextArea.propTypes = {
+  label: PropTypes.string,
+}
+
+TextArea.defaultProps = {
+  label: '',
 }
 
 export default TextArea

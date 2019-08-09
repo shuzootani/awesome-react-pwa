@@ -1,4 +1,5 @@
 import * as React from 'react'
+import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import { storeQuery } from '../../graphql/queries'
 import {
@@ -8,10 +9,9 @@ import {
   BottomButtonsContainer,
   StoreName,
   ImageOverlay,
-  BottomContainer
-} from './Components'
+  BottomContainer,
+} from './styled'
 import Menu from './Menu'
-import SingleStoreMap from '../../components/SingleStoreMap'
 import StoreLocation from './StoreLocation'
 import PickupTimeSelector from './PickupTimeSelector'
 
@@ -19,37 +19,36 @@ import PickupTimeSelector from './PickupTimeSelector'
 // str_u1jrt15jbudc
 // str_u1jrte2sudch
 // str_u1jrtcx1zx81
-
-function StoreDetail (props) {
-  const { storeId = 'str_u1jrtcx1zx81' } = props.match.params
+function StoreDetail({ match: { params: { storeId = 'str_u1jrtcx1zx81' } } }) {
   return (
     <Query
       query={storeQuery}
       variables={{ id: storeId }}
-      fetchPolicy={'cache-and-network'}
+      fetchPolicy="cache-and-network"
     >
-      {({ data, loading, error }) => {
-        // console.log({ data })
-        // console.warn({ error })
-        return data && data.store ? (
-          <StoreDetailContainer>
-            <StoreImageContainer>
-              <ImageOverlay />
-              <StoreImage src={data.store.banner} />
-              <BottomContainer>
-                <StoreName>{data.store.name}</StoreName>
-                <BottomButtonsContainer>
-                  <PickupTimeSelector {...data.store} />
-                  <StoreLocation {...data.store} />
-                </BottomButtonsContainer>
-              </BottomContainer>
-            </StoreImageContainer>
-            <Menu storeId={storeId} />
-          </StoreDetailContainer>
-        ) : null
-      }}
+      {({ data }) => data && data.store ? (
+        <StoreDetailContainer>
+          <StoreImageContainer>
+            <ImageOverlay />
+            <StoreImage src={data.store.banner} />
+            <BottomContainer>
+              <StoreName>{data.store.name}</StoreName>
+              <BottomButtonsContainer>
+                <PickupTimeSelector {...data.store} />
+                <StoreLocation {...data.store} />
+              </BottomButtonsContainer>
+            </BottomContainer>
+          </StoreImageContainer>
+          <Menu storeId={storeId} />
+        </StoreDetailContainer>
+      ) : null
+      }
     </Query>
   )
+}
+
+StoreDetail.propTypes = {
+  match: PropTypes.object.isRequired,
 }
 
 export default React.memo(StoreDetail)

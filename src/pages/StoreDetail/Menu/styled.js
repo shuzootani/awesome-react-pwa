@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 import Color from '../../../utils/color'
-import Space from '../../../utils/space'
 import LazyImage from '../../../components/LazyImage'
 
 export const MenuContainer = styled.div`
-  min-width: 0;
-  width: 100%;
 `
 
 export const ProductCategoryTabs = styled.div`
@@ -38,8 +35,6 @@ export const Tab = styled.div`
 `
 
 export const ProductList = styled.div`
-  display: flex;
-  flex-flow: column wrap;
 `
 
 export const CategoryLabelContainer = styled.div`
@@ -70,17 +65,4 @@ export const FooterButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
-
-export const AddProductButton = styled.div`
-  padding: ${Space.S}px 0;
-  text-align: center;
-  background: ${Color.DarkGreen};
-  color: #fff;
-  flex: 1;
-`
-
-export const CheckoutButton = styled(AddProductButton)`
-  display: flex;
-  justify-content: space-around;
 `

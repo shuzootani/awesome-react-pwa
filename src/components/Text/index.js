@@ -1,19 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import Space from '../../utils/space'
 import Color from '../../utils/color'
 
-function Text () {
+function Text() {
   return <div>Reusable Text Components</div>
 }
 
 export default Text
 
-const HEADING_PADDING_BOTTOM = Space.S
+const HEADING_PADDING_BOTTOM = '1rem'
 export const Header = styled.div`
   color: ${Color.Black};
-  padding-top: ${Space.XS}px;
-  padding-bottom: ${props => (!props.combined ? HEADING_PADDING_BOTTOM : 0)}px;
+  padding-top: 0.5rem;
+  padding-bottom: ${props => (!props.combined ? HEADING_PADDING_BOTTOM : 0)};
 `
 Header.paddingBottom = HEADING_PADDING_BOTTOM
 
@@ -58,7 +57,7 @@ export const HeaderMed = styled.div`
 HeaderMed.color = Color.DarkGreen
 
 export const HeaderMedRegular = styled(HeaderMed)`
-  padding-top: ${props => (props.padded ? Space.L : '0')}px;
+  padding-top: ${props => (props.padded ? '1.5rem' : '0')};
 `
 
 export const HeaderMedHighlight = styled(HeaderMed)`

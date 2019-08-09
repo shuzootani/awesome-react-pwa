@@ -5,6 +5,7 @@ import Modal from '../../../components/Modal'
 import Icon from '../../../components/Icon'
 import Color from '../../../utils/color'
 import TimePicker from '../../../components/TimePicker'
+import { ELLIPSIS } from '../../../utils/styles'
 
 const StoreLocationContainer = styled.div`
   min-width: 0;
@@ -23,9 +24,7 @@ const LocationButton = styled.div`
 
 const LocationName = styled.div`
   padding-left: 4px;
-  white-space: pre;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${ELLIPSIS};
 `
 
 const StoreInfoSheet = styled.div`
@@ -36,27 +35,21 @@ const StoreInfoSheet = styled.div`
   border-radius: 4px;
 `
 
-const StoreName = styled.div`
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: ${Color.DarkGreen};
-`
-
-function PickupTimeSelector (store) {
+function PickupTimeSelector(store) {
   const [open, setOpen] = useState(false)
 
-  function toggleModal () {
+  function toggleModal() {
     setOpen(prevOpen => !prevOpen)
   }
 
   function onChangeTime({ hour, minute }) {
-    toggleModal()
+    toggleModal({ hour, minute })
   }
 
   return (
     <StoreLocationContainer>
       <LocationButton onClick={toggleModal}>
-        <Icon name='clock' />
+        <Icon name="clock" />
         <LocationName>{moment().format('HH:mm')}</LocationName>
       </LocationButton>
       {open && (

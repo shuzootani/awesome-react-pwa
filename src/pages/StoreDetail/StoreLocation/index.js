@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Modal from '../../../components/Modal'
 import Icon from '../../../components/Icon'
 import Color from '../../../utils/color'
-import SingleStoreMap from '../../../components/SingleStoreMap';
+import { ELLIPSIS } from '../../../utils/styles'
+import SingleStoreMap from '../../../components/SingleStoreMap'
 
 const StoreLocationContainer = styled.div`
   min-width: 0;
@@ -22,9 +24,7 @@ const LocationButton = styled.div`
 
 const LocationName = styled.div`
   padding-left: 4px;
-  white-space: pre;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${ELLIPSIS};
 `
 
 const StoreInfoSheet = styled.div`
@@ -47,7 +47,7 @@ const MapContainer = styled.div`
   height: 200px;
 `
 
-function StoreLocation ({ geo_hash, location_name, name }) {
+function StoreLocation({ geo_hash: geoHash, location_name: locationName, name }) {
   const [open, setOpen] = useState(false)
 
   function toggleModal() {
@@ -57,21 +57,27 @@ function StoreLocation ({ geo_hash, location_name, name }) {
   return (
     <StoreLocationContainer>
       <LocationButton onClick={toggleModal}>
-        <Icon name='mapPin' />
-        <LocationName>{location_name}</LocationName>
+        <Icon name="mapPin" />
+        <LocationName>{locationName}</LocationName>
       </LocationButton>
       {open && (
         <Modal onClose={toggleModal}>
           <StoreInfoSheet>
             <StoreName>{name}</StoreName>
             <MapContainer>
-              <SingleStoreMap geohash={geo_hash} />
+              <SingleStoreMap geohash={geoHash} />
             </MapContainer>
           </StoreInfoSheet>
         </Modal>
       )}
     </StoreLocationContainer>
   )
+}
+
+StoreLocation.propTypes = {
+  geo_hash: PropTypes.string.isRequired,
+  location_name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 }
 
 export default StoreLocation
