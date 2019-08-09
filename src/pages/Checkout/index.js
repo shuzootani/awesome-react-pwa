@@ -1,22 +1,23 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import {
   CheckoutContainer,
   ProductListContainer,
   ProductItemContainer,
   ProductName,
   ProductDescription,
-  ProductPrice
+  ProductPrice,
 } from './styled'
 import FooterButton from '../../components/FooterButton'
-import BasketContextProvider, {
-  BasketContext
+import {
+  BasketContext,
 } from '../../providers/BasketContextProvider'
 import { formatPrice } from '../../utils/formatter'
 
-function Checkout ({ history }) {
-  const { basket, total } = useContext(BasketContext)
+function Checkout({ history }) {
+  const { basket } = useContext(BasketContext)
 
-  function goToPayment () {
+  function goToPayment() {
     history.push('/payment')
   }
 
@@ -37,3 +38,7 @@ function Checkout ({ history }) {
 }
 
 export default Checkout
+
+Checkout.propTypes = {
+  history: PropTypes.object.isRequired,
+}
