@@ -19,8 +19,7 @@ const apolloUri = AppConfig.APOLLO_ENDPOINT // https://colugo.pickpack.de
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.map(error =>
-      console.warn(`[GraphQL error]: Message: ${JSON.stringify(error)}`))
+    graphQLErrors.map(error => console.warn(`[GraphQL error]: Message: ${JSON.stringify(error)}`))
   }
   if (networkError) {
     console.warn(`[Network error]: ${networkError}`)
@@ -88,7 +87,8 @@ const cache = new InMemoryCache({
 const client = new ApolloClient({
   ssrMode: !process.browser,
   link: authLink.concat(retryLink).concat(errorLink).concat(httpLink),
-  cache: isBrowser ? cache.restore(window.__APOLLO_STATE__) : cache
+  // eslint-disable-next-line no-underscore-dangle
+  cache: isBrowser ? cache.restore(window.__APOLLO_STATE__) : cache,
 })
 
 export default client

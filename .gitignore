@@ -4,6 +4,8 @@ npm-debug.log*
 .DS_Store
 coverage
 
+.vscode
+
 # build & node_modules
 build
 node_modules
