@@ -1,23 +1,19 @@
-
 export const Color = {
-  DarkGrey: '#555555',
-  Grey: '#8da1a3',
-  LightGrey: '#F6F8F8',
-  MidGrey: '#9D9D9D',
-  PlaceholderGrey: '#8ca1a3', // f7e7cf
-  White: '#FFFFFF',
-  Black: '#000000',
-  Green: '#82920B',
-  Wine: '#A32756',
-  Cyan: '#00C9B7',
-  CyanRGB: 'rgb(0,201,183)',
-  Petrol: '#005f6A',
-  BlueActive: '#00c9b7',
-  DarkSkyBlue: '#2188E5',
-  BGGrey: '#dce2e3',
-  DarkGreen: '#1c4448',
-  DarkGreenRGB: 'rgb(28,68,72)',
   Yellow: '#FFB900',
+  White: '#FFFFFF',
+  Berry: '#A32756',
+  Cyan: '#00C9B7',
+  Petrol: '#005f6A',
+  DarkGreen: '#1c4448',
+  LightGrey: '#F6F8F8',
+  CoolGrey: '#dce2e3',
+  Grey: '#8da1a3',
+  MudGrey: '#9D9D9D',
+  GreyBrown: '#484848',
+  DarkGrey: '#555555',
+  Black: '#000000',
+  CloudyBlue: '#b9d1d3',
+  DarkSkyBlue: '#2188E5',
 }
 
 export default Color

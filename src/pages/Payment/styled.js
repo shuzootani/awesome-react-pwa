@@ -7,6 +7,6 @@ export const PaymentContainer = styled.form`
 `
 
 export const InputContainer = styled.div`
-	border-bottom: 2px solid ${({ focused }) => focused ? Color.Petrol : Color.BGGrey};
+	border-bottom: 2px solid ${({ focused }) => focused ? Color.Petrol : Color.CoolGrey};
 	padding: 1rem;
 `

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Color from '../../utils/color';
 
 const BaseTextInput = styled.input`
-  border-bottom: 2px solid ${({ error }) => error ? Color.Yellow : Color.BGGrey};
+  border-bottom: 2px solid ${({ error }) => error ? Color.Yellow : Color.CoolGrey};
   min-width: 0;
   width: 100%;
   padding: 0.5rem 0;
@@ -13,7 +13,7 @@ const BaseTextInput = styled.input`
   caret-color: ${({ error }) => error ? Color.Yellow : Color.DarkGreen};
   &::placeholder {
     transition: all 0.2s ease-out;
-    color: ${({ error }) => error ? Color.Yellow : Color.BGGrey};
+    color: ${({ error }) => error ? Color.Yellow : Color.CoolGrey};
     font-size: 1rem;
   }
   &:active, &:focus {
