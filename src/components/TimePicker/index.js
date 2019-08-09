@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+/* eslint-disable no-plusplus */
+import React, { useState, useMemo } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import moment from 'moment'
 import { FormattedMessage } from 'react-intl'
 import { generateValidPickupTimes, getStoreSchedule } from '../../utils/time'
-import Color from '../../utils/color'
-import FooterButton from '../../components/FooterButton'
 import Button from '../Button'
 import { HeaderSmall } from '../Text'
 
@@ -26,29 +26,22 @@ const TimePickerContainer = styled.div`
   width: 100%;
 `
 
-const PickerItem = styled.div`
-  background: ${Color.LightGrey};
-  font-size: 1.5rem;
-`
-
 const SettleButton = styled(Button)`
   width: min-content;
 `
 
-function generatePickerLabels (timeSelection) {
+function generatePickerLabels(timeSelection) {
   const hours = []
   const minutes = []
   const minHour = timeSelection[0].value.get('hours')
   const maxHour = timeSelection[timeSelection.length - 1].value.get('hours')
 
-  for (let i = minHour; i <= maxHour; i++) {
-    // eslint-disable-line no-plusplus
+  for (let i = minHour; i <= maxHour; ++i) {
     const label = i < 10 ? `0${i}` : i.toString()
     hours.push({ label, type: 'hour' })
   }
 
-  for (let i = 0; i < 60; i++) {
-    // eslint-disable-line no-plusplus
+  for (let i = 0; i < 60; ++i) {
     const label = i < 10 ? `0${i}` : i.toString()
     minutes.push({ label, type: 'minute' })
   }
@@ -56,44 +49,38 @@ function generatePickerLabels (timeSelection) {
   return { hours, minutes }
 }
 
-function TimePicker ({ store, onChange }) {
+function TimePicker({ store, onChange }) {
   const now = useMemo(() => moment(), [])
   const [values, setValues] = useState({
     hour: String(now.hour()),
-    minute: String(now.minute())
+    minute: String(now.minute()),
   })
 
   const storeSchedule = useMemo(() => getStoreSchedule(store.opening_hours), [
-    store
+    store,
   ])
   const dateSelection = Object.keys(storeSchedule)
   const schedule = dateSelection[0]
   const timeSelection = useMemo(
-    () =>
-      generateValidPickupTimes(storeSchedule, schedule, store.min_order_time),
+    () => generateValidPickupTimes(storeSchedule, schedule, store.min_order_time),
     [storeSchedule, schedule, store]
   )
 
-  const pickerLabels = useMemo(() => generatePickerLabels(timeSelection), [
-    timeSelection
-  ])
+  const pickerLabels = generatePickerLabels(timeSelection)
 
   const options = useMemo(
     () => ({
       hour: pickerLabels.hours.map(h => h.label),
-      minute: pickerLabels.minutes.map(m => m.label)
+      minute: pickerLabels.minutes.map(m => m.label),
     }),
     []
   )
 
-  function onChangeTime (name, value) {
+  function onChangeTime(name, value) {
     setValues({ ...values, [name]: value })
   }
 
-  const Picker = useMemo(
-    () => require('react-mobile-picker-scroll').default,
-    []
-  )
+  const Picker = useMemo(() => require('../WheelPicker').default, [])
 
   function setPickupTime() {
     onChange({ hour, minute })
@@ -117,6 +104,11 @@ function TimePicker ({ store, onChange }) {
       </SettleButton>
     </LayoutContainer>
   )
+}
+
+TimePicker.propTypes = {
+  store: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default TimePicker

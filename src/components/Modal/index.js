@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createPortal } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { isBrowser } from '../../utils/window'
@@ -25,9 +25,10 @@ const Sheet = styled.div`
   width: 80%;
 `
 
-function Modal ({ isOpen, onClose, children, bottom = false }) {
-  const modalElement =
-    isBrowser && useRef(document.createElement('div')).current
+function Modal({
+  onClose, children, bottom = false,
+}) {
+  const modalElement = isBrowser && useRef(document.createElement('div')).current
 
   useEffect(() => {
     const modalRoot = document.getElementById('modal-root')
@@ -41,7 +42,7 @@ function Modal ({ isOpen, onClose, children, bottom = false }) {
 
   return modalElement
     ? ReactDOM.createPortal(
-      <DarkOverlay onClick={onClose} bottom={bottom}>
+      <DarkOverlay onClick={onClose} bottom={bottom} onScroll={e => e.stopPropagation()}>
         <Sheet bottom={bottom} onClick={e => e.stopPropagation()}>
           {children}
         </Sheet>
