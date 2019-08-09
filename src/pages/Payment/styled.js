@@ -1,13 +1,12 @@
 import styled from 'styled-components'
-import Space from '../../utils/space';
-import Color from '../../utils/color';
+import Space from '../../utils/space'
+import Color from '../../utils/color'
 
-export const PaymentContainer = styled.div`
-  padding: ${Space.L}px;
+export const PaymentContainer = styled.form`
+	padding: 1rem;
 `
 
 export const InputContainer = styled.div`
-  border: 2px solid ${props => props.focused ? Color.Petrol : '#ddd'};
-  border-radius: 2px;
-  padding: 1rem;
+	border-bottom: 2px solid ${({ focused }) => focused ? Color.Petrol : Color.BGGrey};
+	padding: 1rem;
 `
