@@ -1,58 +1,45 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { PaymentContainer, InputContainer, PaymentMethodList } from './styled'
-import CreditCardInput from '../../components/CreditCardInput'
+import { PaymentPageContainer, PaymentMethodList } from './styled'
 import FooterButton from '../../components/FooterButton'
-import TextInput from '../../components/TextInput'
 import PaymentSelectItem from './PaymentSelectItem'
 import { paymentMethods } from '../../utils/payment'
 
-const NameInput = styled(TextInput)`
-  margin-bottom: 1rem;
-`
-
 function Payment({ history }) {
-  const [name, setName] = useState('')
-  const [focused, setFocused] = useState(false)
+  const [selectedPayment, setPayment] = useState('google-pay') // @TODO
 
   function goToPickup() {
-    if (name) history.push('/pickup')
+    history.push('/pickup')
   }
 
-  function toggleFocus() {
-    setFocused(!focused)
-  }
-
-  function onNameChange({ target: { value } }) {
-    setName(value)
+  function onChangePayment(id) {
+    if (selectedPayment === id) {
+      setPayment(null)
+    } else {
+      setPayment(id)
+    }
   }
 
   return (
-    <PaymentContainer>
-      <NameInput
-        name="name"
-        autComplete="cc-name"
-        autoFocus
-        placeholder="Name"
-        required
-        onChange={onNameChange}
-      />
-      <InputContainer focused={focused}>
-        <CreditCardInput
-          autoComplete="cc-number"
-          onFocus={toggleFocus}
-          onBlur={toggleFocus}
-        />
-      </InputContainer>
+    <PaymentPageContainer>
       <PaymentMethodList>
         {paymentMethods.map((method) => {
-          const selected = true
-          return <PaymentSelectItem icon={method.icon} method={method.label} checked={selected} />
+          const selected = method.id === selectedPayment
+          return (
+            <PaymentSelectItem
+              key={method.id}
+              {...method}
+              selected={selected}
+              onClick={onChangePayment}
+              showForm={!['google-pay', 'apple-pay'].includes(method.id)}
+            />
+          )
         })}
       </PaymentMethodList>
-      <FooterButton disabled onClick={goToPickup}>Pay</FooterButton>
-    </PaymentContainer>
+      <FooterButton disabled={!selectedPayment} onClick={goToPickup}>
+        Pay
+      </FooterButton>
+    </PaymentPageContainer>
   )
 }
 

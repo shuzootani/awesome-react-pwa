@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Elements, CardElement } from 'react-stripe-elements'
 import Color from '../../utils/color'
 
@@ -7,11 +7,11 @@ const styles = {
     base: {
       color: Color.DarkGreen,
       fontWeight: 'bold',
-    }
-  }
+    },
+  },
 }
 
-function CreditCardInput (props) {
+function CreditCardInput(props) {
   return (
     <Elements>
       <CardElement {...props} onReady={el => el.focus()} style={styles.input} />
@@ -19,4 +19,4 @@ function CreditCardInput (props) {
   )
 }
 
-export default CreditCardInput
+export default memo(CreditCardInput)

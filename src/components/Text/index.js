@@ -21,7 +21,7 @@ export const HeaderBig = styled.div`
 `
 
 export const HeaderSmall = styled.div`
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: ${props => props.color || Color.DarkGreen};
   text-align: ${props => (props.center ? 'center' : 'left')};
