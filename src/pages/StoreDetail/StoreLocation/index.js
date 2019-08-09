@@ -32,8 +32,7 @@ const StoreInfoSheet = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: auto;
+  width: 100%;
   border-radius: 4px;
 `
 

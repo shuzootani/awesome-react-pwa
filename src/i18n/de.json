@@ -1,3 +1,4 @@
 {
-	"pages.StoreDetail.AddToBasket": "IN DEN WARENKORB"
+  "pages.StoreDetail.AddToBasket": "IN DEN WARENKORB",
+  "components.TimePicker.ResolveButton": "UM {time} ABHOLEN"
 }

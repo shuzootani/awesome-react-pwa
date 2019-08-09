@@ -1,3 +1,4 @@
 {
-	"pages.StoreDetail.AddToBasket": "カートに追加"
+  "pages.StoreDetail.AddToBasket": "カートに追加",
+  "components.TimePicker.ResolveButton": "{time}にピックアップ"
 }

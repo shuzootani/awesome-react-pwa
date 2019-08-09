@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
 import Modal from '../../../components/Modal'
 import Icon from '../../../components/Icon'
 import Color from '../../../utils/color'
+import TimePicker from '../../../components/TimePicker'
 
 const StoreLocationContainer = styled.div`
   min-width: 0;
@@ -28,10 +30,8 @@ const LocationName = styled.div`
 
 const StoreInfoSheet = styled.div`
   background: #fff;
-  padding: 1rem;
   display: flex;
-  flex-direction: column;
-  width: 80%;
+  width: 100%;
   margin: auto;
   border-radius: 4px;
 `
@@ -42,23 +42,27 @@ const StoreName = styled.div`
   color: ${Color.DarkGreen};
 `
 
-function PickupTimeSelector ({ geo_hash, location_name, name }) {
+function PickupTimeSelector (store) {
   const [open, setOpen] = useState(false)
 
-  function toggleModal() {
+  function toggleModal () {
     setOpen(prevOpen => !prevOpen)
+  }
+
+  function onChangeTime({ hour, minute }) {
+    toggleModal()
   }
 
   return (
     <StoreLocationContainer>
       <LocationButton onClick={toggleModal}>
         <Icon name='clock' />
-        <LocationName>{location_name}</LocationName>
+        <LocationName>{moment().format('HH:mm')}</LocationName>
       </LocationButton>
       {open && (
         <Modal onClose={toggleModal}>
           <StoreInfoSheet>
-            <StoreName>{name}</StoreName>
+            <TimePicker store={store} onChange={onChangeTime} />
           </StoreInfoSheet>
         </Modal>
       )}

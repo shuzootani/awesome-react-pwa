@@ -22,8 +22,7 @@ const DarkOverlay = styled.div`
 `
 
 const Sheet = styled.div`
-  position: relative;
-  width: 100%;
+  width: 80%;
 `
 
 function Modal ({ isOpen, onClose, children, bottom = false }) {

@@ -1,3 +1,4 @@
 {
-	"pages.StoreDetail.AddToBasket": "ADD TO BASKET"
+  "pages.StoreDetail.AddToBasket": "ADD TO BASKET",
+  "components.TimePicker.ResolveButton": "PICK UP AT {time}"
 }
