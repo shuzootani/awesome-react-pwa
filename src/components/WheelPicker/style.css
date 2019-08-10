@@ -35,6 +35,8 @@
 .picker-scroller {
 	transition: 300ms;
 	transition-timing-function: ease-out;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
 }
 
 .picker-item {

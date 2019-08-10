@@ -3,8 +3,8 @@ import compression from 'compression'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-import { getDataFromTree } from "react-apollo"
-import { ServerStyleSheet } from "styled-components"
+import { getDataFromTree } from 'react-apollo'
+import { ServerStyleSheet } from 'styled-components'
 import App from './App'
 import apolloClient from './apolloClient'
 
@@ -51,7 +51,6 @@ server
                   name="description"
                   content="${req.url}"
                 />
-
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:site" content="${req.url}" />
                 <meta name="twitter:title" content="${req.url}" />
@@ -59,7 +58,6 @@ server
                   name="twitter:description"
                   content="${req.url}"
                 />
-
                 <meta property="og:url" content="${req.url}" />
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content="${req.url}" />
@@ -67,19 +65,14 @@ server
                   property="og:description"
                   content="${req.url}"
                 />
-
                 <title>pickpack</title>
-
                 <script async defer id="stripe-js" src="https://js.stripe.com/v3/"></script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
-
-                ${assets.client.css ? `<link rel="preload" as="style" href="${assets.client.css}" onload="this.rel='stylesheet'">` : ''}
+                <link rel="preload" href="${assets.client.css}" as="style">
+                <link rel="preload" href="${assets.client.js}" as="script">
+                <link href="${assets.client.css}" media="handheld and (orientation:portrait)">
                 ${styleTags}
-
-                ${process.env.NODE_ENV === 'production'
-                  ? `<script src="${assets.client.js}" async defer></script>`
-                  : `<script src="${assets.client.js}" async defer crossorigin></script>`
-                }
+                ${process.env.NODE_ENV === 'production' ? `<script src="${assets.client.js}" async defer></script>` : `<script src="${assets.client.js}" async defer crossorigin></script>`}
             </head>
             <body>
                 <div id="root">${markup}</div>

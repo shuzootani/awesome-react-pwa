@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const ImageComponent = styled.img`
@@ -15,8 +16,8 @@ const ImageComponent = styled.img`
     }
   }
 
-  ${props => props.imageLoaded ||
-    `
+  ${props => props.imageLoaded
+    || `
     animation-name: placeHolder;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
@@ -33,21 +34,40 @@ const ImageComponent = styled.img`
 function LazyImage({ src, ...props }) {
   const imageRef = useRef()
   const [imageLoaded, setImageLoaded] = useState(false)
+  let observer
 
   useEffect(() => {
+    observer = new IntersectionObserver(startLoading)
     if (!imageLoaded) {
-      const downloadingImage = new Image()
-      downloadingImage.onload = function() {
-        if (imageRef.current) {
-          imageRef.current.setAttribute('src', this.src)
-          setImageLoaded(true)
-        }
-      }
-      downloadingImage.src = src
+      observer.observe(imageRef.current)
     }
+    return () => observer.unobserve(imageRef.current)
   }, [])
 
-  return <ImageComponent ref={imageRef} alt="" imageLoaded={imageLoaded} />
+  function startLoading(entries, object) {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return
+
+      if (!imageLoaded) {
+        const downloadingImage = new Image()
+        downloadingImage.onload = () => {
+          if (imageRef.current) {
+            imageRef.current.setAttribute('src', downloadingImage.src)
+            setImageLoaded(true)
+          }
+        }
+        downloadingImage.src = src
+      }
+
+      object.unobserve(entry.target)
+    })
+  }
+
+  return <ImageComponent {...props} ref={imageRef} alt="" imageLoaded={imageLoaded} />
+}
+
+LazyImage.propTypes = {
+  src: PropTypes.string.isRequired,
 }
 
 export default LazyImage

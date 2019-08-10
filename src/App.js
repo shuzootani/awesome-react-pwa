@@ -5,8 +5,8 @@ import { AppConfig } from './utils/config'
 import client from './apolloClient'
 
 import Header from './components/Header'
-import StoreDetail from '../src/pages/StoreDetail'
-import Checkout from '../src/pages/Checkout'
+import StoreDetail from './pages/StoreDetail'
+import Checkout from './pages/Checkout'
 import BasketContextProvider from './providers/BasketContextProvider'
 import Payment from './pages/Payment'
 import Pickup from './pages/Pickup'
@@ -15,7 +15,7 @@ import StripeContextProvider from './providers/StripeContextProvider'
 
 require('./App.css')
 
-function App () {
+function App() {
   const [stripe, setStripe] = useState(null)
 
   useEffect(() => {
@@ -31,14 +31,14 @@ function App () {
   return (
     <ApolloProvider client={client}>
       <LanguageContextProvider>
-        <Route path='*' component={Header} />
+        <Route path="*" component={Header} />
         <StripeContextProvider stripe={stripe}>
           <BasketContextProvider>
             <Switch>
-              <Route path='/store/:storeId' component={StoreDetail} />
-              <Route path='/checkout' component={Checkout} />
-              <Route path='/payment' component={Payment} />
-              <Route path='/pickup' component={Pickup} />
+              <Route path="/store/:storeId" component={StoreDetail} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/payment" component={Payment} />
+              <Route path="/pickup" component={Pickup} />
               {/* @TODO: Not Found 404 page */}
               <Route component={StoreDetail} />
             </Switch>
