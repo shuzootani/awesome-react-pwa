@@ -68,9 +68,7 @@ server
                 <title>pickpack</title>
                 <script async defer id="stripe-js" src="https://js.stripe.com/v3/"></script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
-                <link rel="preload" href="${assets.client.css}" as="style">
-                <link rel="preload" href="${assets.client.js}" as="script">
-                <link href="${assets.client.css}" media="handheld and (orientation:portrait)">
+                ${assets.client.css ? `<link rel="preload" as="style" href="${assets.client.css}" onload="this.rel='stylesheet'">` : ''}
                 ${styleTags}
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.client.js}" async defer></script>` : `<script src="${assets.client.js}" async defer crossorigin></script>`}
             </head>
