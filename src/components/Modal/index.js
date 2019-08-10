@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import * as ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { isBrowser } from '../../utils/window'
-
-// @TODO: make constants for zIndex before messing it up.
-const DarkOverlayZIndex = 99
+import zIndex from '../../utils/zIndex'
 
 const DarkOverlay = styled.div`
   position: fixed;
@@ -14,7 +12,7 @@ const DarkOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: ${DarkOverlayZIndex};
+  z-index: ${zIndex.modal};
   background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
@@ -25,29 +23,33 @@ const Sheet = styled.div`
   width: 80%;
 `
 
-function Modal({
-  onClose, children, bottom = false,
-}) {
-  const modalElement = isBrowser && useRef(document.createElement('div')).current
+function Modal({ onClose, children, bottom = false }) {
+  const modalRoot = isBrowser && document.getElementById('modal-root')
+  let scrollTop = 0
 
   useEffect(() => {
-    const modalRoot = document.getElementById('modal-root')
-    modalRoot.appendChild(modalElement)
-    document.body.style.overflow = 'hidden'
+    scrollTop = window.scrollY
+    document.body.style.top = `-${window.scrollY}px`
+    document.body.classList.add('modal-open')
     return () => {
-      modalRoot.removeChild(modalElement)
-      document.body.style.overflow = 'unset'
+      document.body.classList.remove('modal-open')
+      document.body.style.removeProperty('top')
+      window.scrollTo(0, parseInt(scrollTop, 10))
     }
   }, [])
 
-  return modalElement
+  return modalRoot
     ? ReactDOM.createPortal(
-      <DarkOverlay onClick={onClose} bottom={bottom} onScroll={e => e.stopPropagation()}>
-        <Sheet bottom={bottom} onClick={e => e.stopPropagation()}>
+      <DarkOverlay onClick={onClose} bottom={bottom}>
+        <Sheet
+          bottom={bottom}
+          onClick={e => e.stopPropagation()}
+          onScroll={e => e.stopPropagation()}
+        >
           {children}
         </Sheet>
       </DarkOverlay>,
-      modalElement
+      modalRoot
     )
     : null
 }

@@ -27,9 +27,15 @@ html {
 		"Segoe UI Emoji", "Segoe UI Symbol";
 }
 body {
-	overscroll-behavior-y: none;
 	-webkit-overflow-scrolling: touch;
 }
+body.modal-open {
+	overscroll-behavior-y: none;
+	/* https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/ */
+	overflow: hidden;
+	position: fixed;
+}
+
 #root {
 }
 #moda-root {

@@ -6,6 +6,7 @@ export const StoreDetailContainer = styled.div`
 
 export const StoreImageContainer = styled.div`
   width: 100%;
+  max-width: 100vw;
   height: 200px;
   background: #fff;
   position: relative;

@@ -1,5 +1,6 @@
 export const zIndex = {
-  header: 1000
+  header: 9,
+  modal: 10,
 }
 
 export default zIndex
