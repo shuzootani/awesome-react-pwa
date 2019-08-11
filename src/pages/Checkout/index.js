@@ -14,13 +14,12 @@ import {
 } from './styled'
 import FooterButton from '../../components/FooterButton'
 import Icon from '../../components/Icon'
-import {
-  BasketContext,
-} from '../../providers/BasketContextProvider'
+import { BasketContext } from '../../providers/BasketContextProvider'
 import { formatPrice } from '../../utils/formatter'
 import Color from '../../utils/color'
 import FlexBox from '../../components/FlexBox'
 import { HeaderSmall, BodyCopy } from '../../components/Text'
+import ItemCounter from '../../components/ItemCounter'
 
 const PLATFORM_FEE = 35
 
@@ -37,15 +36,22 @@ function Checkout({ history }) {
         {basket.products.map(product => (
           <ProductItemContainer key={product.id}>
             <ProductImage src={product.image} size="70px" />
-            <ProductInfo vertical>
+            <ProductInfo>
               <ProductName>{product.name}</ProductName>
-              {product.extras && product.extras.map(extra => (
-                <FlexBox key={extra.extra_id}>
-                  <Icon name="check" color={Color.Cyan} />
-                  <ExtraName>{extra.name}</ExtraName>
-                </FlexBox>
-              ))}
+              {product.extras
+                && product.extras.map(extra => (
+                  <FlexBox key={extra.extra_id}>
+                    <Icon name="check" color={Color.Cyan} />
+                    <ExtraName>{extra.name}</ExtraName>
+                  </FlexBox>
+                ))}
               {product.comment && <Comment>{`※ ${product.comment}`}</Comment>}
+              <ItemCounter
+                value={product.quantity}
+                inc={() => {}}
+                dec={() => {}}
+                max={product.quantity}
+              />
             </ProductInfo>
             <ProductPrice>{formatPrice(product.price)}</ProductPrice>
           </ProductItemContainer>

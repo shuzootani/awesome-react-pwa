@@ -34,6 +34,7 @@ export const ExtraName = styled(ButtonSmall)`
 
 export const ProductInfo = styled(FlexBox)`
   padding-left: 0.5rem;
+  flex-direction: column;
 `
 
 export const Comment = styled(ButtonSmall)`

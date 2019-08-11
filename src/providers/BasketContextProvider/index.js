@@ -65,6 +65,7 @@ function BasketContextProvider({ children }) {
       store_id: product.storeId,
       brand_id: product.brand.id,
       category_id: product.category.id,
+      quantity: 1,
     }
     if (product.variant_id) { // Add specified variant
       basketProduct = {
