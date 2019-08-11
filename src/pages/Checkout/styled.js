@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import Color from '../../utils/color'
 import { ELLIPSIS } from '../../utils/styles'
+import { HeaderSmall, ButtonSmall } from '../../components/Text'
+import LazyImage from '../../components/LazyImage'
+import FlexBox from '../../components/FlexBox'
 
 export const CheckoutContainer = styled.div`
   padding: 1.5rem;
@@ -8,31 +11,44 @@ export const CheckoutContainer = styled.div`
 
 export const ProductListContainer = styled.div``
 
-export const ProductItemContainer = styled.div`
+export const ProductItemContainer = styled(FlexBox)`
   position: relative;
   border-bottom: 1px solid #ddd;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
+  width: 100%;
 `
 
-export const ProductName = styled.div`
-  font-weight: bold;
-  color: ${Color.DarkGreen};
+export const ProductImage = styled(LazyImage)`
+  border-radius: 4px;
+`
+
+export const ProductName = styled(HeaderSmall)`
+  width: 80%;
   padding-bottom: 0.5rem;
-  padding-right: 2rem;
   ${ELLIPSIS};
 `
 
-export const ProductDescription = styled.div`
-  font-size: 0.7rem;
-  color: ${Color.DarkGreen};
-  height: 50px;
-  overflow: scroll;
+export const ExtraName = styled(ButtonSmall)`
+  padding: 0 4px;
+`
+
+export const ProductInfo = styled(FlexBox)`
+  padding-left: 0.5rem;
+`
+
+export const Comment = styled(ButtonSmall)`
+  color: ${Color.DarkGrey};
+  padding: 4px 0;
 `
 
 export const ProductPrice = styled.div`
   position: absolute;
-  top: 0.5rem;
+  top: 1rem;
   right: 0;
   font-size: 0.8rem;
   color: ${props => props.discounted ? Color.Yellow : Color.Cyan};
+`
+
+export const Row = styled(FlexBox)`
+  padding-top: 0.5rem;
 `

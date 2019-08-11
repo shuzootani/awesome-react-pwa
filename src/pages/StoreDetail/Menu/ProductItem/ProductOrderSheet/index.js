@@ -1,13 +1,9 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import {
   ProductOrderSheet,
-  ProductSheetInfoContainer,
-  LabelContainer,
-  SheetProductDescription,
-  BottomSheetButton,
-  CounterButton,
-  Label,
   ExtraSelectorContainer,
   TitleContainer,
   TitleOption,
@@ -22,19 +18,19 @@ import {
   ExtraTitleContainer,
   AddProductButton,
   CommentInput,
-  PlusIcon
+  PlusIcon,
 } from './styled'
 import { formatPrice } from '../../../../../utils/formatter'
 import Icon from '../../../../../components/Icon'
 import Checkbox from '../../../../../components/Checkbox'
 
-function OrderSheet ({ product, addToBasket }) {
+function OrderSheet({ storeId, product, addToBasket }) {
   const [selectedExtras, setExtras] = useState([])
   const [comment, setComment] = useState('')
   const [openGroup, setOpenGroup] = useState({})
   const { extra_groups: extraGroups } = product
 
-  function chooseExtra (extra, group) {
+  function chooseExtra(extra, group) {
     const existingExtraIndex = selectedExtras.findIndex(
       item => item.extra_id === extra.extra_id
     )
@@ -42,14 +38,12 @@ function OrderSheet ({ product, addToBasket }) {
 
     // selected items in other group
     const otherGroupItemsSelected = selectedExtras.filter(
-      item =>
-        item.extra_id !== extra.extra_id &&
-        group.items.find(i => i.extra_id === item.extra_id)
+      item => item.extra_id !== extra.extra_id
+        && group.items.find(i => i.extra_id === item.extra_id)
     )
 
     // true if the extra is the only item selected in its group
-    const isExtraOnlySelectedInGroup =
-      isExtraSelected && !otherGroupItemsSelected.length
+    const isExtraOnlySelectedInGroup = isExtraSelected && !otherGroupItemsSelected.length
 
     // prevent deselecting item if it's the only selected extra in a group
     if (group.is_required && isExtraOnlySelectedInGroup) {
@@ -61,12 +55,11 @@ function OrderSheet ({ product, addToBasket }) {
       if (isExtraSelected) {
         extras.splice(existingExtraIndex, 1)
       } else {
-        const maxExtrasExceeded =
-          selectedExtras.filter(
-            selected => selected.group_id === group.extra_group_id
-          ).length +
-            1 >
-          group.maximum_extras
+        const maxExtrasExceeded = selectedExtras.filter(
+          selected => selected.group_id === group.extra_group_id
+        ).length
+            + 1
+          > group.maximum_extras
 
         // prevent selecting more extras if maximum number of extras already selected
         if (maxExtrasExceeded) {
@@ -84,19 +77,22 @@ function OrderSheet ({ product, addToBasket }) {
       )
       extras = [...removeGroupExtras, extra]
     }
-    const newSelectedExtras = extras.map(extra => ({
-      ...extra,
-      is_selected: true
+    const newSelectedExtras = extras.map(extraOpt => ({
+      ...extraOpt,
+      is_selected: true,
     }))
 
-    setExtras(newSelectedExtras)
+    return setExtras(newSelectedExtras)
   }
 
   function addProduct() {
     const basketItem = {
       ...product,
+      storeId,
       extras: selectedExtras,
-      comment
+      comment,
+      // variant_id: any_specific_variant_selected
+      // campaign: any_campaign_applied
     }
     addToBasket(basketItem)
   }
@@ -107,16 +103,15 @@ function OrderSheet ({ product, addToBasket }) {
 
   return (
     <ProductOrderSheet>
-      {extraGroups &&
-        extraGroups.length > 0 &&
-        extraGroups.map((group, index) => {
-          const overMaxExtras =
-            group.is_multiselect &&
-            selectedExtras.filter(
+      {extraGroups
+        && extraGroups.length > 0
+        && extraGroups.map((group) => {
+          const overMaxExtras = group.is_multiselect
+            && selectedExtras.filter(
               selected => selected.group_id === group.extra_group_id
-            ).length +
-              1 >
-              group.maximum_extras
+            ).length
+              + 1
+              > group.maximum_extras
           return (
             <ExtraSelectorContainer
               key={group.extra_group_id}
@@ -131,16 +126,15 @@ function OrderSheet ({ product, addToBasket }) {
               >
                 <TitleOption>
                   <ExtrasTitle>{group.name}</ExtrasTitle>
-                  {group.maximum_extras &&
-                  group.items.length > group.maximum_extras ? (
+                  {group.maximum_extras && group.items.length > group.maximum_extras ? (
                     <ExtrasCyanTitle>
-                        {`(max. ${group.maximum_extras})`}
-                      </ExtrasCyanTitle>
-                    ) : (
-                      <ExtrasCyanTitle>
-                        {!group.is_multiselect && '(max. 1)'}
-                      </ExtrasCyanTitle>
-                    )}
+                      {`(max. ${group.maximum_extras})`}
+                    </ExtrasCyanTitle>
+                  ) : (
+                    <ExtrasCyanTitle>
+                      {!group.is_multiselect && '(max. 1)'}
+                    </ExtrasCyanTitle>
+                  )}
                 </TitleOption>
                 <StyledIcon>
                   <Icon
@@ -152,7 +146,7 @@ function OrderSheet ({ product, addToBasket }) {
               </TitleContainer>
               {openGroup[group.extra_group_id] && (
                 <ListContainer key={`list${group.extra_group_id}`}>
-                  {group.items.map(item => {
+                  {group.items.map((item) => {
                     const isSelected = selectedExtras.some(
                       extra => extra.extra_id === item.extra_id
                     )
@@ -180,13 +174,19 @@ function OrderSheet ({ product, addToBasket }) {
             </ExtraSelectorContainer>
           )
         })}
-      <CommentInput onChange={onCommentChange} label='Anmerkungen' />
+      <CommentInput onChange={onCommentChange} label="Anmerkungen" />
       <AddProductButton onClick={addProduct}>
-        <FormattedMessage id='pages.StoreDetail.AddToBasket' />
-        <PlusIcon name='plus' />
+        <FormattedMessage id="pages.StoreDetail.AddToBasket" />
+        <PlusIcon name="plus" />
       </AddProductButton>
     </ProductOrderSheet>
   )
+}
+
+OrderSheet.propTypes = {
+  addToBasket: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired,
+  storeId: PropTypes.string.isRequired,
 }
 
 export default OrderSheet

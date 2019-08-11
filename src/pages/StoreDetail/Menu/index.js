@@ -76,6 +76,7 @@ function Menu({ storeId, history }) {
                     {category.products.map(product => (
                       <ProductItem
                         key={product.id}
+                        storeId={storeId}
                         product={product}
                         selectedProduct={selectedProduct}
                         onClick={setSelectedProduct}

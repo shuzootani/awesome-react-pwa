@@ -14,7 +14,7 @@ import {
 } from './styled'
 import ProductOrderSheet from './ProductOrderSheet'
 
-function ProductListItem({ product, addToBasket }) {
+function ProductListItem({ storeId, product, addToBasket }) {
   const [open, setOpen] = useState(false)
 
   function handleClick() {
@@ -45,13 +45,14 @@ function ProductListItem({ product, addToBasket }) {
         </ProductItem>
       </ProductItemContainer>
       {/* Drawer */}
-      {open && <ProductOrderSheet product={product} addToBasket={add} />}
+      {open && <ProductOrderSheet storeId={storeId} product={product} addToBasket={add} />}
     </React.Fragment>
   )
 }
 
 ProductListItem.propTypes = {
   product: PropTypes.object.isRequired,
+  storeId: PropTypes.string.isRequired,
   addToBasket: PropTypes.func.isRequired,
 }
 

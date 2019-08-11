@@ -4,8 +4,13 @@ import styled from 'styled-components'
 require('intersection-observer')
 
 const ImageComponent = styled.img`
-  width: 100%;
-  height: 100%;
+  width: ${({ size }) => size || '100%'};
+  height: ${({ size }) => size || '100%'};
+  min-width: ${({ size }) => size};
+  min-height: ${({ size }) => size};
+  max-width: ${({ size }) => size};
+  max-height: ${({ size }) => size};
+
   transition: all 0.3s ease-in-out;
 
   @keyframes placeHolder {
@@ -69,6 +74,11 @@ function LazyImage({ src, ...props }) {
 
 LazyImage.propTypes = {
   src: PropTypes.string.isRequired,
+  size: PropTypes.string,
+}
+
+LazyImage.defaultProps = {
+  size: null,
 }
 
 export default LazyImage

@@ -7,7 +7,7 @@ import {
   FiChevronUp,
   FiChevronDown,
   FiCheck,
-  FiPlus
+  FiPlus,
 } from 'react-icons/fi'
 
 const iconMap = {
@@ -17,7 +17,7 @@ const iconMap = {
   angle_up: <FiChevronUp />,
   angle_down: <FiChevronDown />,
   check: <FiCheck />,
-  plus: <FiPlus />
+  plus: <FiPlus />,
 }
 
 const IconContainer = styled.div`
@@ -26,9 +26,10 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ color }) => color ? `color: ${color};` : ''};
 `
 
-function Icon ({ name, ...props }) {
+function Icon({ name, ...props }) {
   return <IconContainer {...props}>{iconMap[name]}</IconContainer> || null
 }
 

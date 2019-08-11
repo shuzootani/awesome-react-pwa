@@ -88,3 +88,29 @@ export const ButtonMed = styled.div`
   font-size: 1rem;
   color: ${props => props.color || Color.DarkGreen};
 `
+
+export const ButtonSmallWhite = styled(ButtonSmall)`
+  color: #fff;
+`
+
+export const BodyCopy = styled.div`
+  color: ${props => props.color || Color.DarkGreen};
+  font-size: 0.8rem;
+  text-decoration: ${props => props.link && 'underline'};
+  `
+
+export const BodyCopyHeading = styled(BodyCopy)`
+  font-size: 0.9rem;
+`
+
+export const BodyCopyBold = styled(BodyCopy)`
+  font-weight: bold;
+`
+
+export const StandardText = styled(BodyCopy)`
+  color: ${props => props.color || Color.DarkGreen};
+`
+
+// export const StandardTextRight = styled(StandardText)`
+//   textAlign: right;
+// `
