@@ -1,7 +1,6 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
-import { Query } from 'react-apollo'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
   MenuContainer,
   ProductCategoryTabs,
@@ -10,23 +9,25 @@ import {
   CategoryLabelContainer,
   CategoryIcon,
   CategoryLabel,
-  FooterButtonContainer,
 } from './styled'
 import { productCategories as productCategoriesQuery } from '../../../graphql/queries'
-import { formatPrice } from '../../../utils/formatter'
-import FooterButton from '../../../components/FooterButton'
-import { BasketContext } from '../../../providers/BasketContextProvider'
+import { addToBasket as addToBasketMutation } from '../../../graphql/mutations'
 import ProductItem from './ProductItem'
+import { formatBasketItemInput } from '../../../utils/formatter'
 
-function Menu({ storeId, history }) {
+function Menu({ storeId }) {
   const [tabIndex, setTabIndex] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState()
   const sectionRefs = useRef([])
   const categoryRefs = useRef([])
 
-  const {
-    addProduct, amount, total,
-  } = useContext(BasketContext)
+  const [addToBasket] = useMutation(addToBasketMutation)
+  const { data } = useQuery(
+    productCategoriesQuery,
+    { variables: { id: storeId }, fetchPolicy: 'cache-and-network' }
+  )
+
+  const { productCategories } = data
 
   function onClickCategoryTab(index) {
     categoryRefs.current[index].scrollIntoView({
@@ -37,75 +38,61 @@ function Menu({ storeId, history }) {
     setTabIndex(index)
   }
 
+  async function handleAddToBasket(values) {
+    const product = formatBasketItemInput({ ...values, storeId })
+    const result = await addToBasket({ variables: { id: null, product } })
+    console.log(result)
+  }
+
   return (
-    <Query
-      query={productCategoriesQuery}
-      variables={{ id: storeId }}
-      fetchPolicy="cache-and-network"
-    >
-      {({ data }) => {
-        // console.log({ products: data })
-        // console.warn({ error })
-        const { productCategories } = data && data
-        return (
-          <MenuContainer>
-            <ProductCategoryTabs>
-              {productCategories
-                && productCategories.map((category, index) => (
-                  <Tab
-                    key={category.name}
-                    ref={(ref) => { (categoryRefs.current[index] = ref) }}
-                    active={tabIndex === index}
-                    onClick={() => onClickCategoryTab(index)}
-                  >
-                    {category.name}
-                  </Tab>
-                ))}
-            </ProductCategoryTabs>
+    <MenuContainer>
+      <ProductCategoryTabs>
+        {productCategories
+          && productCategories.map((category, index) => (
+            <Tab
+              key={category.name}
+              ref={(ref) => {
+                categoryRefs.current[index] = ref
+              }}
+              active={tabIndex === index}
+              onClick={() => onClickCategoryTab(index)}
+            >
+              {category.name}
+            </Tab>
+          ))}
+      </ProductCategoryTabs>
 
-            <ProductList>
-              {productCategories
-                && productCategories.map((category, index) => (
-                  <React.Fragment key={category.name}>
-                    <CategoryLabelContainer
-                      ref={(ref) => { (sectionRefs.current[index] = ref) }}
-                    >
-                      <CategoryIcon src={category.icon} />
-                      <CategoryLabel>{category.name}</CategoryLabel>
-                    </CategoryLabelContainer>
-                    {category.products.map(product => (
-                      <ProductItem
-                        key={product.id}
-                        storeId={storeId}
-                        product={product}
-                        selectedProduct={selectedProduct}
-                        onClick={setSelectedProduct}
-                        addToBasket={addProduct}
-                      />
-                    ))}
-                  </React.Fragment>
-                ))}
-            </ProductList>
-
-            {amount > 0 && (
-              <FooterButton onClick={() => history.push('/checkout')}>
-                <FooterButtonContainer>
-                  <div>{amount}</div>
-                  <div>ZUM WARENKORB</div>
-                  <div>{formatPrice(total)}</div>
-                </FooterButtonContainer>
-              </FooterButton>
-            )}
-          </MenuContainer>
-        )
-      }}
-    </Query>
+      <ProductList>
+        {productCategories
+          && productCategories.map((category, index) => (
+            <React.Fragment key={category.name}>
+              <CategoryLabelContainer
+                ref={(ref) => {
+                  sectionRefs.current[index] = ref
+                }}
+              >
+                <CategoryIcon src={category.icon} />
+                <CategoryLabel>{category.name}</CategoryLabel>
+              </CategoryLabelContainer>
+              {category.products.map(product => (
+                <ProductItem
+                  key={product.id}
+                  storeId={storeId}
+                  product={product}
+                  selectedProduct={selectedProduct}
+                  onClick={setSelectedProduct}
+                  addToBasket={handleAddToBasket}
+                />
+              ))}
+            </React.Fragment>
+          ))}
+      </ProductList>
+    </MenuContainer>
   )
 }
 
 Menu.propTypes = {
-  history: PropTypes.object.isRequired,
   storeId: PropTypes.string.isRequired,
 }
 
-export default withRouter(Menu)
+export default Menu

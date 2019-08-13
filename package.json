@@ -21,6 +21,8 @@
 		]
 	},
 	"dependencies": {
+		"@apollo/react-hooks": "^3.0.0",
+		"@apollo/react-ssr": "^3.0.0",
 		"@auth0/auth0-spa-js": "^1.0.2",
 		"apollo-cache-inmemory": "^1.6.2",
 		"apollo-client": "^2.6.3",
@@ -44,7 +46,6 @@
 		"prop-types": "^15.7.2",
 		"razzle": "^3.0.0",
 		"react": "^16.8.6",
-		"react-apollo": "^2.5.8",
 		"react-dom": "^16.8.6",
 		"react-icons": "^3.7.0",
 		"react-intl": "^2.9.0",

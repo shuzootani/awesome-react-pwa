@@ -24,7 +24,7 @@ import { formatPrice } from '../../../../../utils/formatter'
 import Icon from '../../../../../components/Icon'
 import Checkbox from '../../../../../components/Checkbox'
 
-function OrderSheet({ storeId, product, addToBasket }) {
+function OrderSheet({ product, addToBasket }) {
   const [selectedExtras, setExtras] = useState([])
   const [comment, setComment] = useState('')
   const [openGroup, setOpenGroup] = useState({})
@@ -88,7 +88,6 @@ function OrderSheet({ storeId, product, addToBasket }) {
   function addProduct() {
     const basketItem = {
       ...product,
-      storeId,
       extras: selectedExtras,
       comment,
       // variant_id: any_specific_variant_selected
@@ -186,7 +185,6 @@ function OrderSheet({ storeId, product, addToBasket }) {
 OrderSheet.propTypes = {
   addToBasket: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
-  storeId: PropTypes.string.isRequired,
 }
 
 export default OrderSheet

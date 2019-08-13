@@ -1,6 +1,6 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 import { storeQuery } from '../../graphql/queries'
 import {
   StoreDetailContainer,
@@ -20,31 +20,23 @@ import PickupTimeSelector from './PickupTimeSelector'
 // str_u1jrte2sudch
 // str_u1jrtcx1zx81
 function StoreDetail({ match: { params: { storeId = 'str_u1jrtcx1zx81' } } }) {
-  return (
-    <Query
-      query={storeQuery}
-      variables={{ id: storeId }}
-      fetchPolicy="cache-and-network"
-    >
-      {({ data }) => data && data.store ? (
-        <StoreDetailContainer>
-          <StoreImageContainer>
-            <ImageOverlay />
-            <StoreImage src={data.store.banner} />
-            <BottomContainer>
-              <StoreName>{data.store.name}</StoreName>
-              <BottomButtonsContainer>
-                <PickupTimeSelector {...data.store} />
-                <StoreLocation {...data.store} />
-              </BottomButtonsContainer>
-            </BottomContainer>
-          </StoreImageContainer>
-          <Menu storeId={storeId} />
-        </StoreDetailContainer>
-      ) : null
-      }
-    </Query>
-  )
+  const { data } = useQuery(storeQuery, { variables: { id: storeId }, fetchPolicy: 'cache-and-network' })
+  return data && data.store ? (
+    <StoreDetailContainer>
+      <StoreImageContainer>
+        <ImageOverlay />
+        <StoreImage src={data.store.banner} />
+        <BottomContainer>
+          <StoreName>{data.store.name}</StoreName>
+          <BottomButtonsContainer>
+            <PickupTimeSelector {...data.store} />
+            <StoreLocation {...data.store} />
+          </BottomButtonsContainer>
+        </BottomContainer>
+      </StoreImageContainer>
+      <Menu storeId={storeId} />
+    </StoreDetailContainer>
+  ) : null
 }
 
 StoreDetail.propTypes = {
