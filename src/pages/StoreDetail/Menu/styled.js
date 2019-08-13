@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Color from '../../../utils/color'
 import LazyImage from '../../../components/LazyImage'
+import FlexBox from '../../../components/FlexBox'
 
 export const MenuContainer = styled.div`
 `
@@ -61,8 +62,6 @@ export const ProductImage = styled(LazyImage)`
   height: 100%;
 `
 
-export const FooterButtonContainer = styled.div`
-  display: flex;
+export const FooterButtonContainer = styled(FlexBox)`
   justify-content: space-between;
-  align-items: center;
 `

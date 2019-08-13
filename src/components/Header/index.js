@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import Icon from '../Icon'
 import zIndex from '../../utils/zIndex'
 import Color from '../../utils/color'
@@ -27,22 +28,25 @@ const BackButton = styled.div`
   font-size: 1.5rem;
 `
 
-// if the path is within the list,
-// it doesn't have the height for header
-const drawBehindList = ['/', '/store/*']
+// screen has no height for header if the path is within the list.
+const drawBehindList = [/^\/$/, /\/store\/(\w+)/]
 
-function Header ({ location: { pathname }, history, ...options }) {
-  const shouldDrawBehind = drawBehindList.includes(pathname)
-
+function Header({ location: { pathname }, history }) {
+  const shouldDrawBehind = drawBehindList.some(path => path.test(pathname))
   return (
     <ContainerStyle drawBehind={shouldDrawBehind}>
       {pathname !== '/' && (
         <BackButton onClick={history.goBack}>
-          <Icon name='arrow_left' />
+          <Icon name="arrow_left" />
         </BackButton>
       )}
     </ContainerStyle>
   )
+}
+
+Header.propTypes = {
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default Header

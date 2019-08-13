@@ -11,7 +11,7 @@ const ImageComponent = styled.img`
   max-width: ${({ size }) => size};
   max-height: ${({ size }) => size};
 
-  transition: all 0.3s ease-in-out;
+  transition: all 1s ease-in-out;
 
   @keyframes placeHolder {
     0% {

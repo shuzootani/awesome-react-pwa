@@ -50,7 +50,7 @@ function ItemCounter({
 }
 
 ItemCounter.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired,
   max: PropTypes.number.isRequired,

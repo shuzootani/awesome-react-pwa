@@ -16,4 +16,10 @@ export const Color = {
   DarkSkyBlue: '#2188E5',
 }
 
+export const Scheme = {
+  default: {
+    color: Color,
+  },
+}
+
 export default Color

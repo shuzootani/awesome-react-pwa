@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-// import { FLEX_CENTER_CENTER } from '../../utils/styles'
 
 const FlexContainer = styled.div`
   width: 100%;
@@ -20,7 +19,7 @@ function FlexBox({ children, ...props }) {
 }
 
 FlexBox.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
 }
 
 export default FlexBox
