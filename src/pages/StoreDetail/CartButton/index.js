@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Icon from '../../../components/Icon'
@@ -34,12 +34,20 @@ const Badge = styled.div`
   font-size: 0.9rem;
 `
 
-
 function CartButton({ basket, navToCart }) {
+  const badgeNumber = useMemo(
+    () => basket && basket.items.reduce((sum, item) => sum + item.quantity, 0),
+    [basket]
+  )
+
+  function handleClick() {
+    navToCart()
+  }
+
   return (
     <CartButtonContainer>
-      {!!basket.items.length && <Badge>{basket.items.length}</Badge>}
-      <CartIconButton onClick={navToCart} name="cart" />
+      {!!badgeNumber && <Badge>{badgeNumber}</Badge>}
+      <CartIconButton onClick={handleClick} name="cart" />
     </CartButtonContainer>
   )
 }

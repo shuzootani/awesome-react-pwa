@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
-import { storeQuery } from '../../graphql/queries'
+import { storeQuery, basketQuery } from '../../graphql/queries'
 import {
   StoreDetailContainer,
   StoreImageContainer,
@@ -14,7 +14,7 @@ import {
 import Menu from './Menu'
 import CartButton from './CartButton'
 import PickupTimeSelector from './PickupTimeSelector'
-import { PurchaseContext } from '../../providers/PurchaseContextProvider'
+import { basketId } from '../../utils/localStorage'
 
 // storeId to test
 // str_u1jrt15jbudc
@@ -26,21 +26,22 @@ function StoreDetail({
     params: { storeId = 'str_u1jrtcx1zx81' },
   },
 }) {
-  const { data } = useQuery(storeQuery, {
-    variables: { id: storeId },
-    fetchPolicy: 'cache-and-network',
-  })
-  const { basket } = useContext(PurchaseContext)
+  const {
+    data: { store },
+  } = useQuery(storeQuery, { variables: { id: storeId } })
+  const {
+    data: { basket },
+  } = useQuery(basketQuery, { variables: { id: basketId } })
 
-  return data && data.store ? (
+  return store ? (
     <StoreDetailContainer>
       <StoreImageContainer>
         <ImageOverlay />
-        <StoreImage src={data.store.banner} />
+        <StoreImage src={store.banner} />
         <BottomContainer>
-          <StoreName>{data.store.name}</StoreName>
+          <StoreName>{store.name}</StoreName>
           <BottomButtonsContainer>
-            <PickupTimeSelector {...data.store} />
+            <PickupTimeSelector {...store} />
             <CartButton
               basket={basket}
               navToCart={() => history.push('/checkout')}
@@ -48,7 +49,7 @@ function StoreDetail({
           </BottomButtonsContainer>
         </BottomContainer>
       </StoreImageContainer>
-      <Menu storeId={storeId} />
+      <Menu storeId={storeId} basket={basket} />
     </StoreDetailContainer>
   ) : null
 }

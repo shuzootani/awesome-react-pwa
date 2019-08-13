@@ -73,13 +73,20 @@ const retryLink = new RetryLink({
 const httpLink = new HttpLink({ uri: apolloUri })
 
 const cache = new InMemoryCache({
-  dataIdFromObject: o => o.id,
+  dataIdFromObject: (object) => {
+    // eslint-disable-next-line no-underscore-dangle
+    switch (object.__typename) {
+      case 'BasketItem': return `basket_item:${object.id}`
+      default: return (object.id)
+    }
+  },
   fragmentMatcher,
   cacheRedirects: {
     Query: {
       product: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Product', id: args.id }),
       store: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Store', id: args.id }),
       order: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Order', id: args.id }),
+      basket: (_, args, { getCacheKey }) => getCacheKey({ __typename: 'Basket', id: args.id }),
     },
   },
 })

@@ -183,7 +183,7 @@ export const acknowledgedMessageMutation = gql`
 `
 
 export const addToBasket = gql`
-  mutation($id: ID, $product: BasketItemInput!) {
+  mutation addToBasket($id: ID, $product: BasketItemInput!) {
     addToBasket(id: $id, product: $product) {
       ...BasketFragment
     }

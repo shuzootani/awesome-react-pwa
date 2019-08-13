@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useQuery } from '@apollo/react-hooks'
 import {
   CheckoutContainer,
   ProductListContainer,
@@ -12,19 +13,22 @@ import {
   ProductImage,
   Row,
 } from './styled'
-import { PurchaseContext } from '../../providers/PurchaseContextProvider'
 import FooterButton from '../../components/FooterButton'
 import Icon from '../../components/Icon'
 import { formatPrice } from '../../utils/formatter'
 import Color from '../../utils/color'
+import { basketId } from '../../utils/localStorage'
 import FlexBox from '../../components/FlexBox'
 import { HeaderSmall, BodyCopy } from '../../components/Text'
 import ItemCounter from '../../components/ItemCounter'
+import { basketQuery } from '../../graphql/queries'
 
 const PLATFORM_FEE = 35
 
 function Checkout({ history }) {
-  const { basket } = useContext(PurchaseContext)
+  const {
+    data: { basket },
+  } = useQuery(basketQuery, { variables: { id: basketId } })
 
   function goToPayment() {
     history.push('/payment')

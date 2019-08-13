@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import Color from '../../utils/color'
-import { ELLIPSIS } from '../../utils/styles'
 import { HeaderSmall, ButtonSmall } from '../../components/Text'
 import LazyImage from '../../components/LazyImage'
 import FlexBox from '../../components/FlexBox'
@@ -25,7 +24,6 @@ export const ProductImage = styled(LazyImage)`
 export const ProductName = styled(HeaderSmall)`
   width: 80%;
   padding-bottom: 0.5rem;
-  ${ELLIPSIS};
 `
 
 export const ExtraName = styled(ButtonSmall)`
@@ -33,7 +31,7 @@ export const ExtraName = styled(ButtonSmall)`
 `
 
 export const ProductInfo = styled(FlexBox)`
-  padding-left: 0.5rem;
+  padding-left: 1rem;
   flex-direction: column;
 `
 
@@ -52,4 +50,5 @@ export const ProductPrice = styled.div`
 
 export const Row = styled(FlexBox)`
   padding-top: 0.5rem;
+  justify-content: space-between;
 `

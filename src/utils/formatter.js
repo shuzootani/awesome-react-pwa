@@ -1,3 +1,7 @@
+import moment from 'moment'
+import { dayOfWeek } from './time'
+moment.locale('de')
+
 export function formatPrice(price = 0, extras, number = false, handleSign = false) {
   let total = price
   if (extras) {
@@ -11,16 +15,68 @@ export function formatPrice(price = 0, extras, number = false, handleSign = fals
     return total
   }
 
+  const isNegative = Math.sign(total) === -1
+
   const formattedTotal = `${(Number(Math.abs(total)) / 100)
     .toFixed(2)
     .replace('.', ',')} €`
 
-  const isNegative = Math.sign(total) === -1
   if (handleSign) {
     return `${isNegative ? '- ' : '+'} ${formattedTotal}`
   }
 
   return formattedTotal
+}
+
+export function formatDate(isoDate) {
+  return moment(isoDate).format('DD MMM YYYY')
+}
+
+export function fortmatShortDate(isoDate) {
+  return moment(isoDate).format('DD.MM.YYYY')
+}
+
+export function formatDiscount(discount) {
+  return `${discount / 10} %`
+}
+
+export function formatDateSmall(isoDate, labeled, withWeekday) {
+  const date = moment(isoDate)
+  if (labeled) {
+    const weekday = withWeekday ? `${dayOfWeek[date.isoWeekday()]} ` : ''
+    return `${weekday}${date.format('DD.MM.')}`
+  }
+  return date.format('DD.MM.')
+}
+
+export function formatTime(isoDate) {
+  if (isoDate.format === 'minutes') {
+    return isoDate.label
+  } if (isoDate.format) {
+    return `${isoDate.label}`
+  }
+  return `${moment(isoDate).format('HH:mm')}`
+}
+
+export const calcDiscount = (total, discount = 0) => (total * discount) / 1000
+
+export const calcTotal = (total, discount = 0, fee = 0, blockCampaigns = false) => {
+  if (blockCampaigns) {
+    return Math.round(total + fee)
+  }
+  return Math.round((total + fee) - calcDiscount(total, discount))
+}
+
+export const centsToEuros = priceInCents => priceInCents / 100
+
+
+export function formatShortTime(isoDate) {
+  if (isoDate.format === 'minutes') {
+    return isoDate.label
+  } if (isoDate.format) {
+    return `${isoDate.label}`
+  }
+  return `${moment(isoDate).format('HH:mm')}`
 }
 
 export function formatBasketItemInput(values) {
