@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
@@ -14,14 +14,20 @@ import { productCategories as productCategoriesQuery } from '../../../graphql/qu
 import { addToBasket as addToBasketMutation } from '../../../graphql/mutations'
 import ProductItem from './ProductItem'
 import { formatBasketItemInput } from '../../../utils/formatter'
+import { PurchaseContext } from '../../../providers/PurchaseContextProvider'
 
 function Menu({ storeId }) {
+  const { basket, setBasket } = useContext(PurchaseContext)
   const [tabIndex, setTabIndex] = useState(0)
   const [selectedProduct, setSelectedProduct] = useState()
   const sectionRefs = useRef([])
   const categoryRefs = useRef([])
 
-  const [addToBasket] = useMutation(addToBasketMutation)
+  const [addToBasket] = useMutation(addToBasketMutation, {
+    onCompleted({ addToBasket: basketData }) {
+      setBasket(basketData)
+    },
+  })
   const { data } = useQuery(
     productCategoriesQuery,
     { variables: { id: storeId }, fetchPolicy: 'cache-and-network' }
@@ -38,10 +44,9 @@ function Menu({ storeId }) {
     setTabIndex(index)
   }
 
-  async function handleAddToBasket(values) {
+  function handleAddToBasket(values) {
     const product = formatBasketItemInput({ ...values, storeId })
-    const result = await addToBasket({ variables: { id: null, product } })
-    console.log(result)
+    addToBasket({ variables: { id: basket.id, product } })
   }
 
   return (
@@ -74,16 +79,19 @@ function Menu({ storeId }) {
                 <CategoryIcon src={category.icon} />
                 <CategoryLabel>{category.name}</CategoryLabel>
               </CategoryLabelContainer>
-              {category.products.map(product => (
-                <ProductItem
-                  key={product.id}
-                  storeId={storeId}
-                  product={product}
-                  selectedProduct={selectedProduct}
-                  onClick={setSelectedProduct}
-                  addToBasket={handleAddToBasket}
-                />
-              ))}
+              {category.products.map((product) => {
+                if (!product.id) return null
+                return (
+                  <ProductItem
+                    key={product.id}
+                    storeId={storeId}
+                    product={product}
+                    selectedProduct={selectedProduct}
+                    onClick={setSelectedProduct}
+                    addToBasket={handleAddToBasket}
+                  />
+                )
+              })}
             </React.Fragment>
           ))}
       </ProductList>

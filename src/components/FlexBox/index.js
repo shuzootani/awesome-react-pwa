@@ -6,8 +6,6 @@ const FlexContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: ${({ vertical }) => vertical ? 'column' : 'row'};
-  justify-content: ${({ justifyContent }) => justifyContent || 'flex-start'};
-  align-items: ${({ alignItems }) => alignItems || 'flex-start'};
 `
 
 function FlexBox({ children, ...props }) {

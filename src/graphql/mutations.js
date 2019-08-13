@@ -181,3 +181,39 @@ export const acknowledgedMessageMutation = gql`
     }
   }
 `
+
+export const addToBasket = gql`
+  mutation($id: ID, $product: BasketItemInput!) {
+    addToBasket(id: $id, product: $product) {
+      ...BasketFragment
+    }
+  }
+  ${fragments.basketFragment}
+`
+
+export const removeFromBasket = gql`
+  mutation($id: ID!, $product: BasketItemInput!) {
+    removeFromBasket(id: $id, product: $product) {
+      ...BasketFragment
+    }
+  }
+  ${fragments.basketFragment}
+`
+
+export const updateBasketItem = gql`
+  mutation($id: ID!, $product: BasketItemInput!) {
+    updateBasketItem(id: $id, product: $product) {
+      ...BasketFragment
+    }
+  }
+  ${fragments.basketFragment}
+`
+
+export const deleteBasket = gql`
+  mutation($id: ID!) {
+    deleteBasket(id: $id, product: $product) {
+      ...BasketFragment
+    }
+  }
+  ${fragments.basketFragment}
+`

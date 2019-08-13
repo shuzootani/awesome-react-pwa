@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Color from '../../../utils/color'
 import LazyImage from '../../../components/LazyImage'
-import FlexBox from '../../../components/FlexBox'
 
 export const MenuContainer = styled.div`
 `
@@ -60,8 +59,4 @@ export const CategoryLabel = styled.div`
 export const ProductImage = styled(LazyImage)`
   width: 100%;
   height: 100%;
-`
-
-export const FooterButtonContainer = styled(FlexBox)`
-  justify-content: space-between;
 `

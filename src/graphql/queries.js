@@ -1,6 +1,15 @@
 import gql from 'graphql-tag'
 import * as fragments from './fragments'
 
+export const basketQuery = gql`
+  query basket($id: ID!) {
+    basket(id: $id) {
+      ...BasketFragment
+    }
+  }
+  ${fragments.basketFragment}
+`
+
 export const brandStores = gql`
   query($brand_id: ID!, $geokey: String) {
     brandStores(brand_id: $brand_id, geokey: $geokey) {

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import LazyImage from '../../components/LazyImage'
+import FlexBox from '../../components/FlexBox'
 
 export const StoreDetailContainer = styled.div`
 `
@@ -45,8 +46,8 @@ export const BottomContainer = styled.div`
   max-width: 100%;
 `
 
-export const BottomButtonsContainer = styled.div`
-  display:flex;
+export const BottomButtonsContainer = styled(FlexBox)`
   justify-content: center;
+  align-items: center;
   padding: 1rem 0.5rem;
 `

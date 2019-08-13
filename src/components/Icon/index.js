@@ -8,6 +8,7 @@ import {
   FiChevronDown,
   FiCheck,
   FiPlus,
+  FiShoppingCart,
 } from 'react-icons/fi'
 
 const iconMap = {
@@ -18,6 +19,7 @@ const iconMap = {
   angle_down: <FiChevronDown />,
   check: <FiCheck />,
   plus: <FiPlus />,
+  cart: <FiShoppingCart />,
 }
 
 const IconContainer = styled.div`

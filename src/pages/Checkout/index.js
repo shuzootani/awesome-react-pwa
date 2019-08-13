@@ -12,9 +12,9 @@ import {
   ProductImage,
   Row,
 } from './styled'
+import { PurchaseContext } from '../../providers/PurchaseContextProvider'
 import FooterButton from '../../components/FooterButton'
 import Icon from '../../components/Icon'
-import { BasketContext } from '../../providers/BasketContextProvider'
 import { formatPrice } from '../../utils/formatter'
 import Color from '../../utils/color'
 import FlexBox from '../../components/FlexBox'
@@ -24,16 +24,16 @@ import ItemCounter from '../../components/ItemCounter'
 const PLATFORM_FEE = 35
 
 function Checkout({ history }) {
-  const { basket, total } = useContext(BasketContext)
+  const { basket } = useContext(PurchaseContext)
 
   function goToPayment() {
     history.push('/payment')
   }
 
-  return (
+  return basket ? (
     <CheckoutContainer>
       <ProductListContainer>
-        {basket.products.map(product => (
+        {basket.items.map(product => (
           <ProductItemContainer key={product.id}>
             <ProductImage src={product.image} size="70px" />
             <ProductInfo>
@@ -63,15 +63,17 @@ function Checkout({ history }) {
       </Row>
       <Row justifyContent="space-between">
         <HeaderSmall>Gesamtbetrag</HeaderSmall>
-        <HeaderSmall>{formatPrice(total, null, PLATFORM_FEE)}</HeaderSmall>
+        <HeaderSmall>
+          {formatPrice(basket.total, null, PLATFORM_FEE)}
+        </HeaderSmall>
       </Row>
       <FooterButton onClick={goToPayment}>Go to Payment</FooterButton>
     </CheckoutContainer>
-  )
+  ) : null
 }
-
-export default Checkout
 
 Checkout.propTypes = {
   history: PropTypes.object.isRequired,
 }
+
+export default Checkout

@@ -14,15 +14,15 @@ import {
 } from './styled'
 import ProductOrderSheet from './ProductOrderSheet'
 
-function ProductListItem({ storeId, product, addToBasket }) {
+function ProductListItem({ addToBasket, product }) {
   const [open, setOpen] = useState(false)
 
   function handleClick() {
     setOpen(prevOpen => !prevOpen)
   }
 
-  function add(basketItem) {
-    addToBasket(basketItem, 1)
+  function handleAdd(values) {
+    addToBasket(values)
     setOpen(false)
   }
 
@@ -45,14 +45,13 @@ function ProductListItem({ storeId, product, addToBasket }) {
         </ProductItem>
       </ProductItemContainer>
       {/* Drawer */}
-      {open && <ProductOrderSheet storeId={storeId} product={product} addToBasket={add} />}
+      {open && <ProductOrderSheet product={product} addToBasket={handleAdd} />}
     </React.Fragment>
   )
 }
 
 ProductListItem.propTypes = {
   product: PropTypes.object.isRequired,
-  storeId: PropTypes.string.isRequired,
   addToBasket: PropTypes.func.isRequired,
 }
 

@@ -22,3 +22,30 @@ export function formatPrice(price = 0, extras, number = false, handleSign = fals
 
   return formattedTotal
 }
+
+export function formatBasketItemInput(values) {
+  return {
+    store_id: values.storeId,
+    product_id: values.id,
+    name: values.name,
+    price: values.price,
+    image: values.image,
+    teaser_text: values.teaser_text,
+    variant_id: values.variant_id,
+    variants: values.variants && values.variants.map(variant => ({
+      variant_id: variant.variant_id,
+      is_default: variant.is_default,
+      name: variant.name,
+      price: variant.price,
+      image: variant.image,
+    })),
+    extras: values.extras && values.extras.map(extra => ({
+      extra_id: extra.extra_id,
+      is_selected: extra.is_selected,
+      name: extra.name,
+      price: extra.price,
+    })),
+    comment: values.comment || null,
+    is_promo: !!values.is_promo,
+  }
+}

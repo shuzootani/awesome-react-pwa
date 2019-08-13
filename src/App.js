@@ -7,7 +7,7 @@ import client from './apolloClient'
 import Header from './components/Header'
 import StoreDetail from './pages/StoreDetail'
 import Checkout from './pages/Checkout'
-import BasketContextProvider from './providers/BasketContextProvider'
+import PurchaseContextProvider from './providers/PurchaseContextProvider'
 import Payment from './pages/Payment'
 import Pickup from './pages/Pickup'
 import LanguageContextProvider from './providers/LanguageContextProvider'
@@ -33,7 +33,7 @@ function App() {
       <LanguageContextProvider>
         <Route path="*" component={Header} />
         <StripeContextProvider stripe={stripe}>
-          <BasketContextProvider>
+          <PurchaseContextProvider>
             <Switch>
               <Route path="/store/:storeId" component={StoreDetail} />
               <Route path="/checkout" component={Checkout} />
@@ -42,7 +42,7 @@ function App() {
               {/* @TODO: Not Found 404 page */}
               <Route component={StoreDetail} />
             </Switch>
-          </BasketContextProvider>
+          </PurchaseContextProvider>
         </StripeContextProvider>
       </LanguageContextProvider>
     </ApolloProvider>

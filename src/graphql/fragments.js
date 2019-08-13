@@ -397,6 +397,32 @@ export const locationFragment = gql`
   }
 `
 
+export const basketFragment = gql`
+  fragment BasketFragment on Basket {
+    id
+    user_id
+    store_id
+    total
+    items {
+      id
+      product_id
+      name
+      price
+      image
+      quantity
+      teaser_text
+      comment
+      variant_id
+      is_promo
+      extras {
+        extra_id
+        name
+        price
+      }
+    }
+  }
+`
+
 
 export const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {

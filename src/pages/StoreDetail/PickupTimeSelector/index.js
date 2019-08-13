@@ -19,7 +19,7 @@ const LocationButton = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
-  padding: 0.5em 1em;
+  padding: 0.5rem 1.5rem;
 `
 
 const LocationName = styled.div`

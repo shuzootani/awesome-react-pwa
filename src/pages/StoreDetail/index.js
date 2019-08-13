@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { storeQuery } from '../../graphql/queries'
@@ -12,15 +12,26 @@ import {
   BottomContainer,
 } from './styled'
 import Menu from './Menu'
-import StoreLocation from './StoreLocation'
+import CartButton from './CartButton'
 import PickupTimeSelector from './PickupTimeSelector'
+import { PurchaseContext } from '../../providers/PurchaseContextProvider'
 
 // storeId to test
 // str_u1jrt15jbudc
 // str_u1jrte2sudch
 // str_u1jrtcx1zx81
-function StoreDetail({ match: { params: { storeId = 'str_u1jrtcx1zx81' } } }) {
-  const { data } = useQuery(storeQuery, { variables: { id: storeId }, fetchPolicy: 'cache-and-network' })
+function StoreDetail({
+  history,
+  match: {
+    params: { storeId = 'str_u1jrtcx1zx81' },
+  },
+}) {
+  const { data } = useQuery(storeQuery, {
+    variables: { id: storeId },
+    fetchPolicy: 'cache-and-network',
+  })
+  const { basket } = useContext(PurchaseContext)
+
   return data && data.store ? (
     <StoreDetailContainer>
       <StoreImageContainer>
@@ -30,7 +41,10 @@ function StoreDetail({ match: { params: { storeId = 'str_u1jrtcx1zx81' } } }) {
           <StoreName>{data.store.name}</StoreName>
           <BottomButtonsContainer>
             <PickupTimeSelector {...data.store} />
-            <StoreLocation {...data.store} />
+            <CartButton
+              basket={basket}
+              navToCart={() => history.push('/checkout')}
+            />
           </BottomButtonsContainer>
         </BottomContainer>
       </StoreImageContainer>
@@ -41,6 +55,7 @@ function StoreDetail({ match: { params: { storeId = 'str_u1jrtcx1zx81' } } }) {
 
 StoreDetail.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
-export default React.memo(StoreDetail)
+export default StoreDetail
