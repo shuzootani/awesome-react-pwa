@@ -1,46 +1,53 @@
-import React, { useState, useEffect, useMemo, createContext } from 'react'
+import React, {
+  useState, useEffect, useMemo, createContext,
+} from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { IntlProvider, addLocaleData } from 'react-intl'
-import locale_en from 'react-intl/locale-data/en'
-import locale_de from 'react-intl/locale-data/de'
-import locale_ja from 'react-intl/locale-data/ja'
+import LOCALE_EN from 'react-intl/locale-data/en'
+import LOCALE_DE from 'react-intl/locale-data/de'
+import LOCALE_JA from 'react-intl/locale-data/ja'
 
-import messages_en from '../../i18n/en'
-import messages_de from '../../i18n/de'
-import messages_ja from '../../i18n/ja'
-import { isBrowser } from '../../utils/window';
+import MESSAGES_EN from '../../i18n/en'
+import MESSAGES_DE from '../../i18n/de'
+import MESSAGES_JA from '../../i18n/ja'
+import { isBrowser } from '../../utils/window'
 
-addLocaleData([...locale_en, ...locale_de, ...locale_ja])
+addLocaleData([...LOCALE_EN, ...LOCALE_DE, ...LOCALE_JA])
 
 const locales = {
   de: 'de', // German
   en: 'en', // English
-  ja: 'ja' // Japanese
+  ja: 'ja', // Japanese
 }
 
 const messages = {
-  de: messages_de,
-  en: messages_en,
-  ja: messages_ja
+  de: MESSAGES_DE,
+  en: MESSAGES_EN,
+  ja: MESSAGES_JA,
 }
 
 export const LanguageContext = createContext()
 
-function LanguageContextProvider ({ children }) {
+function LanguageContextProvider({ children, match: { params }, location: { pathname } }) {
   const initialLocale = useMemo(() => {
+    if (params.locale) {
+      return locales[params.locale]
+    }
     if (isBrowser) {
-      return localStorage.getItem('langLocale') || navigator.language.split('_')[0]
+      return navigator.language.split('_')[0] || localStorage.getItem('langLocale') || locales.en
     }
     return locales.en
-  }, [])
+  }, [params.locale, pathname])
 
-  const [locale, setLocale] = useState(locales[initialLocale] || locales.en)
+  const [locale, setLocale] = useState(initialLocale)
 
   useEffect(() => {
-    localStorage.setItem('langLocale', locale)
+    localStorage.setItem('langLocale', locale || locales.en)
   }, [locale])
 
   return (
-    <IntlProvider locale={locale} messages={messages[locale]}>
+    <IntlProvider locale={locale || locales.en} messages={messages[locale || locales.en]}>
       <LanguageContext.Provider value={{ locale, setLocale }}>
         {children}
       </LanguageContext.Provider>
@@ -48,4 +55,10 @@ function LanguageContextProvider ({ children }) {
   )
 }
 
-export default LanguageContextProvider
+LanguageContextProvider.propTypes = {
+  children: PropTypes.any.isRequired,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+}
+
+export default withRouter(LanguageContextProvider)

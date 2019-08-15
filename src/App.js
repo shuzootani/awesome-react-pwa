@@ -30,21 +30,23 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <LanguageContextProvider>
-        <Route path="*" component={Header} />
-        <StripeContextProvider stripe={stripe}>
-          <PurchaseContextProvider>
-            <Switch>
-              <Route path="/store/:storeId" component={StoreDetail} />
-              <Route path="/checkout" component={Checkout} />
-              <Route path="/payment" component={Payment} />
-              <Route path="/pickup" component={Pickup} />
-              {/* @TODO: Not Found 404 page */}
-              <Route component={StoreDetail} />
-            </Switch>
-          </PurchaseContextProvider>
-        </StripeContextProvider>
-      </LanguageContextProvider>
+      <Route path="/:locale?">
+        <LanguageContextProvider>
+          <Route path="*" component={Header} />
+          <StripeContextProvider stripe={stripe}>
+            <PurchaseContextProvider>
+              <Switch>
+                <Route path="/store/:storeId" component={StoreDetail} />
+                <Route path="/checkout" component={Checkout} />
+                <Route path="/payment" component={Payment} />
+                <Route path="/pickup" component={Pickup} />
+                {/* @TODO: Not Found 404 page */}
+                <Route component={StoreDetail} />
+              </Switch>
+            </PurchaseContextProvider>
+          </StripeContextProvider>
+        </LanguageContextProvider>
+      </Route>
     </ApolloProvider>
   )
 }
