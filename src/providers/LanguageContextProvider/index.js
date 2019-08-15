@@ -27,6 +27,8 @@ const messages = {
   ja: MESSAGES_JA,
 }
 
+const defaultLocale = locales.de
+
 export const LanguageContext = createContext()
 
 function LanguageContextProvider({ children, match: { params }, location: { pathname } }) {
@@ -35,19 +37,19 @@ function LanguageContextProvider({ children, match: { params }, location: { path
       return locales[params.locale]
     }
     if (isBrowser) {
-      return navigator.language.split('_')[0] || localStorage.getItem('langLocale') || locales.en
+      return navigator.language.split('_')[0] || localStorage.getItem('langLocale') || defaultLocale
     }
-    return locales.en
+    return defaultLocale
   }, [params.locale, pathname])
 
   const [locale, setLocale] = useState(initialLocale)
 
   useEffect(() => {
-    localStorage.setItem('langLocale', locale || locales.en)
+    localStorage.setItem('langLocale', locale || defaultLocale)
   }, [locale])
 
   return (
-    <IntlProvider locale={locale || locales.en} messages={messages[locale || locales.en]}>
+    <IntlProvider locale={locale || defaultLocale} messages={messages[locale || defaultLocale]}>
       <LanguageContext.Provider value={{ locale, setLocale }}>
         {children}
       </LanguageContext.Provider>
