@@ -1,5 +1,6 @@
 const OfflinePlugin = require('offline-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { ReactLoadablePlugin } = require('react-loadable/webpack')
 
 module.exports = {
   modify: (config, { target, dev }) => {
@@ -21,6 +22,9 @@ module.exports = {
       appConfig.plugins = [
         ...config.plugins,
         new OfflinePlugin(offlineOptions),
+        new ReactLoadablePlugin({
+          filename: './build/react-loadable.json',
+        }),
       ]
 
       // minify JS for production build
