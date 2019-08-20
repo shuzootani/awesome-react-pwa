@@ -1,37 +1,49 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { hydrate } from 'react-dom'
+import Loadable from 'react-loadable'
 import * as OfflinePluginRuntime from 'offline-plugin/runtime'
 import App from './App'
 
-hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
-)
+Loadable.preloadReady().then(() => {
+  hydrate(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    document.getElementById('root')
+  )
+})
 
 if (module.hot) {
-  module.hot.accept()
+  module.hot.accept('./App', () => {
+    const NewApp = require('./App').default
+    Loadable.preloadReady().then(() => {
+      hydrate(
+        <BrowserRouter>
+          <NewApp />
+        </BrowserRouter>,
+        document.getElementById('root')
+      )
+    })
+  })
 }
 
 OfflinePluginRuntime.install({
   onInstalled: function onInstalled() {
-    console.log('OfflinePluginRuntime.onInstalled');
+    console.log('OfflinePluginRuntime.onInstalled')
   },
   onUpdateReady: function onUpdateReady() {
-    console.log('OfflinePluginRuntime.onUpdateReady');
+    console.log('OfflinePluginRuntime.onUpdateReady')
+    OfflinePluginRuntime.applyUpdate()
   },
   onUpdating: function onUpdating() {
-    console.log('OfflinePluginRuntime.onUpdating');
+    console.log('OfflinePluginRuntime.onUpdating')
   },
   onUpdated: function onUpdated() {
-    console.log('OfflinePluginRuntime.onUpdated');
+    console.log('OfflinePluginRuntime.onUpdated')
   },
-  // onUpdateReady: () => OfflinePluginRuntime.applyUpdate(),
-  // onUpdated: () => window.swUpdate = true,
-});
+})
 
 window.addEventListener('offline', () => {
-  console.log('Went offline!');
-});
+  console.log('Went offline!')
+})
