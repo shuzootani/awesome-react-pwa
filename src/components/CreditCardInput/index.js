@@ -6,7 +6,6 @@ const styles = {
   input: {
     base: {
       color: Color.DarkGreen,
-      fontWeight: 'bold',
     },
   },
 }
