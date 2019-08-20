@@ -8,7 +8,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     // Cache JS and CSS
-    /bundle\.(.+)\.(?:js|css)$/,
+    /(vendor|bundle)\.(.+)\.(?:js|css)$/,
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: 'bundle-cache'
     })

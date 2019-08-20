@@ -80,13 +80,13 @@ server
                   content="${req.url}"
                 />
                 <title>pickpack</title>
+                <link rel="preconnect dns-prefetch" href="${process.env.NODE_ENV === 'production' ? 'https://colugo.pickpack.de' : 'https://colugo-dev.pickpack.de'}">
                 <link rel="preconnect dns-prefetch" href="https://s3.eu-central-1.amazonaws.com">
                 <link rel="preconnect dns-prefetch" href="https://maps.googleapis.com">
-                ${assets.client.css ? `<link rel="preload" as="style" href="${assets.client.css}" onload="this.rel='stylesheet'">` : ''}
+                <link rel="preconnect dns-prefetch" href="https://js.stripe.com/v3/">
+                ${assets.client.css ? `<link href="${assets.client.css}">` : ''}
                 ${styleTags}
                 ${styles.map(style => `<link rel="preload" as="style" href="${style.file}" onload="this.rel='stylesheet'">`).join('\n')}
-                <script async defer id="stripe-js" src="https://js.stripe.com/v3/"></script>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.vendor.js}" async defer></script>` : `<script src="${assets.vendor.js}" async defer crossorigin></script>`}
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.client.js}" async defer></script>` : `<script src="${assets.client.js}" async defer crossorigin></script>`}
                 ${chunks.map(chunk => process.env.NODE_ENV === 'production' ? `<script async defer src="/${chunk.file}"></script>` : `<script src="http://${process.env.HOST}:${parseInt(process.env.PORT, 10) + 1}/${chunk.file}"></script>`).join('\n')}

@@ -4,7 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import client from './apolloClient'
 
 import Header from './components/Header'
-import StoreDetail from './pages/StoreDetail/Loadable'
+import StoreDetail from './pages/StoreDetail'
 import Checkout from './pages/Checkout/Loadable'
 import Payment from './pages/Payment/Loadable'
 import Pickup from './pages/Pickup/Loadable'
