@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import moment from 'moment'
 import Modal from '../../../components/Modal'
 import Icon from '../../../components/Icon'
 import Color from '../../../utils/color'
 import TimePicker from '../../../components/TimePicker'
-import { ELLIPSIS } from '../../../utils/styles'
+import { ELLIPSIS, FLEX_CENTER_CENTER } from '../../../utils/styles'
+import { getStoreSchedule } from '../../../utils/time'
+import { DateSelectContainer, DateSelectPanel } from './styled'
+import { HeaderSmall } from '../../../components/Text'
 
 const StoreLocationContainer = styled.div`
   min-width: 0;
@@ -29,21 +33,37 @@ const LocationName = styled.div`
 
 const StoreInfoSheet = styled.div`
   background: #fff;
-  display: flex;
+  ${FLEX_CENTER_CENTER};
+  flex-direction: column;
   width: 100%;
   margin: auto;
   border-radius: 4px;
 `
 
-function PickupTimeSelector(store) {
+const PICKUP_DATE = {
+  IMMEDIATE: 'Sofort',
+  TODAY: 'Heute',
+}
+
+function PickupTimeSelector({ store, onChange }) {
   const [open, setOpen] = useState(false)
+  const [pickupDate, setDate] = useState(PICKUP_DATE.TODAY)
+  const availableDateOptions = [PICKUP_DATE.IMMEDIATE, PICKUP_DATE.TODAY]
+
+  const storeSchedule = useMemo(() => getStoreSchedule(store.opening_hours), [
+    store,
+  ])
 
   function toggleModal() {
     setOpen(prevOpen => !prevOpen)
   }
 
-  function onChangeTime({ hour, minute }) {
-    toggleModal({ hour, minute })
+  function onChangeDate(date) {
+    setDate(date)
+  }
+
+  function onChangeTime(time) {
+    onChange(pickupDate === PICKUP_DATE.TODAY ? moment() : storeSchedule[pickupDate].date, time)
   }
 
   return (
@@ -55,12 +75,25 @@ function PickupTimeSelector(store) {
       {open && (
         <Modal onClose={toggleModal}>
           <StoreInfoSheet>
-            <TimePicker store={store} onChange={onChangeTime} />
+            <HeaderSmall>Wann wirst du da sein?</HeaderSmall>
+            <DateSelectContainer>
+              {availableDateOptions.map(date => (
+                <DateSelectPanel onClick={() => onChangeDate(date)}>
+                  {date}
+                </DateSelectPanel>
+              ))}
+            </DateSelectContainer>
+            <TimePicker store={store} onChange={onChangeTime} storeSchedule={storeSchedule} />
           </StoreInfoSheet>
         </Modal>
       )}
     </StoreLocationContainer>
   )
+}
+
+PickupTimeSelector.propTypes = {
+  store: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default PickupTimeSelector

@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import moment from 'moment'
 import { FormattedMessage } from 'react-intl'
-import { generateValidPickupTimes, getStoreSchedule } from '../../utils/time'
+import { generateValidPickupTimes } from '../../utils/time'
 import Button from '../Button'
-import { HeaderSmall } from '../Text'
 
 const LayoutContainer = styled.div`
   width: 100%;
@@ -16,8 +15,6 @@ const LayoutContainer = styled.div`
   align-items: center;
   padding: 1rem;
 `
-
-const ModalTitle = styled(HeaderSmall)``
 
 const TimePickerContainer = styled.div`
   display: flex;
@@ -49,16 +46,13 @@ function generatePickerLabels(timeSelection) {
   return { hours, minutes }
 }
 
-function TimePicker({ store, onChange }) {
+function TimePicker({ store, onChange, storeSchedule }) {
   const now = useMemo(() => moment(), [])
   const [values, setValues] = useState({
     hour: String(now.hour()),
     minute: String(now.minute()),
   })
 
-  const storeSchedule = useMemo(() => getStoreSchedule(store.opening_hours), [
-    store,
-  ])
   const dateSelection = Object.keys(storeSchedule)
   const schedule = dateSelection[0]
   const timeSelection = useMemo(
@@ -90,7 +84,6 @@ function TimePicker({ store, onChange }) {
 
   return (
     <LayoutContainer>
-      <ModalTitle>Wann wirst du da sein?</ModalTitle>
       <TimePickerContainer>
         <Picker
           optionGroups={options}
@@ -109,6 +102,7 @@ function TimePicker({ store, onChange }) {
 TimePicker.propTypes = {
   store: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  storeSchedule: PropTypes.object.isRequired,
 }
 
 export default TimePicker

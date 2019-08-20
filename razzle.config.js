@@ -1,6 +1,7 @@
 const OfflinePlugin = require('offline-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ReactLoadablePlugin } = require('react-loadable/webpack')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 module.exports = {
   modify: (config, { target, dev }) => {
@@ -19,11 +20,25 @@ module.exports = {
         safeToUseOptionalCaches: true,
       }
 
+      appConfig.optimization.splitChunks = {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/](react|react-dom|prop-types|styled-components)[\\/]/,
+            name: 'vendor',
+            chunks: 'initial',
+          },
+        },
+      }
+
       appConfig.plugins = [
         ...config.plugins,
         new OfflinePlugin(offlineOptions),
         new ReactLoadablePlugin({
           filename: './build/react-loadable.json',
+        }),
+        new MomentLocalesPlugin({
+          localesToKeep: ['de'], // en is included by default,
+          // @TODO: add 'ja'
         }),
       ]
 

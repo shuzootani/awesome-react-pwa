@@ -373,8 +373,7 @@ export const setPickupSchedule = (date = moment(), time) => {
   return pickup
 }
 
-export const getSelectedTimeIndex = (pickupTime, timeSelection) =>
-  (timeSelection.findIndex(x => x.label === pickupTime.label) || 0)
+export const getSelectedTimeIndex = (pickupTime, timeSelection) => (timeSelection.findIndex(x => x.label === pickupTime.label) || 0)
 
 const openingTimes = []
 

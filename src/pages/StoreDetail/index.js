@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { storeQuery, basketQuery } from '../../graphql/queries'
@@ -15,6 +15,8 @@ import Menu from './Menu'
 import CartButton from './CartButton'
 import PickupTimeSelector from './PickupTimeSelector'
 import { basketId } from '../../utils/localStorage'
+import { setPickupSchedule } from '../../utils/time'
+import { OrderContext } from '../../providers/OrderContextProvider'
 
 // storeId to test
 // str_u1jrt15jbudc
@@ -33,6 +35,14 @@ function StoreDetail({
     data: { basket },
   } = useQuery(basketQuery, { variables: { id: basketId } })
 
+  const { setPickup } = useContext(OrderContext)
+
+  function onChangePickup(date, time) {
+    const pickup = setPickupSchedule(date, time)
+    console.log({ pickup })
+    setPickup(pickup)
+  }
+
   return store ? (
     <StoreDetailContainer>
       <StoreImageContainer>
@@ -41,7 +51,7 @@ function StoreDetail({
         <BottomContainer>
           <StoreName>{store.name}</StoreName>
           <BottomButtonsContainer>
-            <PickupTimeSelector {...store} />
+            <PickupTimeSelector store={store} onChange={onChangePickup} />
             <CartButton
               basket={basket}
               navToCart={() => history.push('/checkout')}

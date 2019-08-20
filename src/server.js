@@ -15,9 +15,9 @@ import apolloClient from './apolloClient'
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
-server.use(compression())
 server
   .disable('x-powered-by')
+  .use(compression())
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', async (req, res) => {
     const context = {}
@@ -87,6 +87,7 @@ server
                 ${styles.map(style => `<link rel="preload" as="style" href="${style.file}" onload="this.rel='stylesheet'">`).join('\n')}
                 <script async defer id="stripe-js" src="https://js.stripe.com/v3/"></script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDm0ACk0sMZsL9MGBvITQK2c-AvrZQHZo8"></script>
+                ${process.env.NODE_ENV === 'production' ? `<script src="${assets.vendor.js}" async defer></script>` : `<script src="${assets.vendor.js}" async defer crossorigin></script>`}
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.client.js}" async defer></script>` : `<script src="${assets.client.js}" async defer crossorigin></script>`}
                 ${chunks.map(chunk => process.env.NODE_ENV === 'production' ? `<script async defer src="/${chunk.file}"></script>` : `<script src="http://${process.env.HOST}:${parseInt(process.env.PORT, 10) + 1}/${chunk.file}"></script>`).join('\n')}
             </head>
