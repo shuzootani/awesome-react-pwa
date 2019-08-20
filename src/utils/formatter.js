@@ -103,5 +103,6 @@ export function formatBasketItemInput(values) {
     })),
     comment: values.comment || null,
     is_promo: !!values.is_promo,
+    quantity: values.quantity,
   }
 }

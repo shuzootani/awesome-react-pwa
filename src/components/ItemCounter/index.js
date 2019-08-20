@@ -5,6 +5,7 @@ import FlexBox from '../FlexBox'
 import { HeaderSmall } from '../Text'
 import Color from '../../utils/color'
 import { FLEX_CENTER_CENTER } from '../../utils/styles'
+import Icon from '../Icon'
 import Button from '../Button'
 
 const CounterContainer = styled(FlexBox)`
@@ -31,16 +32,27 @@ const CurrentValue = styled(HeaderSmall)`
 `
 
 function ItemCounter({
-  value, inc, dec, max,
+  value, inc, dec, max, remove,
 }) {
+
+  function handleDecrement() {
+    if (value > 1) {
+      dec()
+    } else {
+      remove()
+    }
+  }
+
   return (
     <CounterContainer>
-      {<CounterButton onClick={() => dec()}>-</CounterButton>}
+      <CounterButton onClick={handleDecrement}>
+        {value > 1 ? '-' : <Icon name="trash" />}
+      </CounterButton>
       <CurrentValue>{value}</CurrentValue>
       {
         <CounterButton
-          onClick={() => inc()}
-          disabled={value >= max}
+          onClick={inc}
+          disabled={!!max && value >= max}
         >
           +
         </CounterButton>
@@ -53,7 +65,12 @@ ItemCounter.propTypes = {
   value: PropTypes.number.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired,
-  max: PropTypes.number.isRequired,
+  remove: PropTypes.func.isRequired,
+  max: PropTypes.number,
+}
+
+ItemCounter.defaultProps = {
+  max: null,
 }
 
 export default ItemCounter

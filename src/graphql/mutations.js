@@ -192,8 +192,8 @@ export const addToBasket = gql`
 `
 
 export const removeFromBasket = gql`
-  mutation($id: ID!, $product: BasketItemInput!) {
-    removeFromBasket(id: $id, product: $product) {
+  mutation($id: ID!, $item_id: ID!) {
+    removeFromBasket(id: $id, item_id: $item_id) {
       ...BasketFragment
     }
   }

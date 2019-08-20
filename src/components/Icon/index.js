@@ -9,6 +9,7 @@ import {
   FiCheck,
   FiPlus,
   FiShoppingCart,
+  FiTrash,
 } from 'react-icons/fi'
 
 const iconMap = {
@@ -20,6 +21,7 @@ const iconMap = {
   check: <FiCheck />,
   plus: <FiPlus />,
   cart: <FiShoppingCart />,
+  trash: <FiTrash />,
 }
 
 const IconContainer = styled.div`
