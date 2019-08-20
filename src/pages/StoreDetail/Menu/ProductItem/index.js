@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { formatPrice } from '../../../../utils/formatter'
 import {
@@ -16,6 +16,13 @@ import ProductOrderSheet from './ProductOrderSheet'
 
 function ProductListItem({ addToBasket, product }) {
   const [open, setOpen] = useState(false)
+  const productRowRef = useRef()
+
+  useEffect(() => {
+    if (open && productRowRef.current) {
+      productRowRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [open])
 
   function handleClick() {
     setOpen(prevOpen => !prevOpen)
@@ -28,7 +35,7 @@ function ProductListItem({ addToBasket, product }) {
 
   return (
     <React.Fragment>
-      <ProductItemContainer key={product.id} onClick={handleClick}>
+      <ProductItemContainer ref={productRowRef} key={product.id} onClick={handleClick}>
         <ProductItem>
           <ProductImageContainer>
             <ProductImage src={product.image} />
