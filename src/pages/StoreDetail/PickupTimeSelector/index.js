@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import moment from 'moment'
@@ -7,9 +7,6 @@ import Icon from '../../../components/Icon'
 import Color from '../../../utils/color'
 import TimePicker from '../../../components/TimePicker'
 import { ELLIPSIS, FLEX_CENTER_CENTER } from '../../../utils/styles'
-import { getStoreSchedule } from '../../../utils/time'
-import { DateSelectContainer, DateSelectPanel } from './styled'
-import { HeaderSmall } from '../../../components/Text'
 
 const StoreLocationContainer = styled.div`
   min-width: 0;
@@ -40,30 +37,11 @@ const StoreInfoSheet = styled.div`
   border-radius: 4px;
 `
 
-const PICKUP_DATE = {
-  IMMEDIATE: 'Sofort',
-  TODAY: 'Heute',
-}
-
 function PickupTimeSelector({ store, onChange }) {
   const [open, setOpen] = useState(false)
-  const [pickupDate, setDate] = useState(PICKUP_DATE.TODAY)
-  const availableDateOptions = [PICKUP_DATE.IMMEDIATE, PICKUP_DATE.TODAY]
-
-  const storeSchedule = useMemo(() => getStoreSchedule(store.opening_hours), [
-    store,
-  ])
 
   function toggleModal() {
     setOpen(prevOpen => !prevOpen)
-  }
-
-  function onChangeDate(date) {
-    setDate(date)
-  }
-
-  function onChangeTime(time) {
-    onChange(pickupDate === PICKUP_DATE.TODAY ? moment() : storeSchedule[pickupDate].date, time)
   }
 
   return (
@@ -75,15 +53,10 @@ function PickupTimeSelector({ store, onChange }) {
       {open && (
         <Modal onClose={toggleModal}>
           <StoreInfoSheet>
-            <HeaderSmall>Wann wirst du da sein?</HeaderSmall>
-            <DateSelectContainer>
-              {availableDateOptions.map(date => (
-                <DateSelectPanel onClick={() => onChangeDate(date)}>
-                  {date}
-                </DateSelectPanel>
-              ))}
-            </DateSelectContainer>
-            <TimePicker store={store} onChange={onChangeTime} storeSchedule={storeSchedule} />
+            <TimePicker
+              store={store}
+              onChange={onChange}
+            />
           </StoreInfoSheet>
         </Modal>
       )}
