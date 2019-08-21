@@ -16,10 +16,9 @@ export const Color = {
   DarkSkyBlue: '#2188E5',
 }
 
-export const Scheme = {
-  default: {
-    color: Color,
-  },
+export const AirportAppColor = {
+  Red: 'rgb(217, 47, 42)',
+  Turquoise: 'rgb(35, 161, 180)',
 }
 
 export default Color

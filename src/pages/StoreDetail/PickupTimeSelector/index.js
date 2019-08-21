@@ -4,17 +4,16 @@ import styled from 'styled-components'
 import moment from 'moment'
 import Modal from '../../../components/Modal'
 import Icon from '../../../components/Icon'
-import Color from '../../../utils/color'
 import TimePicker from '../../../components/TimePicker'
 import { ELLIPSIS, FLEX_CENTER_CENTER } from '../../../utils/styles'
 
-const StoreLocationContainer = styled.div`
+const Container = styled.div`
   min-width: 0;
   margin-right: 4px;
 `
 
-const LocationButton = styled.div`
-  background: ${Color.Cyan};
+const Button = styled.div`
+  background: ${({ theme }) => theme.color.secondary};
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -23,12 +22,12 @@ const LocationButton = styled.div`
   padding: 0.5rem 1.5rem;
 `
 
-const LocationName = styled.div`
+const Label = styled.div`
   padding-left: 4px;
   ${ELLIPSIS};
 `
 
-const StoreInfoSheet = styled.div`
+const Sheet = styled.div`
   background: #fff;
   ${FLEX_CENTER_CENTER};
   flex-direction: column;
@@ -45,22 +44,22 @@ function PickupTimeSelector({ store, onChange }) {
   }
 
   return (
-    <StoreLocationContainer>
-      <LocationButton onClick={toggleModal}>
+    <Container>
+      <Button onClick={toggleModal}>
         <Icon name="clock" />
-        <LocationName>{moment().format('HH:mm')}</LocationName>
-      </LocationButton>
+        <Label>{moment().format('HH:mm')}</Label>
+      </Button>
       {open && (
         <Modal onClose={toggleModal}>
-          <StoreInfoSheet>
+          <Sheet>
             <TimePicker
               store={store}
               onChange={onChange}
             />
-          </StoreInfoSheet>
+          </Sheet>
         </Modal>
       )}
-    </StoreLocationContainer>
+    </Container>
   )
 }
 

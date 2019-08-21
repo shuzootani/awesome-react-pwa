@@ -50,5 +50,5 @@ export const ProductDescription = styled(ButtonSmall)`
 export const ProductPrice = styled.div`
   font-size: 0.8rem;
   white-space: pre;
-  color: ${props => (props.discounted ? Color.Yellow : Color.Cyan)};
+  color: ${({ theme, discounted }) => (discounted ? Color.Yellow : theme.color.secondary)};
 `

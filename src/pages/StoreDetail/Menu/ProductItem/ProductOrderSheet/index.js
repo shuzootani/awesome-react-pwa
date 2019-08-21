@@ -8,7 +8,7 @@ import {
   TitleContainer,
   TitleOption,
   ExtrasTitle,
-  ExtrasCyanTitle,
+  ExtrasHighlight,
   ExtraPrice,
   ExtraTitle,
   ListContainer,
@@ -126,13 +126,13 @@ function OrderSheet({ product, addToBasket }) {
                 <TitleOption>
                   <ExtrasTitle>{group.name}</ExtrasTitle>
                   {group.maximum_extras && group.items.length > group.maximum_extras ? (
-                    <ExtrasCyanTitle>
+                    <ExtrasHighlight>
                       {`(max. ${group.maximum_extras})`}
-                    </ExtrasCyanTitle>
+                    </ExtrasHighlight>
                   ) : (
-                    <ExtrasCyanTitle>
+                    <ExtrasHighlight>
                       {!group.is_multiselect && '(max. 1)'}
-                    </ExtrasCyanTitle>
+                    </ExtrasHighlight>
                   )}
                 </TitleOption>
                 <StyledIcon>

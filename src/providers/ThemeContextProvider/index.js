@@ -1,25 +1,33 @@
-import React, { createContext } from 'react'
+import React, { useState, createContext } from 'react'
 import PropTypes from 'prop-types'
-import { Scheme } from '../../utils/color'
+import { ThemeProvider } from 'styled-components'
+import { Theme } from './theme'
 
 export const ThemeContext = createContext()
 
-function ThemeContextProvider({ children, theme }) {
-  const styles = Scheme[theme] || Scheme.default
+// theme options
+// 'default' : pick_pack style guide
+// 'airport' : airport-app style guide
+
+function ThemeContextProvider({ children, defaultTheme }) {
+  const [theme, setTheme] = useState(Theme[defaultTheme] || Theme.default)
   return (
-    <ThemeContext.Provider value={{ styles }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        {children}
+      </ThemeContext.Provider>
+    </ThemeProvider>
   )
 }
 
 ThemeContextProvider.propTypes = {
   children: PropTypes.any.isRequired,
-  theme: PropTypes.string,
+  defaultTheme: PropTypes.string,
 }
 
 ThemeContextProvider.defaultProps = {
-  theme: 'default',
+  // defaultTheme: 'default',
+  defaultTheme: 'airport',
 }
 
 export default ThemeContextProvider

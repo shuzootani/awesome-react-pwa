@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Button from '../Button'
 import { HeaderMed } from '../Text'
-import Color from '../../utils/color'
 import { FLEX_CENTER_CENTER } from '../../utils/styles'
 
 export const LayoutContainer = styled.div`
@@ -31,11 +30,11 @@ export const DateSelectContainer = styled.div`
 `
 
 export const DateSelectPanel = styled.div`
-  border: 1px solid ${Color.DarkGreen};
+  border: 1px solid ${({ theme }) => theme.color.text};
   border-radius: 2px;
   ${FLEX_CENTER_CENTER};
   padding: 0.5rem;
-  color: ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.text};
   margin: 0 0.3rem;
 `
 

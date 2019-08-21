@@ -26,7 +26,7 @@ const BaseTextArea = styled.textarea`
   font-weight: 500;
   &:focus,
   &:active {
-    border-color: ${Color.DarkGreen};
+    border-color: ${({ theme }) => theme.color.primary};
   }
 `
 

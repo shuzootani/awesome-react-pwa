@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import FlexBox from '../../components/FlexBox'
 
 export const CheckoutContainer = styled.div`
-  padding: 1.5rem;
+  padding: 0 1rem;
 `
 
 export const ProductListContainer = styled.div``

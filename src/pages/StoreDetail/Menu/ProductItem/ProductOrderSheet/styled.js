@@ -16,12 +16,12 @@ export const LabelContainer = styled.div``
 
 export const Label = styled.div`
   font-weight: bold;
-  color: ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.primary};
 `
 
 export const SheetProductDescription = styled.div`
   font-size: 0.7rem;
-  color: ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.primary};
   padding: 0.5rem;
 `
 
@@ -39,8 +39,8 @@ export const BottomSheetButton = styled.div`
 export const CounterButton = styled.div`
   padding: 0.5rem;
   margin: 0 2rem;
-  color: ${Color.DarkGreen};
-  border: 1px solid ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.primary};
+  border: 1px solid ${({ theme }) => theme.color.primary};
   background: #fff;
 `
 
@@ -49,8 +49,8 @@ export const ExtrasTitle = styled(HeaderSmall)`
   align-items: center;
 `
 
-export const ExtrasCyanTitle = styled(HeaderSmall)`
-  color: ${Color.Cyan};
+export const ExtrasHighlight = styled(HeaderSmall)`
+  color: ${({ theme }) => theme.color.secondary};
 `
 
 export const TitleContainer = styled.div`
@@ -61,7 +61,7 @@ export const TitleContainer = styled.div`
 `
 
 export const StyledIcon = styled.div`
-  color: ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.primary};
   font-size: 1.2rem;
 `
 
@@ -113,6 +113,6 @@ export const AddProductButton = styled(Button)`
 `
 
 export const PlusIcon = styled(Icon)`
-  font-size: 1.5rem;
-  padding: 0.2rem 0 0.2rem 0.5rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
 `

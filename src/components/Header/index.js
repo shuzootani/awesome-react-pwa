@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Icon from '../Icon'
 import zIndex from '../../utils/zIndex'
-import Color from '../../utils/color'
 
 const ContainerStyle = styled.div`
   position: ${props => (props.drawBehind ? 'absolute' : 'sticky')};
@@ -15,7 +14,7 @@ const ContainerStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${props => (props.drawBehind ? '#fff' : Color.DarkGreen)};
+  color: ${({ drawBehind, theme }) => (drawBehind ? '#fff' : theme.color.text)};
   ${props => props.drawBehind && 'box-shadow: rgba(0, 0, 0, 0.1)'};
 `
 

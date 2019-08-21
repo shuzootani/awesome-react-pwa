@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Color from '../../utils/color'
 
 function Text() {
   return <div>Reusable Text Components</div>
@@ -21,18 +20,18 @@ export const HeaderSmallRight = styled(HeaderSmall)`
 `
 
 export const HeaderSmallPrice = styled(HeaderSmall)`
-  color: ${Color.Cyan};
+  color: ${({ theme }) => theme.color.secondary};
   text-align: ${props => (props.center ? 'center' : 'left')};
 `
 
 export const HeaderMed = styled(Header)`
   font-size: 1.2rem;
-  color: ${props => props.color || Color.DarkGreen};
+  color: ${({ color, theme }) => color || theme.color.text};
 `
 
 export const HeaderBig = styled(Header)`
   font-size: 1.5rem;
-  color: ${props => props.color || Color.DarkGreen};
+  color: ${({ color, theme }) => color || theme.color.text};
 `
 
 export const ButtonSmall = styled.div`

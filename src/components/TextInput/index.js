@@ -11,15 +11,20 @@ const BaseTextInput = styled.input`
   padding: 0.5rem 0;
   font-size: 1rem;
   font-weight: 500;
-  color: ${({ error }) => (error ? Color.Yellow : Color.DarkGreen)};
-  caret-color: ${({ error }) => (error ? Color.Yellow : Color.DarkGreen)};
+  color: ${({ error, theme }) => (error ? Color.Yellow : theme.color.text)};
+  caret-color: ${({ error, theme }) => (error ? Color.Yellow : theme.color.primary)};
   &:active,
   &:focus {
-    border-color: ${({ error }) => (error ? Color.Yellow : Color.DarkGreen)};
+    border-color: ${({ error, theme }) => (error ? Color.Yellow : theme.color.primary)};
     & + span {
       transform: translateY(-100%);
       font-size: 0.7rem;
-      color: ${Color.DarkGreen};
+      color: ${({ theme }) => theme.color.primary};
+    }
+  }
+  &:valid:not(:focus) {
+    & + span {
+      display: none;
     }
   }
 `
@@ -35,6 +40,7 @@ const Placeholder = styled.span`
   transition: 0.2s ease;
   color: ${Color.CoolGrey};
   padding-bottom: 0.5rem;
+  font-size: 0.8rem;
 `
 
 function TextInput(props) {

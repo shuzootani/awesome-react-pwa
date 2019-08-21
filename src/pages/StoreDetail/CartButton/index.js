@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Icon from '../../../components/Icon'
-import Color from '../../../utils/color'
 import { FLEX_CENTER_CENTER } from '../../../utils/styles'
 
 const CartButtonContainer = styled.div`
@@ -12,7 +11,7 @@ const CartButtonContainer = styled.div`
 const CartIconButton = styled(Icon)`
   margin-left: 4px;
   ${FLEX_CENTER_CENTER};
-  background: ${Color.Cyan};
+  background: ${({ theme }) => theme.color.secondary};
   color: #fff;
   width: 2.5rem;
   height: 2.5rem;
@@ -23,7 +22,7 @@ const Badge = styled.div`
   min-width: min-content;
   min-height: min-content;
   border-radius: 50%;
-  background: red;
+  background: ${({ theme }) => theme.color.accent};
   color: #fff;
   position: absolute;
   top: -0.5rem;

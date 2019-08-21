@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FlexBox from '../FlexBox'
 import { HeaderSmall } from '../Text'
-import Color from '../../utils/color'
 import { FLEX_CENTER_CENTER } from '../../utils/styles'
 import Icon from '../Icon'
 import Button from '../Button'
@@ -14,9 +13,9 @@ const CounterContainer = styled(FlexBox)`
 `
 
 const CounterButton = styled(Button)`
-  color: ${Color.DarkGreen};
+  color: ${({ theme }) => theme.color.primary};
   background: transparent;
-  border: 1px solid ${Color.DarkGreen};
+  border: 1px solid ${({ theme }) => theme.color.primary};
   border-radius: 2px;
   ${FLEX_CENTER_CENTER};
   padding: 2px 0.5rem;

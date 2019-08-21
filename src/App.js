@@ -10,6 +10,7 @@ import Payment from './pages/Payment/Loadable'
 import Pickup from './pages/Pickup/Loadable'
 import OrderContextProvider from './providers/OrderContextProvider'
 import LanguageContextProvider from './providers/LanguageContextProvider'
+import ThemeContextProvider from './providers/ThemeContextProvider'
 
 require('./App.css')
 
@@ -18,17 +19,19 @@ function App() {
     <ApolloProvider client={client}>
       <Route path="/:locale?">
         <LanguageContextProvider>
-          <Route path="*" component={Header} />
-          <OrderContextProvider>
-            <Switch>
-              <Route path="/store/:storeId" component={StoreDetail} />
-              <Route path="/checkout" component={Checkout} />
-              <Route path="/payment" component={Payment} />
-              <Route path="/pickup" component={Pickup} />
-              {/* @TODO: Not Found 404 page */}
-              <Route component={StoreDetail} />
-            </Switch>
-          </OrderContextProvider>
+          <ThemeContextProvider>
+            <Route path="*" component={Header} />
+            <OrderContextProvider>
+              <Switch>
+                <Route path="/store/:storeId" component={StoreDetail} />
+                <Route path="/checkout" component={Checkout} />
+                <Route path="/payment" component={Payment} />
+                <Route path="/pickup" component={Pickup} />
+                {/* @TODO: Not Found 404 page */}
+                <Route component={StoreDetail} />
+              </Switch>
+            </OrderContextProvider>
+          </ThemeContextProvider>
         </LanguageContextProvider>
       </Route>
     </ApolloProvider>

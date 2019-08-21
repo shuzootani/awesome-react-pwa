@@ -4,7 +4,7 @@ import Color from '../../utils/color'
 import TextInput from '../../components/TextInput'
 
 export const PaymentPageContainer = styled.div`
-  padding: 2rem;
+  padding: 0 1rem;
 `
 
 export const PaymentMethodList = styled.div`
@@ -18,8 +18,15 @@ export const PaymentFormContainer = styled.form`
 `
 
 export const InputContainer = styled.div`
-  border-bottom: 1px solid ${({ focused }) => focused ? Color.Petrol : Color.CoolGrey};
+  border-bottom: 1px solid ${({ focused, theme }) => focused ? theme.color.primary : Color.CoolGrey};
   padding: 0.5rem 0;
+  input {
+    color: ${({ theme }) => theme.color.text};
+    &:active,
+    &:focus {
+      border-color: ${({ theme }) => theme.color.primary};
+    }
+  }
 `
 
 export const NameInput = styled(TextInput)`

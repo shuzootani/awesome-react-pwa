@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Icon from '../../../components/Icon'
 import { FLEX_CENTER_CENTER } from '../../../utils/styles'
-import Color from '../../../utils/color'
 import { HeaderSmall } from '../../../components/Text'
 
 const Row = styled.div`
@@ -26,7 +25,7 @@ const CheckMark = styled.div`
   width: 1rem;
   height: 1rem;
   ${FLEX_CENTER_CENTER}
-  color: ${Color.Cyan};
+  color: ${({ theme }) => theme.color.secondary};
   margin-right: 1rem;
 `
 

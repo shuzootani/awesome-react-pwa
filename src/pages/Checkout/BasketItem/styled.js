@@ -39,5 +39,5 @@ position: absolute;
 top: 1rem;
 right: 0;
 font-size: 0.8rem;
-color: ${props => props.discounted ? Color.Yellow : Color.Cyan};
+color: ${({ theme, discounted }) => (discounted ? Color.Yellow : theme.color.secondary)};
 `

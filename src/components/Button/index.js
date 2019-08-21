@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import Color from '../../utils/color'
 
 const BasicButton = styled.button`
-  background: ${props => props.color || Color.Petrol};
+  background: ${({ color, theme }) => color || theme.color.primary};
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   border-radius: ${props => props.round ? '20px' : '2px'};
   display: flex;

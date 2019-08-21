@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Color from '../../../utils/color'
 import LazyImage from '../../../components/LazyImage'
 
 export const MenuContainer = styled.div`
@@ -29,9 +28,9 @@ export const ProductCategoryTabs = styled.div`
 export const Tab = styled.div`
   padding: 1rem;
   white-space: nowrap;
-  color: ${({ active }) => (active ? Color.Cyan : Color.DarkGreen)};
+  color: ${({ active, theme }) => (active ? theme.color.primary : theme.color.text)};
   border-bottom: 3px solid
-    ${({ active }) => (active ? Color.Cyan : 'transparent')};
+    ${({ active, theme }) => (active ? theme.color.primary : 'transparent')};
 `
 
 export const ProductList = styled.div`
@@ -41,19 +40,19 @@ export const CategoryLabelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid ${Color.Cyan};
-  border-bottom: 1px solid ${Color.Cyan};
+  border-top: 1px solid ${({ theme }) => theme.color.primary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.primary};
   padding: 0.2rem;
 `
 
 export const CategoryIcon = styled.img`
   width: 40px;
   height: 40px;
-  color: ${Color.Cyan};
+  fill: ${({ theme }) => theme.color.primary};
 `
 
 export const CategoryLabel = styled.div`
-  color: ${Color.Cyan};
+  color: ${({ theme }) => theme.color.primary};
   font-size: 1.1rem;
 `
 export const ProductImage = styled(LazyImage)`
