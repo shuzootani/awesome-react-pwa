@@ -19,14 +19,14 @@ function StripeContextProvider({ children }) {
   return (
     <StripeProvider stripe={stripe}>
       <StripeContext.Provider value={{ stripe }}>
-        {children}
+        {typeof children === 'function' ? children(stripe) : children}
       </StripeContext.Provider>
     </StripeProvider>
   )
 }
 
 StripeContextProvider.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.any.isRequired,
 }
 
 export default StripeContextProvider

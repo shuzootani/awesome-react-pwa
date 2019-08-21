@@ -106,3 +106,12 @@ export function formatBasketItemInput(values) {
     quantity: values.quantity,
   }
 }
+
+export function formatOrderItems(items) {
+  return items.map((item) => {
+    const {
+      id, is_promo: isPromo, __typename, ...onlyNecessary
+    } = item
+    return onlyNecessary
+  })
+}
