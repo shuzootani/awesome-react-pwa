@@ -28,20 +28,22 @@ if (module.hot) {
   })
 }
 
-OfflinePluginRuntime.install({
-  onInstalled: function onInstalled() {
-    console.log('OfflinePluginRuntime.onInstalled')
-  },
-  onUpdateReady: function onUpdateReady() {
-    console.log('OfflinePluginRuntime.onUpdateReady')
-    OfflinePluginRuntime.applyUpdate()
-  },
-  onUpdating: function onUpdating() {
-    console.log('OfflinePluginRuntime.onUpdating')
-  },
-  onUpdated: function onUpdated() {
-    console.log('OfflinePluginRuntime.onUpdated')
-  },
+window.addEventListener('load', () => {
+  OfflinePluginRuntime.install({
+    onInstalled: function onInstalled() {
+      console.log('OfflinePluginRuntime.onInstalled')
+    },
+    onUpdateReady: function onUpdateReady() {
+      console.log('OfflinePluginRuntime.onUpdateReady')
+      OfflinePluginRuntime.applyUpdate()
+    },
+    onUpdating: function onUpdating() {
+      console.log('OfflinePluginRuntime.onUpdating')
+    },
+    onUpdated: function onUpdated() {
+      console.log('OfflinePluginRuntime.onUpdated')
+    },
+  })
 })
 
 window.addEventListener('offline', () => {

@@ -45,7 +45,7 @@ export const CategoryLabelContainer = styled.div`
   padding: 0.2rem;
 `
 
-export const CategoryIcon = styled.img`
+export const CategoryIcon = styled(LazyImage)`
   width: 40px;
   height: 40px;
   fill: ${({ theme }) => theme.color.primary};

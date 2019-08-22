@@ -8,7 +8,7 @@
 		"build:serve": "razzle build && yarn start:prod",
 		"test": "razzle test --env=jsdom",
 		"start:prod": "NODE_ENV=production node build/server.js",
-		"deploy": "now --target production"
+		"deploy": "now --prod"
 	},
 	"husky": {
 		"hooks": {

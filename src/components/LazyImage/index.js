@@ -23,6 +23,7 @@ const ImageComponent = styled.img`
   }
 
   ${props => props.imageLoaded
+    || props.noPlaceholder
     || `
     animation-name: placeHolder;
     animation-duration: 1.5s;
@@ -54,6 +55,10 @@ function LazyImage({ src, ...props }) {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return
 
+      if (entry.intersectionRatio > 0) {
+        observer.unobserve(entry.target)
+      }
+
       if (!imageLoaded) {
         const downloadingImage = new Image()
         downloadingImage.onload = () => {
@@ -63,22 +68,32 @@ function LazyImage({ src, ...props }) {
           }
         }
         downloadingImage.src = src
+        object.unobserve(entry.target)
       }
 
       object.unobserve(entry.target)
     })
   }
 
-  return <ImageComponent {...props} ref={imageRef} alt="" imageLoaded={imageLoaded} />
+  return (
+    <ImageComponent
+      {...props}
+      alt=""
+      ref={imageRef}
+      imageLoaded={imageLoaded}
+    />
+  )
 }
 
 LazyImage.propTypes = {
   src: PropTypes.string.isRequired,
   size: PropTypes.string,
+  noPlaceholder: PropTypes.bool,
 }
 
 LazyImage.defaultProps = {
   size: null,
+  noPlaceholder: false,
 }
 
 export default LazyImage

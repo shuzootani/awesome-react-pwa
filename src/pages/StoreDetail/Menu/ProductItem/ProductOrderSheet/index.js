@@ -138,7 +138,7 @@ function OrderSheet({ product, addToBasket }) {
                 <StyledIcon>
                   <Icon
                     name={
-                      open[group.extra_group_id] ? 'angle_up' : 'angle_down'
+                      openGroup[group.extra_group_id] ? 'angle_up' : 'angle_down'
                     }
                   />
                 </StyledIcon>

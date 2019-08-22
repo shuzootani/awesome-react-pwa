@@ -94,7 +94,7 @@ function Menu({ storeId, basket }) {
                   sectionRefs[index] = ref
                 }}
               >
-                <CategoryIcon src={category.icon} />
+                <CategoryIcon src={category.icon} alt="" noPlaceholder />
                 <CategoryLabel>{category.name}</CategoryLabel>
               </CategoryLabelContainer>
               {category.products.map(product => (
