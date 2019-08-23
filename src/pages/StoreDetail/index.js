@@ -15,7 +15,6 @@ import Menu from './Menu'
 import CartButton from './CartButton'
 import PickupTimeSelector from './PickupTimeSelector'
 import { basketId } from '../../utils/localStorage'
-import { setPickupSchedule } from '../../utils/time'
 import { OrderContext } from '../../providers/OrderContextProvider'
 
 // storeId to test
@@ -35,13 +34,7 @@ function StoreDetail({
     data: { basket },
   } = useQuery(basketQuery, { variables: { id: basketId } })
 
-  const { setPickup } = useContext(OrderContext)
-
-  function onChangePickup(date, time) {
-    const pickup = setPickupSchedule(date, time)
-    console.log({ pickup })
-    setPickup(pickup)
-  }
+  const { pickup, setPickup } = useContext(OrderContext)
 
   return store ? (
     <StoreDetailContainer>
@@ -51,7 +44,7 @@ function StoreDetail({
         <BottomContainer>
           <StoreName>{store.name}</StoreName>
           <BottomButtonsContainer>
-            <PickupTimeSelector store={store} onChange={onChangePickup} />
+            <PickupTimeSelector pickupTime={pickup.time} store={store} onChange={setPickup} />
             <CartButton
               basket={basket}
               navToCart={() => history.push('/checkout')}

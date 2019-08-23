@@ -1,4 +1,5 @@
 {
-  "pages.StoreDetail.AddToBasket": "IN DEN WARENKORB",
-  "components.TimePicker.ResolveButton": "UM {time} ABHOLEN"
+	"pages.StoreDetail.AddToBasket": "IN DEN WARENKORB",
+	"components.TimePicker.ResolveButton": "UM {time} ABHOLEN",
+	"components.TimePicker.Title": "Wann wirst du da sein?"
 }

@@ -34,7 +34,11 @@ function Checkbox({ checked, onClick }) {
 
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+}
+
+Checkbox.defaultProps = {
+  onClick: () => {},
 }
 
 export default Checkbox

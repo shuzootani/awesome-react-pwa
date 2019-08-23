@@ -36,25 +36,31 @@ const Sheet = styled.div`
   border-radius: 4px;
 `
 
-function PickupTimeSelector({ store, onChange }) {
+function PickupTimeSelector({ pickupTime, store, onChange }) {
   const [open, setOpen] = useState(false)
 
   function toggleModal() {
     setOpen(prevOpen => !prevOpen)
   }
 
+  function handleChange(pickup) {
+    onChange(pickup)
+    toggleModal()
+  }
+
   return (
     <Container>
       <Button onClick={toggleModal}>
         <Icon name="clock" />
-        <Label>{moment().format('HH:mm')}</Label>
+        <Label>{moment(pickupTime || new Date()).format('HH:mm')}</Label>
       </Button>
       {open && (
         <Modal onClose={toggleModal}>
           <Sheet>
             <TimePicker
+              pickupTime={pickupTime}
               store={store}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </Sheet>
         </Modal>
@@ -66,6 +72,11 @@ function PickupTimeSelector({ store, onChange }) {
 PickupTimeSelector.propTypes = {
   store: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  pickupTime: PropTypes.object, // Moment object
+}
+
+PickupTimeSelector.defaultProps = {
+  pickupTime: null,
 }
 
 export default PickupTimeSelector
