@@ -1,0 +1,55 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/web
+  docker:
+    - image: circleci/node:11.15.0
+
+commands:
+  pre_build:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+jobs:
+  deploy_production:
+    <<: *defaults
+    steps:
+      - pre_build
+      - run:
+          name: build
+          command: npm run build
+      - run:
+        name: install Now CLI
+        command: sudo npm install --global --unsafe-perm now
+      - run:
+          name: deploy to Now
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json alias
+            elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json alias
+            else
+                ./.now/now.json
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json
+                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json alias
+            fi
+
+workflows:
+  version: 2
+  deploy_web:
+    jobs:
+      - deploy_production:
+          filters:
+            branches:
+              only: master
