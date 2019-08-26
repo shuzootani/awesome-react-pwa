@@ -23,7 +23,6 @@ jobs:
   deploy_production:
     <<: *defaults
     steps:
-      - pre_build
       - run:
           name: build
           command: npm run build
@@ -49,6 +48,7 @@ workflows:
   version: 2.1
   deploy_web:
     jobs:
+      - pre_build
       - deploy_production:
           filters:
             branches:
