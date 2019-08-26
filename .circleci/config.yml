@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
   working_directory: ~/web
@@ -23,7 +23,7 @@ jobs:
   deploy_production:
     <<: *defaults
     steps:
-      - pre_build:
+      - pre_build
       - run:
           name: build
           command: npm run build
@@ -46,7 +46,7 @@ jobs:
             fi
 
 workflows:
-  version: 2
+  version: 2.1
   deploy_web:
     jobs:
       - deploy_production:
