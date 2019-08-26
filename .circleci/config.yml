@@ -29,15 +29,15 @@ jobs:
           name: deploy to Now
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.production.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.production.json alias
             elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.staging.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.staging.json alias
             else
                 ./.now/now.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.json alias
             fi
 
 workflows:
