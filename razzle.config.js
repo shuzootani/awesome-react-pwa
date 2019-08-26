@@ -2,9 +2,10 @@ const OfflinePlugin = require('offline-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ReactLoadablePlugin } = require('react-loadable/webpack')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
-  modify: (config, { target, dev }) => {
+  modify: (config, { target }) => {
     const appConfig = config
 
     if (target === 'web') {
@@ -40,30 +41,34 @@ module.exports = {
           localesToKeep: ['de'], // en is included by default,
           // @TODO: add 'ja'
         }),
+        new BundleAnalyzerPlugin(),
       ]
 
-      // minify JS for production build
-      if (!dev) {
-        appConfig.plugins = [
-          ...appConfig.plugins,
-          new TerserPlugin({
-            terserOptions: {
-              parse: {},
-              compress: {
-                drop_console: true,
-              },
-              output: {
-                comments: false,
-                // ascii_only: true,
-              },
-              safari10: true,
+      // minify JS
+      appConfig.plugins = [
+        ...appConfig.plugins,
+        new TerserPlugin({
+          terserOptions: {
+            parse: {},
+            compress: {
+              drop_console: true,
             },
-            cache: true,
-            parallel: true,
-            sourceMap: true,
-          }),
-        ]
-      }
+            output: {
+              comments: false,
+              // ascii_only: true,
+            },
+            safari10: true,
+          },
+          cache: true,
+          parallel: true,
+          sourceMap: true,
+        }),
+      ]
+    }
+
+    appConfig.performance = {
+      ...appConfig.performance,
+      hints: false,
     }
 
     return appConfig
