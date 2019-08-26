@@ -23,21 +23,21 @@ jobs:
           name: build
           command: npm run build
       - run:
-        name: install Now CLI
-        command: sudo npm install --global --unsafe-perm now
+          name: install Now CLI
+          command: sudo npm install --global --unsafe-perm now
       - run:
           name: deploy to Now
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.production.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.production.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.production.json alias
             elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.staging.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.staging.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.staging.json alias
             else
                 ./.now/now.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json
-                now --token $NOW_DEPLOY_TOKEN --local-config .now/now.json alias
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.json
+                now --token "${NOW_DEPLOY_TOKEN}" --local-config .now/now.json alias
             fi
 
 workflows:
