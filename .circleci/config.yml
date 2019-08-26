@@ -5,8 +5,9 @@ defaults: &defaults
   docker:
     - image: circleci/node:11.15.0
 
-commands:
-  pre_build:
+jobs:
+  deploy_production:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -18,11 +19,6 @@ commands:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-jobs:
-  deploy_production:
-    <<: *defaults
-    steps:
       - run:
           name: build
           command: npm run build
@@ -48,7 +44,6 @@ workflows:
   version: 2.1
   deploy_web:
     jobs:
-      - pre_build
       - deploy_production:
           filters:
             branches:
