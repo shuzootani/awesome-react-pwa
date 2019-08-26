@@ -6,7 +6,7 @@ defaults: &defaults
     - image: circleci/node:11.15.0
 
 commands:
-  prepare:
+  pre_build:
     steps:
       - checkout
       - restore_cache:
@@ -23,7 +23,7 @@ jobs:
   deploy_production:
     <<: *defaults
     steps:
-      - prepare
+      - pre_build:
       - run:
           name: build
           command: npm run build
