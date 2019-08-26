@@ -12,8 +12,7 @@
 		{ "src": "/(.*)", "dest": "build/server.js" }
 	],
 	"env": {
-		"NODE_ENV": "staging",
-		"NOW_DEPLOY_TOKEN": "Sg5GkRUH3zK0VR4a6GKNJlS0"
+		"NODE_ENV": "staging"
 	},
 	"alias": ["staging-app.pickpack.de"]
 }
