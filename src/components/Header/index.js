@@ -28,7 +28,7 @@ const BackButton = styled.div`
 `
 
 // screen has no height for header if the path is within the list.
-const drawBehindList = [/^\/$/, /\/store\/(\w+)/]
+const drawBehindList = [/^\/$/, /\/path-with-dynamic-id\/(\w+)/]
 
 function Header({ location: { pathname }, history }) {
   const shouldDrawBehind = drawBehindList.some(path => path.test(pathname))

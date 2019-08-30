@@ -1,5 +1,5 @@
 {
-	"name": "my-razzle-app",
+	"name": "ssr-react-app",
 	"version": "0.1.0",
 	"license": "MIT",
 	"scripts": {
@@ -22,24 +22,10 @@
 		]
 	},
 	"dependencies": {
-		"@apollo/react-hooks": "^3.0.0",
-		"@apollo/react-ssr": "^3.0.0",
-		"apollo-cache-inmemory": "^1.6.2",
-		"apollo-client": "^2.6.3",
-		"apollo-link": "^1.2.12",
-		"apollo-link-context": "^1.0.18",
-		"apollo-link-error": "^1.1.11",
-		"apollo-link-http": "^1.5.15",
-		"apollo-link-retry": "^2.2.14",
 		"babel-plugin-styled-components": "^1.10.6",
 		"compression": "^1.7.4",
 		"express": "^4.17.1",
-		"graphql": "^14.4.2",
-		"graphql-tag": "^2.10.1",
 		"intersection-observer": "^0.7.0",
-		"moment": "^2.24.0",
-		"moment-locales-webpack-plugin": "^1.1.0",
-		"moment-range": "^4.0.2",
 		"ngeohash": "^0.6.3",
 		"node-fetch": "^2.6.0",
 		"offline-plugin": "^5.0.7",
@@ -51,7 +37,6 @@
 		"react-intl": "^2.9.0",
 		"react-loadable": "^5.5.0",
 		"react-router-dom": "^5.0.1",
-		"react-stripe-elements": "^4.0.0",
 		"styled-components": "^4.3.2",
 		"terser-webpack-plugin": "^1.4.1"
 	},

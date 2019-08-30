@@ -5,10 +5,6 @@ import { Theme } from './theme'
 
 export const ThemeContext = createContext()
 
-// theme options
-// 'default' : pick_pack style guide
-// 'airport' : airport-app style guide
-
 function ThemeContextProvider({ children, defaultTheme }) {
   const [theme, setTheme] = useState(Theme[defaultTheme] || Theme.default)
   return (
@@ -26,8 +22,7 @@ ThemeContextProvider.propTypes = {
 }
 
 ThemeContextProvider.defaultProps = {
-  // defaultTheme: 'default',
-  defaultTheme: 'airport',
+  defaultTheme: 'default',
 }
 
 export default ThemeContextProvider

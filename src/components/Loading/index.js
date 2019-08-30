@@ -1,5 +1,4 @@
 import React from 'react'
-import Logo from '../../images/Logo_Standard.png'
 
 const styles = {
   container: {
@@ -19,7 +18,7 @@ const styles = {
 function Loading() {
   return (
     <div style={styles.container}>
-      <img src={Logo} alt="loading-screen-logo" width="150px" height="" />
+      Loading...
     </div>
   )
 }

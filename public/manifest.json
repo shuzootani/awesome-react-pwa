@@ -1,21 +1,53 @@
 {
-	"name": "Pickpack",
-	"short_name": "Pickpack",
+	"name": "Warup your app",
+	"short_name": "Warup",
+	"theme_color": "#000",
+	"background_color": "#fff",
+	"display": "minimal-ui",
+	"orientation": "portrait",
+	"Scope": "/",
+	"start_url": "/",
 	"icons": [
 		{
-			"src": "pickpack.png",
+			"src": "images/icon-72x72.png",
+			"sizes": "72x72",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-96x96.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-128x128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-152x152.png",
+			"sizes": "152x152",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-192x192.png",
 			"sizes": "192x192",
 			"type": "image/png"
 		},
 		{
-			"src": "pickpack.png",
+			"src": "images/icon-384x384.png",
+			"sizes": "384x384",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon-512x512.png",
 			"sizes": "512x512",
 			"type": "image/png"
 		}
 	],
-	"start_url": "/",
-	"display": "standalone",
-	"orientation": "portrait",
-	"theme_color": "#1c4448",
-	"background_color": "#ffffff"
+	"splash_pages": null
 }
