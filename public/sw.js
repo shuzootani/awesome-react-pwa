@@ -15,20 +15,6 @@ if (workbox) {
   )
 
   workbox.routing.registerRoute(
-    'https://js.stripe.com/v3/',
-    new workbox.strategies.CacheFirst({
-      cacheName: 'stripe-lib-cache'
-    })
-  )
-
-  workbox.routing.registerRoute(
-    /https:\/\/maps\.googleapis\.com/,
-    new workbox.strategies.CacheFirst({
-      cacheName: 'google-map-lib-cache'
-    })
-  )
-
-  workbox.routing.registerRoute(
     // Cache image files.
     /\.(?:png|jpg|jpeg|svg|gif)$/,
     new workbox.strategies.CacheFirst({

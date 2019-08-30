@@ -1,11 +1,10 @@
 const OfflinePlugin = require('offline-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ReactLoadablePlugin } = require('react-loadable/webpack')
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
-  modify: (config, { target }) => {
+  modify: (config, { target, dev }) => {
     const appConfig = config
 
     if (target === 'web') {
@@ -37,33 +36,32 @@ module.exports = {
         new ReactLoadablePlugin({
           filename: './build/react-loadable.json',
         }),
-        new MomentLocalesPlugin({
-          localesToKeep: ['de'], // en is included by default,
-          // @TODO: add 'ja'
-        }),
-        new BundleAnalyzerPlugin(),
       ]
 
-      // minify JS
-      appConfig.plugins = [
-        ...appConfig.plugins,
-        new TerserPlugin({
-          terserOptions: {
-            parse: {},
-            compress: {
-              drop_console: true,
+      if (dev) {
+        appConfig.plugins = [...appConfig.plugins, new BundleAnalyzerPlugin()]
+      } else {
+        // minify JS
+        appConfig.plugins = [
+          ...appConfig.plugins,
+          new TerserPlugin({
+            terserOptions: {
+              parse: {},
+              compress: {
+                drop_console: true,
+              },
+              output: {
+                comments: false,
+                // ascii_only: true,
+              },
+              safari10: true,
             },
-            output: {
-              comments: false,
-              // ascii_only: true,
-            },
-            safari10: true,
-          },
-          cache: true,
-          parallel: true,
-          sourceMap: true,
-        }),
-      ]
+            cache: true,
+            parallel: true,
+            sourceMap: true,
+          }),
+        ]
+      }
     }
 
     appConfig.performance = {

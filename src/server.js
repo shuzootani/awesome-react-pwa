@@ -3,14 +3,12 @@ import compression from 'compression'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-import { getDataFromTree } from '@apollo/react-ssr'
 import { ServerStyleSheet } from 'styled-components'
 import Loadable from 'react-loadable'
 import { getBundles } from 'react-loadable/webpack'
 // eslint-disable-next-line import/no-unresolved
 import stats from '../build/react-loadable.json'
 import App from './App'
-import apolloClient from './apolloClient'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
@@ -28,27 +26,18 @@ server
       </StaticRouter>
     )
 
-    try {
-      await getDataFromTree(<Root />)
-    } catch (e) {
-      console.log(e)
-    }
-
-    const apolloState = apolloClient.extract()
-
-    const modules = []
-
-    const sheet = new ServerStyleSheet()
-    const markup = renderToString(
-      <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-        {sheet.collectStyles(<Root />)}
-      </Loadable.Capture>
-    )
-    const styleTags = sheet.getStyleTags()
-
     if (context.url) {
       res.redirect(context.url)
     } else {
+      const modules = []
+      const sheet = new ServerStyleSheet()
+      const markup = renderToString(
+        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+          {sheet.collectStyles(<Root />)}
+        </Loadable.Capture>
+      )
+      const styleTags = sheet.getStyleTags()
+
       const bundles = getBundles(stats, modules)
       const chunks = bundles.filter(bundle => bundle.file.endsWith('.js'))
       const styles = bundles.filter(bundle => bundle.file.endsWith('.css'))
@@ -79,11 +68,8 @@ server
                   property="og:description"
                   content="${req.url}"
                 />
-                <title>pickpack</title>
-                <link rel="preconnect dns-prefetch" href="${process.env.NODE_ENV === 'production' ? 'https://colugo.pickpack.de' : 'https://colugo-dev.pickpack.de'}">
-                <link rel="preconnect dns-prefetch" href="https://s3.eu-central-1.amazonaws.com">
-                <link rel="preconnect dns-prefetch" href="https://maps.googleapis.com">
-                <link rel="preconnect dns-prefetch" href="https://js.stripe.com/v3/">
+                <title>SSR REACT APP</title>
+                <link rel="preconnect dns-prefetch" href="/">
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.vendor.js}" async defer></script>` : `<script src="${assets.vendor.js}" async defer crossorigin></script>`}
                 ${process.env.NODE_ENV === 'production' ? `<script src="${assets.client.js}" async defer></script>` : `<script src="${assets.client.js}" async defer crossorigin></script>`}
                 ${chunks.map(chunk => process.env.NODE_ENV === 'production' ? `<script async defer src="/${chunk.file}"></script>` : `<script src="http://${process.env.HOST}:${parseInt(process.env.PORT, 10) + 1}/${chunk.file}"></script>`).join('\n')}
@@ -94,7 +80,6 @@ server
             <body>
                 <div id="root">${markup}</div>
                 <div id="modal-root"></div>
-                <script>window.__APOLLO_STATE__ = ${JSON.stringify(apolloState).replace(/</g, '\\u003c')}</script>
             </body>
         </html>`
       )
