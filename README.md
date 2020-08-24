@@ -6,16 +6,6 @@ optional: (ditch it easily if you want)
 - [styled-components](https://github.com/styled-components/styled-components) for styling
 - [react-loadable](https://github.com/jamiebuilds/react-loadable) for lazy-loading component with ssr support
 
-## Start
-
-```sh
-git clone https://shuzootani@bitbucket.org/shuzootani/web-client.git
-```
-
-```sh
-cd web-client && yarn && yarn start
-```
-
 ### production build
 
 ```sh
