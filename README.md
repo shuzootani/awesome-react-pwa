@@ -1,4 +1,4 @@
-## Core Dependent Libraries
+## Core Dependencies
 - [Razzle](https://github.com/jaredpalmer/razzle) for server side rendering
 - [react-router](https://github.com/ReactTraining/react-router) for routing
 
